@@ -32,7 +32,7 @@
                     ng-submit='newBlendForm.$valid && addBlend(newBlend)' novalidate>
                         <div class='form-group'>
                            <div ng-repeat="micro in allMicros">
-                                <label>{{micro.name}}</label>
+                              <label>{{micro.name}}</label>
                                <input 
                                type="checkbox" 
                                ng-model="selectedMicros[$index].selected" 
