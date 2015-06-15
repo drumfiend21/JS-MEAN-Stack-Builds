@@ -10,19 +10,34 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactory) {
-    $scope.allBlends;
-    $scope.allMicros;
+    $scope.allBlends = null;
+    $scope.allMicros = null;
     $scope.selectedMicros = [];  
-    $scope.blends;
-    $scope.editedBlend;
-    $scope.image;
-    $scope.whichNameToGet;
-    $scope.whichToEdit;
+    $scope.blends = null;
+    $scope.editedBlend = null;
+    $scope.whichNameToGet = null;
+    $scope.whichToEdit = null;
     $scope.newBlend = {
         name: "kitten",
         micros: [],
         price: 10
         };
+
+    BlendsFactory.getAllBlends().then(function (blends) {
+            $scope.allBlends = blends;
+        });
+
+    MicrosFactory.getAllMicros().then(function (micros){
+        $scope.allMicros = micros; 
+        for(var i = 0; i < $scope.allMicros.length; i++){
+            var microObject = {
+                id: $scope.allMicros[i]._id,
+                selected: false
+            };
+            $scope.selectedMicros.push(microObject);
+        }
+    });
+
 
     $scope.logThis = function(something){
         console.log(something);
@@ -45,16 +60,25 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
         });
     };
     $scope.addBlend = function (blend) {
+        var justIds = blend.micros.map(
+            function(obj){
+                return obj._id;
+            }
+        );
+        blend.micros = justIds;
         BlendsFactory.createBlend(blend).then(function (newBlend){
-        $scope.newBlend = {
-            name: null,
-            micros: [],
-            price: null
-            };
+            $scope.newBlend = {
+                name: null,
+                micros: [],
+                price: null
+                };
+            
+            BlendsFactory.getAllBlends().then(function (blends) {
+                $scope.allBlends = blends;
+            });   
         });
     };
     $scope.deleteBlend = function (id){
-        console.log("called");
         BlendsFactory.deleteBlendById(id).then(function(){
             return;
         });
@@ -65,40 +89,35 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
         });
     };
     $scope.editBlend = function (id, blend){
-        console.log("in edit blend");
         BlendsFactory.editBlendById(id, blend).then(function (blend){
             $scope.editedBlend = blend;
         });
     };
 
     $scope.refreshNewBlend = function (selectedMicro){
-        var indexOfSelectedMicro = $scope.newBlend.micros.indexOf(selectedMicro.id);
+        var allMicrosIndexOfObject = null;
+        for(var i = 0; i < $scope.allMicros.length; i++){
+            if($scope.allMicros[i]._id === selectedMicro.id){
+                allMicrosIndexOfObject = i; 
+            }
+        }
+        var indexOfSelectedMicro = $scope.newBlend.micros.indexOf($scope.allMicros[allMicrosIndexOfObject]);
         if(selectedMicro.selected){
             if(indexOfSelectedMicro === -1){
-                $scope.newBlend.micros.push(selectedMicro.id);
+                for(var j = 0; j < $scope.allMicros.length; j++){
+                    if ($scope.allMicros[j]._id === selectedMicro.id){
+                        $scope.newBlend.micros.push($scope.allMicros[j]);
+                    }
+                }
             }
         } else {
             if (indexOfSelectedMicro !== -1){
                 $scope.newBlend.micros.splice(indexOfSelectedMicro, 1);
             }
         }
-        // console.log($scope.newBlend.micros);
     };
 
 
-    BlendsFactory.getAllBlends().then(function (blends) {
-            $scope.allBlends = blends;
-        });
 
-    MicrosFactory.getAllMicros().then(function (micros){
-        $scope.allMicros = micros; 
-        for(var i = 0; i < $scope.allMicros.length; i++){
-            var microObject = {
-                id: $scope.allMicros[i]._id,
-                selected: false
-            };
-            $scope.selectedMicros.push(microObject);
-        }
-    });
 
 });
