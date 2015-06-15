@@ -2,7 +2,7 @@
   <div class="row blend-listing">
 	  <div class="col-md-6">
 	  		<div class="micro-thumbnails">
-	  			<img class="leaf" ng-repeat="micro in blend.micros" src="{{micro.image}}">
+	  			<img class="leaf" ng-repeat="micro in blend.micros" ng-src="{{micro.image}}">
 	  		</div>
 		    <img class="bowl" src="/rounded44.svg">
 	  </div>
@@ -17,6 +17,7 @@
       		<div class="blend-price col-sm-6">
 		        <h3> {{ blend.price | currency}}</h3>
 		        <button class="btn btn-primary">Add to Cart!</button>
+		        <button ng-click="logThisItem('this string')"> Log this item</button>
       		</div>
       	</div>
     </div>
