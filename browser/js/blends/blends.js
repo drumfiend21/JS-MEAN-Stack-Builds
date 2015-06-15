@@ -19,9 +19,9 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
     $scope.whichToEdit = null;
     $scope.isNewBlendFormOpen = false;
     $scope.newBlend = {
-        name: "kitten",
+        name: null,
         micros: [],
-        price: 10
+        price: null
      };
 
     BlendsFactory.getAllBlends().then(function (blends) {
@@ -118,6 +118,9 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
                 $scope.newBlend.micros.splice(indexOfSelectedMicro, 1);
             }
         }
+    };
+    $scope.setPrice = function(price){
+        $scope.newBlend.price = price; 
     };
 
 
