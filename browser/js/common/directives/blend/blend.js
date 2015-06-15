@@ -1,4 +1,4 @@
-app.directive('blend', function (BlendsFactory) {
+app.directive('blend', function (CartFactory) {
 
     return {
         restrict: 'E',
@@ -7,14 +7,10 @@ app.directive('blend', function (BlendsFactory) {
             blend: '='
         },
         link: function (scope) {
-          addToCart = function() {
-            console.log('hit add to cart')
-          }
-        	scope.logThisItem = function(item){
-        		console.log(item);
-        	};
+          scope.addToCart = function(blend) {
+            CartFactory.saveCart(blend.name, blend);
+            console.log('hit add to cart');
+          };
         }
-
     };
-
 });

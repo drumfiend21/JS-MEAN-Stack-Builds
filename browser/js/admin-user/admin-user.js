@@ -13,13 +13,9 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
     $scope.error = null;
 
 //checks if current user is admin
-    $scope.checkAdminStatus = function () {
-
-        var user = AuthService.getLoggedInUser().then(function (currUser){
-            return currUser.admin;
-        });
-
-    }
+    AuthService.getLoggedInUser().then(function (currUser){
+            $scope.isAdmin = currUser.admin;
+    });
 
 //lists all users
     $scope.getAllUsers = function () {

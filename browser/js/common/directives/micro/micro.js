@@ -1,4 +1,4 @@
-app.directive('micro', function (MicrosFactory, AuthService) {
+app.directive('micro', function (AuthService) {
 
     return {
         restrict: 'E',
@@ -7,9 +7,11 @@ app.directive('micro', function (MicrosFactory, AuthService) {
             micro: '='
         },
         link: function (scope) {
-
-        }
-
-    };
+        	//checks if current user is admin
+            AuthService.getLoggedInUser().then(function (currUser){
+                scope.isAdmin = currUser.admin;
+            })
+		}
+    }
 
 });

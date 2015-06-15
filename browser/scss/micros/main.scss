@@ -8,7 +8,7 @@
 	}
 
 	#bottom-panel {
-		padding-top: 25px;
+		margin-top: 25px;
 	}
 
 	.micro-info {
@@ -18,7 +18,6 @@
 
 	.micro {
 		text-align: left;
-
 	}
 
 	.description {
@@ -35,5 +34,12 @@
 		width: 100%;
 		height: auto;
 	}
+
 	
 }
+	.create-micro {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 25px;
+	}
