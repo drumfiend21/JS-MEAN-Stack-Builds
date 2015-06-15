@@ -30,8 +30,7 @@ app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
 
     $scope.removeItem = function (index){
         $scope.items.blends.splice(index, 1);
-        
-    },
+
 
     $scope.clearCart = function () {
         CartFactory.clearAllinCart().then(function () {
@@ -51,4 +50,5 @@ app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
         })
         return total;
     }
+
 });

@@ -1,23 +1,27 @@
 <section id="blends">
     <div class="row">
         <div class="col-md-2 container" id="left-panel">
-            <button ng-click='showAllBlends()' class="btn btn-primary">Get All Blends</button>
+            <button 
+            ng-click='isNewBlendFormOpen = false; showAllBlends() ' 
+            class="btn btn-primary">
+            Get All Blends
+            </button>
             <button 
             class="btn"
-            ng-click=""
+            ng-click="isNewBlendFormOpen = true"
             >
             Create Blend 
             </button>
-            <button 
+            <a 
             class= "btn btn-success blend-btns" 
             ng-repeat="blend in allBlends"
             ng-click="showBlendByName(blend.name)"
             >
             {{blend.name}}
-            </button>
+            </a>
         </div> 
         <div class="col-md-10 container" id="right-panel">
-                <blend ng-repeat="blend in blends" blend="blend"></blend>
+                <blend ng-show="!isNewBlendFormOpen" ng-repeat="blend in blends" blend="blend"></blend>
              <!--    <rating ng-model="rating" max="5" ></rating> -->
                 <!-- <micro micro='micro' ng-repeat="micro in micros"></micro> -->
 <!--                 <input ng-model="whichNameToGet"></input>
@@ -25,13 +29,13 @@
                 <button ng-click='deleteBlend("557b3e5db65a3bfe377ed7ef")'>delete kitten :/</button> -->
                 <!-- <pre>{{ blends | json}}</pre> -->
                 
-                <div>
+                <div ng-show="isNewBlendFormOpen">
                     <blend blend="newBlend"></blend>
 
                     <form name="newBlendForm" 
                     ng-submit='newBlendForm.$valid && addBlend(newBlend)' novalidate>
                         <div class='form-group'>
-                           <div ng-repeat="micro in allMicros">
+                           <div class='micro-selections' ng-repeat="micro in allMicros">
                               <label>{{micro.name}}</label>
                                <input 
                                type="checkbox" 
@@ -53,7 +57,7 @@
                 </div>
 
 
-                <h3>Which TO edit</h3>
+<!--                 <h3>Which TO edit</h3>
                 <input ng-model="whichToEdit"></input>
                 <button class='btn btn-warning' ng-click='loadBlendToEdit(whichToEdit)'>Load To Edit</button>
                 <form name="editBlendForm" ng-submit='editBlendForm.$valid && editBlend(whichToEdit, editedBlend)' novalidate>
@@ -66,9 +70,8 @@
                         <input class="form-control" name='price' ng-model='editedBlend.price'></input>
                     </div>
                     <button class='btn btn-danger' type='submit'>edit blend!</button>
-                </form>
+                </form> -->
+                  <div>Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
         </div>
     </div>
-
-    <div>Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
 </section>
