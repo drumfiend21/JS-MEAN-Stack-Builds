@@ -8,6 +8,7 @@ app.directive('blend', function (CartFactory) {
             isNewBlendFormOpen: '='
         },
         link: function (scope) {
+        	scope.isNewBlendFormOpen = 
         	scope.quantity = 1; 
           scope.addToCart = function(blend, quantity) {
           	var blendWithQuantity = blend;
