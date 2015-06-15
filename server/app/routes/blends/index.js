@@ -24,23 +24,8 @@ router.get('/', function (req, res, next){
 			next(err);
 		}
 	);
-
-	Promise.all([
- ger.action('view', 1),
- ger.action('buy', 10),
-
- ger.event('p1','view',"Joe's Mega Blend"), 
- ger.event('p2','view',"Joe's Mega Blend"),
- ger.event('p2','buy',"Joe's Mega Blend")
-])
-.then(function() {
- //What p1 should buy
- return ger.recommendations_for_person('p1', 'buy') 
-})
-.then(function(recommendations) {
-  console.log(recommendations);
-})
 });
+
 
 //get blend with blendid 
 router.get('/:blendid', function (req, res, next){
