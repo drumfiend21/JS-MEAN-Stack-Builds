@@ -26,6 +26,7 @@ router.get('/', function (req, res, next){
 	);
 });
 
+
 //get blend with blendid 
 router.get('/:blendid', function (req, res, next){
 	Blend.findById(req.params.blendid).populate('micros').exec()

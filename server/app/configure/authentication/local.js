@@ -53,7 +53,7 @@ module.exports = function (app) {
 
 
     app.get('/users/:id', hasAdminPower, function (req, res, next) {
-        console.log('hitting the get user by id route')
+        // console.log('hitting the get user by id route')
         UserModel.findById(req.params.id).exec()
         .then(function (user) {
             res.status(200).send({ user: _.omit(user.toJSON(),['password', 'salt']) });
