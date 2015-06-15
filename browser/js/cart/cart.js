@@ -26,7 +26,7 @@ app.controller('CartController', function ($scope, CartFactory) {
     };
 
     $scope.removeItem = function (index){
-        $scope.items.blends.splice(index, 1);
+        $scope.items.splice(index, 1);
     };
 
     $scope.clearCart = function () {
