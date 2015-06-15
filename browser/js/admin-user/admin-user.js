@@ -11,6 +11,7 @@ app.config(function ($stateProvider) {
 app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $state) {
 
     $scope.error = null;
+    $scope.searchingUser = false;
 
 //checks if current user is admin
     AuthService.getLoggedInUser().then(function (currUser){
@@ -40,6 +41,16 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
             $scope.error = 'Invalid action of listing a particular user.'
         })
     };
+
+//get user by email
+    $scope.getUserByEmail = function (email) {
+        $scope.searchingUser = true;
+        UserFactory.getUserByEmail(email)
+        .then(function (user) {
+            console.log(user);
+            $scope.userlist = user;
+        })
+    }
 
 //promotes user to admin; needs to be checked if working
     $scope.promoteUserStatus = function (id) {

@@ -1,5 +1,26 @@
 <section id="admin-user" ng-show="isAdmin">
     <div id="manage-user">
-    	<form></form>
+    	<h3>Manage User</h3>
+    	<form class='col-md-6' ng-submit="getUserByEmail(user)">
+        <div class='input-group' id='user-search'>
+            <input 
+                type="text"
+                class="form-control"
+                ng-model="userlist" 
+                placeholder="user email">
+            <span class="input-group-btn">
+                <button 
+                    type="submit" 
+                    class="btn btn-success"
+                    type="button">
+                    Find User
+                </button>
+            </span>
+        </div>
+      </form>
+    	<div>
+    		<form>
+    		</form>
+    	</div>
     </div>
 </section>
