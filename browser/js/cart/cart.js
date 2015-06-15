@@ -43,6 +43,7 @@ app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
         $scope.items.blends[index].quantity = quantity;
     },
 
+//use reduce
     $scope.total = function() {
         var total = 0;
         angular.forEach($scope.items.blends, function(blend) {
