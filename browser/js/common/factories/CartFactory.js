@@ -8,7 +8,6 @@ app.factory('CartFactory', function (LocalStorage, $rootScope){
       LocalStorage.save(name, info);
     },
 
-
     clearAllinCart: function () {
       LocalStorage.clearAll();
     }
