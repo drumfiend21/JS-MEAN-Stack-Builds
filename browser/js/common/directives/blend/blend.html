@@ -15,9 +15,17 @@
 				</ul>
       		</div>
       		<div class="blend-price col-sm-6">
-		        <h3> {{ blend.price | currency}}</h3>
-		        <button class="btn btn-primary" ng-click="addToCart()">Add to Cart!</button>
-		        <button ng-click="logThisItem(blend)"> Log this item</button>
+		        <h3> {{ blend.price * quantity | currency}}</h3>
+		        <form 
+		        name="addToCartForm" 
+		        ng-submit="addToCartForm.$valid && addToCart(blend, quantity)"
+		        novalidate
+		        
+		        >
+		        	<label> Quantity </label>
+			        <input ng-model="quantity" required type="number" min="1"></input>
+			        <button class="btn btn-primary" type="submit">Add to Cart!</button>
+		        </form>
       		</div>
       	</div>
     </div>

@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactory) {
+app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactory, CartFactory) {
     $scope.allBlends = null;
     $scope.allMicros = null;
     $scope.selectedMicros = [];  
@@ -19,10 +19,10 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
     $scope.whichToEdit = null;
     $scope.isNewBlendFormOpen = false;
     $scope.newBlend = {
-        name: "kitten",
+        name: null,
         micros: [],
-        price: 10
-        };
+        price: null
+     };
 
     BlendsFactory.getAllBlends().then(function (blends) {
             $scope.allBlends = blends;
@@ -73,6 +73,9 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
                 micros: [],
                 price: null
                 };
+            console.log("newblend is ", newBlend);
+            CartFactory.saveCart(newBlend.name, newBlend);
+
             BlendsFactory.getAllBlends().then(function (blends) {
                 $scope.allBlends = blends;
             });   
@@ -116,4 +119,9 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
             }
         }
     };
+    $scope.setPrice = function(price){
+        $scope.newBlend.price = price; 
+    };
+
+
 });

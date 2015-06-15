@@ -34,7 +34,15 @@
 
                     <form name="newBlendForm" 
                     ng-submit='newBlendForm.$valid && addBlend(newBlend)' novalidate>
+                        <div class="form-group">
+                            <h2>Step 1: Select your Bowl Size </h2>
+                            <button ng-click="setPrice(12)">Large</button>
+                            <button ng-click="setPrice(8)">Small</button>
+                            <!-- <label for="price">Price</label>
+                            <input class="form-control" name='price' ng-model='newBlend.price'></input> -->
+                        </div>
                         <div class='form-group'>
+                           <h2> Step 2: Select your micros</h2>
                            <div class='micro-selections' ng-repeat="micro in allMicros">
                               <label>{{micro.name}}</label>
                                <input 
@@ -45,13 +53,11 @@
                            </div>
                         </div>
                         <div class='form-group'>
+                            <h2> Step 3: name your micros</h2>
                             <label for="name">Name</label>
                             <input name='name' class="form-control" ng-model='newBlend.name' required></input>
                         </div>
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <input class="form-control" name='price' ng-model='newBlend.price'></input>
-                        </div>
+
                         <button class='btn btn-success' type='submit'>add blend!</button>
                     </form>
                 </div>
