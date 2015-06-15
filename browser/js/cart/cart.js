@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, CartFactory) {
+app.controller('CartController', function ($scope, CartFactory, OrdersFactory) {
 
     // $scope.items = function () {
     //     blends: [{
@@ -45,4 +45,10 @@ app.controller('CartController', function ($scope, CartFactory) {
     //     return total;
     // };
 
+    // $scope.checkout = function(order) {
+    //     OrdersFactory.createOrder(order)
+    //     .then(function () {
+    //         $state.go('checkout');
+    //     });
+    // };
 });
