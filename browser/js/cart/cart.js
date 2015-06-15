@@ -20,32 +20,29 @@ app.controller('CartController', function ($scope, CartFactory) {
     // },
 
     //$scope.items is an array of objects from localStorage
-    $scope.showItems = function () {
-        console.log('these are items in cart', items);
-        $scope.items = CartFactory.getCart();
-    };
+    $scope.items = CartFactory.getCart();
 
-    $scope.removeItem = function (index){
-        $scope.items.splice(index, 1);
-    };
+    // $scope.removeItem = function (index){
+    //     $scope.items.splice(index, 1);
+    // };
 
-    $scope.clearCart = function () {
-        CartFactory.clearAllinCart().then(function () {
-            return;
-        })
-    };
+    // $scope.clearCart = function () {
+    //     CartFactory.clearAllinCart().then(function () {
+    //         return;
+    //     })
+    // };
 
-    $scope.editItem = function (index, quantity){
-        $scope.items.blends[index].quantity = quantity;
-    };
+    // $scope.editItem = function (index, quantity){
+    //     $scope.items.blends[index].quantity = quantity;
+    // };
 
 //use reduce
-    $scope.total = function() {
-        var total = 0;
-        angular.forEach($scope.items.blends, function(blend) {
-            total += blend.quantity * blend.price;
-        })
-        return total;
-    };
+    // $scope.total = function() {
+    //     var total = 0;
+    //     angular.forEach($scope.items.blends, function(blend) {
+    //         total += blend.quantity * blend.price;
+    //     })
+    //     return total;
+    // };
 
 });

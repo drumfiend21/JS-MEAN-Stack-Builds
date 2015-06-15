@@ -8,9 +8,9 @@ app.factory('CartFactory', function ($rootScope){
       localStorage.removeItem(key);
     },
 
-    editItem: function (quantity) {
-      // localStorage.
-    },
+    // editItem: function (quantity) {
+    //   // localStorage.
+    // },
 
     getCart: function(){
       var archive = [],
