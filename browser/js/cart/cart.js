@@ -24,10 +24,6 @@ app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
         });
     },
 
-    // BlendsFactory.getBlendById(blendid).then(function (blend){
-    //   console.log(blend);
-    // })
-
     $scope.removeItem = function (index){
         $scope.items.blends.splice(index, 1);
     },
