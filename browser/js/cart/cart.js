@@ -9,32 +9,46 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, $window, $rootScope) {
+app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
 
-// need to store blends in localstorage.... use localstorage.getItem and localstorage.setItem
-// $scope.saved = localStorage.getItem()?
-    $scope.items = function () {
-        blends: [{
-            info:
-            quantity:
-            price:
-        }]
+    // $scope.items = function () {
+    //     blends: [{
+    //         info:
+    //         quantity:
+    //         price:
+    //     }]
+    // },
+    $scope.showItems = function () {
+        CartFactory.getCart('cart').then(function (items) {
+            $scope.items = items;
+        });
     },
+
+    // BlendsFactory.getBlendById(blendid).then(function (blend){
+    //   console.log(blend);
+    // })
 
     $scope.removeItem = function (index){
         $scope.items.blends.splice(index, 1);
-        
+    },
+
+    $scope.clearCart = function () {
+        CartFactory.clearAllinCart().then(function () {
+            return;
+        })
     },
 
     $scope.editItem = function (index, quantity){
         $scope.items.blends[index].quantity = quantity;
     },
 
+//use reduce
     $scope.total = function() {
         var total = 0;
         angular.forEach($scope.items.blends, function(blend) {
-            totla += blend.quantity * blend.price;
+            total += blend.quantity * blend.price;
         })
         return total;
     }
+
 });
