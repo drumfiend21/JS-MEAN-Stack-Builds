@@ -1,20 +1,16 @@
-
-app.factory('CartFactory', function ($rootScope){
+app.factory('CartFactory', function (LocalStorage, $rootScope){
   return {
-    get: function ('cart') {
-      return JSON.parse(localStorage.getItem('cart'));
+    getCart: function (cart) {
+      return LocalStorage.get(cart);
     },
 
-    save: function ('cart', cart) {
-      localStorage.setItem(cart, JSON.stringify(cart));
+    saveCart: function (name, info) {
+      LocalStorage.save(name, info);
     },
 
-    remove: function (key) {
-      localStorage.removeItem(key);
-    },
 
-    clearAll: function () {
-      localStorage.clear();
+    clearAllinCart: function () {
+      LocalStorage.clearAll();
     }
   };
 });
