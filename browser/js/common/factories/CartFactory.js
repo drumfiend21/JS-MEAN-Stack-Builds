@@ -4,6 +4,14 @@ app.factory('CartFactory', function ($rootScope){
       return JSON.parse(localStorage.getItem(key));
     },
 
+    deleteItem: function (key) {
+      localStorage.removeItem(key);
+    },
+
+    editItem: function (quantity) {
+      // localStorage.
+    },
+
     getCart: function(){
       var archive = [],
           keys = Object.keys(localStorage)
