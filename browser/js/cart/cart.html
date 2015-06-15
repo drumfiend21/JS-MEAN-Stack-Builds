@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="blend in items.blends">
+      <tr ng-repeat="item in items">
         <td>{{ blend.info }}</td>
         <td>{{ blend.quantity }}</td>
         <td>{{ blend.price }}</td>
@@ -24,6 +24,7 @@
       </tr>
     </tbody>
   </table>
+  <h3>{{ items }}</h3>
 </div>
 
 

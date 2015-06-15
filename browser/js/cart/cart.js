@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
+app.controller('CartController', function ($scope, CartFactory) {
 
     // $scope.items = function () {
     //     blends: [{
@@ -18,25 +18,26 @@ app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
     //         price:
     //     }]
     // },
+
+    //$scope.items is an array of objects from localStorage
     $scope.showItems = function () {
-        CartFactory.getCart('cart').then(function (items) {
-            $scope.items = items;
-        });
-    },
+        console.log('these are items in cart', items);
+        $scope.items = CartFactory.getCart();
+    };
 
     $scope.removeItem = function (index){
         $scope.items.blends.splice(index, 1);
-    },
+    };
 
     $scope.clearCart = function () {
         CartFactory.clearAllinCart().then(function () {
             return;
         })
-    },
+    };
 
     $scope.editItem = function (index, quantity){
         $scope.items.blends[index].quantity = quantity;
-    },
+    };
 
 //use reduce
     $scope.total = function() {
@@ -45,6 +46,6 @@ app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
             total += blend.quantity * blend.price;
         })
         return total;
-    }
+    };
 
 });
