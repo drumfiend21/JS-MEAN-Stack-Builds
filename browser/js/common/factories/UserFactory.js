@@ -12,6 +12,12 @@ app.factory('UserFactory', function ($http){
         return response.data;
       });
     },
+    getUserByEmail: function (email) {
+      return $http.get('/users/' + email)
+      .then(function (response) {
+        return response.data;
+      })
+    },
     createUser: function (user) {
       return $http.post("/signup", user)
       .then(function (response) {

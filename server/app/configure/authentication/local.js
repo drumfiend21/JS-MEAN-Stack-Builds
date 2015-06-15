@@ -61,6 +61,16 @@ module.exports = function (app) {
         .then(null, next);
     });
 
+
+    //find user by email
+    app.get('/users/:email', hasAdminPower, function (req, res, next) {
+        UserModel.findOne({email: req.params.email}).exec()
+        .then(function (user){
+            res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
+        })
+        .then(null, next);
+    })
+
     // A POST /signup route is created to handle registering users
     app.post('/signup', function (req, res, next) {
         console.log('hit the /signup post route!');
