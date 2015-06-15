@@ -18,7 +18,9 @@ app.controller('SignupCtrl', function ($scope, UserFactory, AuthService, $state)
         $scope.error = null;
 
         UserFactory.createUser(user)
-        .then(AuthService.login(user))
+        .then(function(createdUser) {
+            return AuthService.login(createdUser)
+        })
         .then(function () {
             $state.go('home');
         }).catch(function () {

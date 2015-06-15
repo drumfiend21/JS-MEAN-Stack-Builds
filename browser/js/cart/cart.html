@@ -11,16 +11,16 @@
     </thead>
     <tbody>
       <tr ng-repeat="blend in items.blends">
-        <td ng-model="blend.info">{{ description }}</td>
-        <td ng-model="blend.quantity">{{ qty }}</td>
-        <td ng-model="blend.price">{{ price }}</td>
-        <td>${{ blend.quantity * blend.price }}</td>
-        <td><a href ng:click="removeItem($index)">X</a></td>
-        <td><a href ng:click="editItem($index)">Edit Quantity</a></td>
+        <td>{{ blend.info }}</td>
+        <td>{{ blend.quantity }}</td>
+        <td>{{ blend.price }}</td>
+        <td>{{ blend.quantity * blend.price | currency }}</td>
+        <td><a href ng-click="removeItem($index)">X</a></td>
+        <td><a href ng-click="editItem($index)">Edit Quantity</a></td>
       </tr>
       <tr>
         <td>Total: </td>
-        <td>${{total()}}</td>
+        <td>{{total() | currency}}</td>
       </tr>
     </tbody>
   </table>

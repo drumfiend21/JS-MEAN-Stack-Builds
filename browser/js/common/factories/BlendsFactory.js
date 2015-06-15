@@ -32,6 +32,6 @@ app.factory('BlendsFactory', function ($http){
 		},
 		deleteBlendById: function (id) {
 			return $http.delete('/api/blends/' + id);
-		},
+		}
 	};
 });

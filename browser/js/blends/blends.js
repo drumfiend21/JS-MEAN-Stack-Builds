@@ -116,8 +116,4 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
             }
         }
     };
-
-    $scope.showAllBlends();
-
-
 });

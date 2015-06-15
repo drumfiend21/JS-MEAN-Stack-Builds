@@ -7,6 +7,9 @@ app.directive('blend', function (BlendsFactory) {
             blend: '='
         },
         link: function (scope) {
+          addToCart = function() {
+            console.log('hit add to cart')
+          }
         	scope.logThisItem = function(item){
         		console.log(item);
         	};

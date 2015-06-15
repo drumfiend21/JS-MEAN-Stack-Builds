@@ -9,10 +9,8 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, $window, $rootScope) {
+app.controller('CartController', function ($scope, BlendsFactory, CartFactory) {
 
-// need to store blends in localstorage.... use localstorage.getItem and localstorage.setItem
-// $scope.saved = localStorage.getItem()?
     // $scope.items = function () {
     //     blends: [{
     //         info:
@@ -20,21 +18,37 @@ app.controller('CartController', function ($scope, $window, $rootScope) {
     //         price:
     //     }]
     // },
+    $scope.showItems = function () {
+        CartFactory.getCart('cart').then(function (items) {
+            $scope.items = items;
+        });
+    },
 
-    // $scope.removeItem = function (index){
-    //     $scope.items.blends.splice(index, 1);
-        
-    // },
+    // BlendsFactory.getBlendById(blendid).then(function (blend){
+    //   console.log(blend);
+    // })
 
-    // $scope.editItem = function (index, quantity){
-    //     $scope.items.blends[index].quantity = quantity;
-    // },
+    $scope.removeItem = function (index){
+        $scope.items.blends.splice(index, 1);
+    },
 
-    // $scope.total = function() {
-    //     var total = 0;
-    //     angular.forEach($scope.items.blends, function(blend) {
-    //         totla += blend.quantity * blend.price;
-    //     })
-    //     return total;
-    // }
+    $scope.clearCart = function () {
+        CartFactory.clearAllinCart().then(function () {
+            return;
+        })
+    },
+
+    $scope.editItem = function (index, quantity){
+        $scope.items.blends[index].quantity = quantity;
+    },
+
+//use reduce
+    $scope.total = function() {
+        var total = 0;
+        angular.forEach($scope.items.blends, function(blend) {
+            total += blend.quantity * blend.price;
+        })
+        return total;
+    }
+
 });
