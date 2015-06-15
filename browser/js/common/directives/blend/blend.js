@@ -7,15 +7,12 @@ app.directive('blend', function (BlendsFactory) {
             blend: '='
         },
         link: function (scope) {
-<<<<<<< HEAD
           addToCart = function() {
             console.log('hit add to cart')
           }
-=======
         	scope.logThisItem = function(item){
         		console.log(item);
         	};
->>>>>>> master
         }
 
     };
