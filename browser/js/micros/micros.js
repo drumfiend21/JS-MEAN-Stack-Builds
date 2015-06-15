@@ -11,8 +11,8 @@ app.config(function ($stateProvider) {
 
 app.controller('MicrosController', function ($scope, MicrosFactory, AuthService) {
 
-    $scope.micros;
-    $scope.image;
+    // $scope.micros;
+    // $scope.image;
     $scope.whichName;
 
     $scope.levels = [
@@ -20,23 +20,11 @@ app.controller('MicrosController', function ($scope, MicrosFactory, AuthService)
         'medium',
         'medium-spicy',
         'spicy'
-    ]
-    // $scope.newMicro = {
-    //     name: "kitten",
-    //     spice: "mild",
-    //     price: 10,
-    //     description: "soooo cutteeeee!!!",
-    //     image: 'http://cdn.cutestpaw.com/wp-content/uploads/2011/11/cute-cat-l.jpg',
-    //     inventory: 1
-    //     };
+    ];
 
-    $scope.checkAdminStatus = function () {
-
-        var user = AuthService.getLoggedInUser().then(function (currUser){
-            return currUser.admin;
-        });
-
-    }
+    AuthService.getLoggedInUser().then(function (currUser){
+            $scope.isAdmin = currUser.admin;
+    });
 
     $scope.showAllMicros = function () {
         MicrosFactory.getAllMicros().then(function (micros) {
@@ -49,7 +37,6 @@ app.controller('MicrosController', function ($scope, MicrosFactory, AuthService)
         });
     };
     $scope.showMicroByName = function(microname) {
-        microname = this.whichName;
         MicrosFactory.getMicroByName(microname).then(function (micro){
             $scope.micros = [micro];
             $scope.image = micro.image;
@@ -57,10 +44,9 @@ app.controller('MicrosController', function ($scope, MicrosFactory, AuthService)
     };
 
     $scope.showMicrosBySpice = function (spicelevel) {
-        console.log('wheeeeeeeee!')
         MicrosFactory.getMicrosBySpice(spicelevel).then(function (micros){
             $scope.micros = micros;
-        })
+        }).catch(function (err) {console.log(error)})
     }
     $scope.addMicro = function (micro) {
         console.log("in add micro");
@@ -80,6 +66,7 @@ app.controller('MicrosController', function ($scope, MicrosFactory, AuthService)
             return;
         });
     };
+    
     $scope.showAllMicros();
 
 });
