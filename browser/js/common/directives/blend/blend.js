@@ -11,7 +11,5 @@ app.directive('blend', function (BlendsFactory) {
         		console.log(item);
         	};
         }
-
     };
-
 });
