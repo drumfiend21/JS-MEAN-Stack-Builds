@@ -1,11 +1,12 @@
-app.directive('blend', function (CartFactory) {
+app.directive('blend', function (CartFactory, BlendsFactory, AuthService) {
 
     return {
         restrict: 'E',
         templateUrl: 'js/common/directives/blend/blend.html',
         scope: {
             blend: '=',
-            isNewBlendFormOpen: '=' 
+            isNewBlendFormOpen: '=',
+            deleteblend: '&'
         },
         link: function (scope) {
         	scope.quantity = 1; 
@@ -15,6 +16,10 @@ app.directive('blend', function (CartFactory) {
           	console.log("blend with quantity", blendWithQuantity); 
             CartFactory.saveCart(blend.name, blendWithQuantity);
           };
+          AuthService.getLoggedInUser().then(function (user){
+            scope.isAdmin = user.admin;
+          });
+
         }
     };
 });
