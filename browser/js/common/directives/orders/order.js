@@ -3,13 +3,17 @@ app.directive('order', function (OrdersFactory, AuthService) {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/orders/order.html',
 		scope: {
-			order: '='
+			order: '=',
+			deleteorder: '&',
+			editorder: '&'
 		},
 		link: function (scope) {
 
 			AuthService.getLoggedInUser().then(function (currUser){
                 scope.isAdmin = currUser.admin;
             });
+
+            
 
 			scope.orderStatus = [
 				'created',

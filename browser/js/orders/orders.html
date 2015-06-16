@@ -2,10 +2,10 @@
 
 	<div class='row'>
 		<div>
-			<order order='order' ng-repeat='order in orders'>{{ order }}</order>
+			<order order='order' ng-repeat='order in orders' editorder='editOrder(order._id, order)' deleteorder='deleteOrder(order._id)'>{{ order }}</order>
 		</div>
 	</div>
 
-			<a ng-repeat='order in allOrders'><pre>{{ order | json }}</pre></a>
+			<!-- <a ng-repeat='order in allOrders'><pre>{{ order | json }}</pre></a> -->
 
 </section>

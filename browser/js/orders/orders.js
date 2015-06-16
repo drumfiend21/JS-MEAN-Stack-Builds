@@ -13,6 +13,7 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 
 	$scope.allOrders = null;
 
+
 	OrdersFactory.getAllOrders().then(function (orders) {
 		$scope.allOrders = orders;
 	})
@@ -40,8 +41,20 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 	};
 
 	$scope.editOrder = function (id, order) {
-		$scope.editOrderById(id, order).then(function (order) {
+			console.log('editOrder', order);
+		OrdersFactory.editOrderById(id, order).then(function (order) {
 			$scope.editedOrder = order;
+			
+		});
+	};
+
+	$scope.deleteOrder = function (id) {
+		OrdersFactory.deleteOrderById(id).then(function(){
+
+	        OrdersFactory.getAllOrders().then(function (orders) {
+				$scope.allOrders = orders;
+			});
+			return;
 		});
 	};
 

@@ -7,16 +7,17 @@
 			<!-- <div class="micro-thumbnails">
 	  			<img class="leaf" ng-repeat="micro in blend.micros" ng-src="{{micro.image}}">
 	  		</div> -->
+			<h4>Current status: {{ order.status }}</h4>
 			<form ng-show='isAdmin'>
 				<select class='form-control' ng-model='order.status'>
 					<option ng-repeat='status in orderStatus'>{{ status }}
 					</option>
 				</select>
 
-				<button class='btn btn-success'>Update Status
+				<button ng-click='editorder()' class='btn btn-success'>Update Status
 				</button>
 
-				<button class='btn btn-delete'>Delete Order
+				<button ng-click='deleteorder()' class='btn btn-delete'>Delete Order
 				</button><br><br>
 			</form>
 		</div>
