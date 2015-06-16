@@ -10,7 +10,7 @@
         </ul>
         <button ng-show="!user" ui-sref="signup" class="btn signup-button">Signup</button>
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <button ui-sref="cart" class="btn cart-button">Cart</button>
+        <button ui-sref="cart" class="btn cart-button glyphicon glyphicon-shopping-cart"></button>
         <button ui-sref="orders" class="btn cart-button">Orders</button>
         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
