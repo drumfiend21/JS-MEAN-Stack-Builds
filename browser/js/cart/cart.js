@@ -9,46 +9,43 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, CartFactory, OrdersFactory) {
-
-    // $scope.items = function () {
-    //     blends: [{
-    //         info:
-    //         quantity:
-    //         price:
-    //     }]
-    // },
-
+app.controller('CartController', function ($scope, AuthService, CartFactory, OrdersFactory, $state) {
+    $scope.logThis = function(something){
+        console.log(something);
+    }
     //$scope.items is an array of objects from localStorage
     $scope.items = CartFactory.getCart();
 
-    // $scope.removeItem = function (index){
-    //     $scope.items.splice(index, 1);
-    // };
+    $scope.removeItem = function (index){
+        CartFactory.deleteItem($scope.items[index].name)
+        $scope.items.splice(index, 1);
+    };
 
-    // $scope.clearCart = function () {
-    //     CartFactory.clearAllinCart().then(function () {
-    //         return;
-    //     })
-    // };
+    $scope.clearCart = function () {
+        console.log('hello cart')
+        CartFactory.clearAllinCart()
+        $scope.items = CartFactory.getCart();
+        
+    };
 
-    // $scope.editItem = function (index, quantity){
-    //     $scope.items.blends[index].quantity = quantity;
-    // };
+// use reduce
+    $scope.total = function() {
+        var total = 0;
+        angular.forEach($scope.items, function(blend) {
+            total += blend.quantity * blend.price;
+        })
+        return total;
+    };
 
-//use reduce
-    // $scope.total = function() {
-    //     var total = 0;
-    //     angular.forEach($scope.items.blends, function(blend) {
-    //         total += blend.quantity * blend.price;
-    //     })
-    //     return total;
-    // };
 
-    // $scope.checkout = function(order) {
-    //     OrdersFactory.createOrder(order)
-    //     .then(function () {
-    //         $state.go('checkout');
-    //     });
-    // };
+    $scope.checkout = function(order) {
+        if(AuthService.isAuthenticated()) {
+            OrdersFactory.createOrder(order)
+            .then(function () {
+                $state.go('orders');
+            })
+        } else {
+            $state.go('login');
+        }
+    };
 });

@@ -6,17 +6,19 @@
         <th>Blend</th>
         <th>Quantity</th>
         <th>Price</th>
-        <th>Total</th>
+        <th>Subtotal</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="item in items">
-        <td>{{ blend.info }}</td>
-        <td>{{ blend.quantity }}</td>
-        <td>{{ blend.price }}</td>
-        <td>{{ blend.quantity * blend.price | currency }}</td>
+        <td>{{ item.name }}</td>
+        <td>
+        <input type="number" min="0" ng-model="item.quantity">
+        </input>
+        </td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.quantity * item.price | currency }}</td>
         <td><a href ng-click="removeItem($index)">X</a></td>
-        <td><a href ng-click="editItem($index)">Edit Quantity</a></td>
       </tr>
       <tr>
         <td>Total: </td>
@@ -24,8 +26,9 @@
       </tr>
     </tbody>
   </table>
-  <div>{{ items }}</div>
-  <button class='btn btn-success' ng-click="checkout()">Checkout</button>
+  <button class='btn btn-success' ng-click="checkout(item)">Checkout</button>
+  <button class='btn btn-success' ng-click="clearCart()">Clear Cart</button>
+
 </div>
 
 
