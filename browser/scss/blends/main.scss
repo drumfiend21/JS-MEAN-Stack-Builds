@@ -28,6 +28,35 @@
 		h2 {
 			font-family: 'Indie Flower', cursive;
 		}
+		.toggle-review {
+			width: 100%;
+		}
+		.btn-span {
+			width: 100%;
+		}
+		h3 {
+			// font-family: arial;
+			font-size: 30px;
+			display: inline-block;
+			float: left;
+		}
+		form {
+			display: inline-block;
+			float: right;
+		}
+		.quantity-input {
+			display: inline-block;
+			font-family: arial;
+			font-size: 15px;
+			width: 50px;
+			margin-bottom: 5px;
+		}
+		.blend-price{
+			padding-top: 60px;
+		}
+		.btn-size{
+			display: inline-block;
+		}
 	}
 }
 
