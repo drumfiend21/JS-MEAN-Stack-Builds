@@ -1,5 +1,11 @@
 <section id='orders'>
 
-	<h1>Orders will appear here</h1>
+	<div class='row'>
+		<div>
+			<order order='order' ng-repeat='order in orders'>{{ order }}</order>
+		</div>
+	</div>
+
+<!-- 			<a ng-repeat='order in allOrders'><pre>{{ order | json }}</pre></a> -->
 
 </section>

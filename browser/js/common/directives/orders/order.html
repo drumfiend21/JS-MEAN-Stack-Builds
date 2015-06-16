@@ -1,0 +1,16 @@
+<div class="container">
+	<div class"order-info">
+		<h4>Order Id</h4>
+		<h3>Blend name</h3>
+		<ul>
+		    <li>micros in blends</li>
+		</ul>
+		<form ng-show='isAdmin'>
+			<select class='form-control' ng-model='order.status'>
+				<option ng-repeat='status in orderStatus'>{{ status }}</option>
+			</select>
+				<button class='btn btn-success'>Update Status</button><br><br>
+		</form>
+	</div>
+	
+</div>

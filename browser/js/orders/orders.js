@@ -11,6 +11,9 @@ app.config(function ($stateProvider) {
 
 app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactory){
 
+	// $scope.allOrders = null;
+
+
 	$scope.showOrders = function () {
 		OrdersFactory.getAllOrders().then(function (orders) {
 			$scope.orders = orders;
@@ -38,4 +41,9 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 			$scope.editedOrder = order;
 		});
 	};
+
+	$scope.showOrders()
+	// OrdersFactory.getAllOrders().then(function (orders) {
+	// 	$scope.allOrders = orders;
+	// })
 })
