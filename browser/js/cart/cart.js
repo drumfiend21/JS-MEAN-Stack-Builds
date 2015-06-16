@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, AuthService, CartFactory, OrdersFactory, $state) {
+app.controller('CartController', function ($q, $scope, UserFactory, AuthService, CartFactory, OrdersFactory, $state) {
     $scope.logThis = function(something){
         console.log(something);
     }
@@ -40,28 +40,36 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
 
     $scope.checkout = function(order) {
         console.log("order is ", order)
-        if(AuthService.isAuthenticated()) {
+        if(!AuthService.isAuthenticated()) return $state.go('login');
 
-                var formattedObj = order.map(
-                    function(obj){
-                        return {typeofblend: obj._id, quantity: obj.quantity};
-                    }
-                );
-                order = formattedObj;
-            
+        var userIdPromise = AuthService.getLoggedInUser().then(function (user) {
+            console.log('this is user logged in from checkout', user)
+            return user._id;
+        })
 
+        var formattedObj = order.map(
+            function(obj){
+                return {typeofblend: obj._id, quantity: obj.quantity};
+            }
+        );
+        order = formattedObj;
+    
         var toSubmit = {blend: order, status: "created"}
         console.log(toSubmit);
-
-        OrdersFactory.createOrder(toSubmit)
-        .then(function (order) {
-            console.log("SUCCESSS ", order)
+        
+        $q.all([OrdersFactory.createOrder(toSubmit), userIdPromise])
+        .then(function (results) {
+            var createdOrder = results[0]
+            console.log('this is createdOrder', createdOrder)
+            var userId = results[1]
+            console.log('this is userId', userId)            
             CartFactory.clearAllinCart()
             $scope.items = CartFactory.getCart()
+            return UserFactory.putOrderOnUser(userId, createdOrder._id)
+        })
+        .then(function() {
             $state.go('orders');
         })
-        } else {
-            $state.go('login');
-        }
+        .catch(console.error);
     };
 });

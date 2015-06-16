@@ -24,6 +24,12 @@ app.factory('UserFactory', function ($http){
         return response.data;
       });
     },
+    putOrderOnUser: function (id, info) {
+      return $http.put('/orderonuser/' + id, info)
+      .then(function (response) {
+        return response.data;
+      })
+    },
     promoteUserStatus: function (id, info) {
       return $http.put('/promote/' + id, info)
       .then(function (response) {

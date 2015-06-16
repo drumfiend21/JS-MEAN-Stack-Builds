@@ -127,6 +127,18 @@ module.exports = function (app) {
         .then(null, next);
     })
 
+    app.put('/orderonuser/:id', isAuthenticatedUser, function (req, res, next) {
+        console.log('this hits the orderonuser route!', typeof req.params.id)
+        UserModel.findById(req.params.id).exec()
+        .then(function (user) {
+            console.log('this is req.body.order: ', req.body.order)
+            user.order = req.body.order
+            return user.save(function(user) {
+                res.status(201).end();
+            })
+        })
+        .then(null, next);
+    });
 
     // A DELETE route is created to delete a user
     app.delete('/delete/:id', hasAdminPower, function (req, res, next) {
