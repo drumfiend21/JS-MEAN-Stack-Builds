@@ -4,18 +4,19 @@
             <button 
             ng-click='isNewBlendFormOpen = false; showAllBlends() ' 
             class="btn btn-primary">
-            Get All Blends
+            Show All Blends
             </button>
             <button 
             class="btn"
             ng-click="isNewBlendFormOpen = true"
             >
-            Create Blend 
+            Create a Blend 
             </button>
             <a 
             class= "btn btn-success blend-btns" 
             ng-repeat="blend in allBlends"
             ng-click="showBlendByName(blend.name)"
+            ng-hide="isNewBlendFormOpen"
             >
             {{blend.name}}
             </a>
@@ -53,7 +54,7 @@
                            </div>
                         </div>
                         <div class='form-group'>
-                            <h2> Step 3: name your micros</h2>
+                            <h2> Step 3: name your blend</h2>
                             <label for="name">Name</label>
                             <input name='name' class="form-control" ng-model='newBlend.name' required></input>
                         </div>
