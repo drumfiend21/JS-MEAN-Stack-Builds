@@ -127,12 +127,14 @@ module.exports = function (app) {
         .then(null, next);
     })
 
+    // A PUT route is created to add order to the particular user checking out from the cart
+
     app.put('/orderonuser/:id', isAuthenticatedUser, function (req, res, next) {
         console.log('this hits the orderonuser route!', typeof req.params.id)
         UserModel.findById(req.params.id).exec()
         .then(function (user) {
             console.log('this is req.body.order: ', req.body.order)
-            user.order = req.body.order
+            user.orders = req.body.order
             return user.save(function(user) {
                 res.status(201).end();
             })
