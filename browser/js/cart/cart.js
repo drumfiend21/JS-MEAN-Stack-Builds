@@ -49,7 +49,7 @@ app.controller('CartController', function ($q, $scope, AuthService, UserFactory,
 
         var formattedObj = order.map(
             function(obj){
-                return {typeofblend: obj._id, quantity: obj.quantity};
+                return {typeofblend: obj._id, quantity: obj.quantity, name: obj.name};
             }
         );
         order = formattedObj;

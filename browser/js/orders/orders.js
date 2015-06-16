@@ -11,6 +11,13 @@ app.config(function ($stateProvider) {
 
 app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactory){
 
+	$scope.allOrders = null;
+
+
+	OrdersFactory.getAllOrders().then(function (orders) {
+		$scope.allOrders = orders;
+	})
+
 	$scope.showOrders = function () {
 		OrdersFactory.getAllOrders().then(function (orders) {
 			$scope.orders = orders;
@@ -34,8 +41,23 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 	};
 
 	$scope.editOrder = function (id, order) {
-		$scope.editOrderById(id, order).then(function (order) {
+			console.log('editOrder', order);
+		OrdersFactory.editOrderById(id, order).then(function (order) {
 			$scope.editedOrder = order;
+			
 		});
 	};
+
+	$scope.deleteOrder = function (id) {
+		OrdersFactory.deleteOrderById(id).then(function(){
+
+	        OrdersFactory.getAllOrders().then(function (orders) {
+				$scope.allOrders = orders;
+			});
+			return;
+		});
+	};
+
+	// $scope.showOrders()
 });
+

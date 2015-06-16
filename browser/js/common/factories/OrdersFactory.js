@@ -26,6 +26,6 @@ app.factory('OrdersFactory', function ($http){
 		},
 		deleteOrderById: function (id) {
 			return $http.delete('/api/orders/' + id);
-		},
+		}
 	};
 });
