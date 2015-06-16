@@ -1,7 +1,8 @@
 <div class="container">
 	<div class"order-info">
-		<h4>Order Id</h4>
-		<h3>Blend name</h3>
+		<h4>Order Id: {{ order._id }}</h4>
+		<h3>{{ order.name }}</h3>
+		<h5> Quantity: {{ order.blend[0].quantity }}</h5>
 		<ul>
 		    <li>micros in blends</li>
 		</ul>
@@ -12,5 +13,4 @@
 				<button class='btn btn-success'>Update Status</button><br><br>
 		</form>
 	</div>
-	
 </div>

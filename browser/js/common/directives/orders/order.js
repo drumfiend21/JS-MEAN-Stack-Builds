@@ -3,8 +3,7 @@ app.directive('order', function (OrdersFactory, AuthService) {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/orders/order.html',
 		scope: {
-			order: '=',
-			changestatus: '&'
+			order: '='
 		},
 		link: function (scope) {
 
