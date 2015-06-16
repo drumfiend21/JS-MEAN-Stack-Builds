@@ -1,12 +1,13 @@
 <div class="cart container">
 <h2>Your Cart</h2>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
-      <tr>
+      <tr class="success">
         <th>Blend</th>
         <th>Quantity</th>
         <th>Price</th>
         <th>Subtotal</th>
+        <th>Remove</th>
       </tr>
     </thead>
     <tbody>
@@ -21,8 +22,11 @@
         <td><a href ng-click="removeItem($index)">X</a></td>
       </tr>
       <tr>
+        <td></td>
+        <td></td>
         <td>Total: </td>
         <td>{{total() | currency}}</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

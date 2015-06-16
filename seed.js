@@ -109,7 +109,7 @@ var seedMicros = function () {
         name: 'Kale',
         spice: 'mild',
         price: 5,
-        description: 'Hipsters love this shit',
+        description: 'Hipsters love this',
         image: 'http://cdn2.johnnyseeds.com/images/product/large/363MG.jpg',
         inventory: 100
     },
@@ -141,7 +141,7 @@ var seedMicros = function () {
         name: 'Lettuce',
         spice: 'mild',
         price: 2,
-        description: 'You can put this shit on everything',
+        description: 'You can put this on everything',
         image: 'http://www.microgreengarden.com/photos/LETTUCE-Endive-Escarole-microgreens-Asteraceae-Family-of-Leafy-Greens/05-AsteraceaeFamilyLettuceEndive-16Lettuce-romaine-red10day.jpg',
         inventory: 100
     },
