@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($q, $scope, UserFactory, AuthService, CartFactory, OrdersFactory, $state) {
+app.controller('CartController', function ($q, $scope, AuthService, UserFactory, CartFactory, OrdersFactory, $state) {
     $scope.logThis = function(something){
         console.log(something);
     }
