@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('OrdersController', function ($scope, OrdersFactory){
+app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactory){
 
 	$scope.showOrders = function () {
 		OrdersFactory.getAllOrders().then(function (orders) {
