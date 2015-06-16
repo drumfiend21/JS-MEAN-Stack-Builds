@@ -3,7 +3,7 @@ navbar {
   display: block;
   background: #bfbfbf;
   font-family: 'Indie Flower', cursive;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
 
   fullstack-logo {
@@ -35,27 +35,34 @@ navbar {
   }
    .cart-button {
       float: right;
-      margin-top: 8px;
+      margin-top: 5px;
+    color: #77a53e;
+    &:hover {
+      color: white;
+    }    
     }
 
   .signup-button {
     float: right;
-    margin-top: 8px;
+    margin-top: 5px;
+    color: #77a53e;    
+    &:hover {
+      color: white;
+    }    
   }
 
   .login-button {
     float: right;
-    margin-top: 8px;
+    margin-top: 5px;
     color: #77a53e;
     &:hover {
       color: white;
     }
   }
 
-
   .welcome {
     float: right;
-    margin-top: 12px;
+    margin-top: 5px;
     span {
       color: white;
     }
