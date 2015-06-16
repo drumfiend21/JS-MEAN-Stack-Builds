@@ -1,10 +1,20 @@
 <div class='container review'>
-	<button class="btn btn-success" ng-click="isCollapsed = !isCollapsed">Show Reviews</button>
+	<accordion>
+	<accordion-group heading="Show Reviews">
+		<div class='review-content'>
+			<div class="well well-sm">
+				<rating ng-model="review.rating" max="5" readonly="true"></rating>
+				<p>{{ review.comment }}</p>
+			</div> 
+		</div>
+	</accordion-group>
+	</accordion>
+<!-- 	<button class="btn btn-default toggle-review" ng-click="isCollapsed = !isCollapsed">Show Reviews</button>
 
 	<div collapse="isCollapsed" class='review-content'>
 		<div class="well well-sm">
-			<rating ng-model="review.rating" max="5" ></rating>
+			<rating ng-model="review.rating" max="5" readonly="true"></rating>
 			<p>{{ review.comment }}</p>
 		</div> 
-	</div>
+	</div> -->
 </div>

@@ -13,11 +13,11 @@
             <h4>Price/lb: ${{ micro.price }}</h4>
             <p>Description: {{ micro.description }}</p>
             <h6>Inventory: {{ micro.inventory }}</h6>
-            <button class='btn btn-success' ng-show='isAdmin' ng-click='showForm()'>
+            <button class='btn btn-success' ng-show='isAdmin' ng-click="isCollapsed = !isCollapsed">
                 edit micro
             </button>
             <br/>
-            <form name='editMicroForm' class='row col-md-12' id='edit-inventory' ng-submit='editMicroForm.$valid && editMicro(micro.inventory)' ng-show='formShouldShow'>
+            <form collapse="!isCollapsed" name='editMicroForm' class='row col-md-12' id='edit-inventory' ng-submit='editMicroForm.$valid && editMicro(micro.inventory)'>
                 <h4>Edit Inventory: </h4>
                 <input type='number' ng-model='micro.inventory'/>
                 <h4>Edit Price: </h4>

@@ -37,5 +37,5 @@ Otherwise, they will be redirected to the "home" view once they log in.*/
 
     $scope.resetpassword = function () {
         $state.go('reset');
-    }
+    };
 });

@@ -13,7 +13,7 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
     $scope.error = null;
     $scope.searchingUser = false;
     $scope.userlist = null;
-    $scope.promoteBool;
+    $scope.promoteBool = null;
 
 //checks if current user is admin
     AuthService.getLoggedInUser().then(function (currUser){
@@ -28,8 +28,8 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
             $scope.userlist = users;
         })
         .catch(function () {
-            $scope.error = 'Invalid action of listing all users.'
-        })    
+            $scope.error = 'Invalid action of listing all users.';
+        });    
     };
 
 //lists a user by id
@@ -40,8 +40,8 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
             $scope.userlist = user;
         })
         .catch(function () {
-            $scope.error = 'Invalid action of listing a particular user.'
-        })
+            $scope.error = 'Invalid action of listing a particular user.';
+        });
     };
 
 //get user by email
@@ -51,8 +51,8 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
         .then(function (user) {
             console.log(user);
             $scope.foundUser = user;
-        })
-    }
+        });
+    };
 
 //promotes user to admin; needs to be checked if working
     $scope.promoteToAdmin = function (adminBool) {
@@ -63,7 +63,7 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
 
         UserFactory.promoteUserStatus($scope.foundUser.user._id, {admin: adminBool}).then(function (response) {
             console.log('ADMIN STATUS CHANGED!');
-        })
+        });
 
         // UserFactory.getUserById(id)
         // .then(function (user) {
@@ -85,7 +85,7 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
             console.log('USER DELETED!!!');
         })
         .catch(function () {
-            $scope.error = 'Invalid action of deleting a user.'
-        })
+            $scope.error = 'Invalid action of deleting a user.';
+        });
     };
 });

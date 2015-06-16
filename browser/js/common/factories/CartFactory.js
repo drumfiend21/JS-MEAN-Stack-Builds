@@ -16,7 +16,7 @@ app.factory('CartFactory', function ($rootScope){
         if (keys[i] === "debug"){
           continue;
         } else {
-          var toObj = JSON.parse(localStorage.getItem(keys[i]))
+          var toObj = JSON.parse(localStorage.getItem(keys[i]));
           archive.push(toObj);
         }
       }
@@ -31,4 +31,4 @@ app.factory('CartFactory', function ($rootScope){
       localStorage.clear();
     }
   };
-})
+});

@@ -12,18 +12,18 @@ app.config(function ($stateProvider) {
 app.controller('CartController', function ($q, $scope, AuthService, UserFactory, CartFactory, OrdersFactory, $state) {
     $scope.logThis = function(something){
         console.log(something);
-    }
+    };
     //$scope.items is an array of objects from localStorage
     $scope.items = CartFactory.getCart();
 
     $scope.removeItem = function (index){
-        CartFactory.deleteItem($scope.items[index].name)
+        CartFactory.deleteItem($scope.items[index].name);
         $scope.items.splice(index, 1);
     };
 
     $scope.clearCart = function () {
-        console.log('hello cart')
-        CartFactory.clearAllinCart()
+        console.log('hello cart');
+        CartFactory.clearAllinCart();
         $scope.items = CartFactory.getCart();
         
     };
@@ -33,7 +33,7 @@ app.controller('CartController', function ($q, $scope, AuthService, UserFactory,
         var total = 0;
         angular.forEach($scope.items, function(blend) {
             total += blend.quantity * blend.price;
-        })
+        });
         return total;
     };
 
@@ -45,7 +45,7 @@ app.controller('CartController', function ($q, $scope, AuthService, UserFactory,
         var userIdPromise = AuthService.getLoggedInUser().then(function (user) {
             console.log('this is user logged in from checkout', user)
             return user._id;
-        })
+        });
 
         var formattedObj = order.map(
             function(obj){
@@ -71,5 +71,6 @@ app.controller('CartController', function ($q, $scope, AuthService, UserFactory,
             $state.go('orders');
         })
         .catch(console.error);
+
     };
 });

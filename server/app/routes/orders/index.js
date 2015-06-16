@@ -69,7 +69,7 @@ router.get('/:orderid', isAuthenticatedUser, function (req, res, next){
 		.then(
 			function (user){
 				if (_.includes(user.orders, req.params.orderid)) {
-					var theOrder = _.find(user.orders, {_id: req.params.orderid})
+					var theOrder = _.find(user.orders, {_id: req.params.orderid});
 					res.json(theOrder);
 				} else {
 					res.sendStatus(403).end();

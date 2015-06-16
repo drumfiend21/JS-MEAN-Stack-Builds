@@ -29,6 +29,6 @@ The user's changePasswordStatus in the database will also be changed to false on
             .catch(function () {
                 $scope.error = 'Invalid reset credentials.';
             });
-        })
-    }
+        });
+    };
 });
