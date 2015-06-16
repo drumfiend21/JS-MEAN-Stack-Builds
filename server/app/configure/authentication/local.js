@@ -63,7 +63,7 @@ module.exports = function (app) {
 
 
     //find user by email
-    app.get('/users/:email', hasAdminPower, function (req, res, next) {
+    app.get('/users/email/:email', hasAdminPower, function (req, res, next) {
         UserModel.findOne({email: req.params.email}).exec()
         .then(function (user){
             res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
@@ -115,17 +115,18 @@ module.exports = function (app) {
     
     // A PUT route is created to promote users to admin status
     app.put('/promote/:id', hasAdminPower, function (req, res, next) {
-        console.log('this hits the put route!')
+        console.log('this hits the put route!', typeof req.params.id)
         UserModel.findById(req.params.id).exec()
         .then(function (user) {
+            console.log('do you enter this functioN?', req.body.admin)
             user.admin = req.body.admin
-            return user.save();
-        })
-        .then(function(user) {
-            res.status(201).end();
+            return user.save(function(user) {
+                res.status(201).end();
+            })
         })
         .then(null, next);
-    });
+    })
+
 
     // A DELETE route is created to delete a user
     app.delete('/delete/:id', hasAdminPower, function (req, res, next) {
