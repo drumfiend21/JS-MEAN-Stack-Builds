@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactory, CartFactory) {
-    $scope.allBlends = null;
+    $scope.allBlends;
     $scope.allMicros = null;
     $scope.selectedMicros = [];  
     $scope.blends = null;
@@ -25,7 +25,8 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
      };
 
     BlendsFactory.getAllBlends().then(function (blends) {
-            $scope.allBlends = blends;
+            
+            $scope.allBlends = $scope.blends = blends;
         });
 
     MicrosFactory.getAllMicros().then(function (micros){
