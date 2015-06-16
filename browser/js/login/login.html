@@ -16,7 +16,11 @@
     <button type="submit" class="btn btn-warning btn-default">Submit</button><br><br> 
     </form>
     <div id="password">
-        <button type="submit" class="btn btn-warning btn-default" ng-click="resetpassword()">I forgot my password</button>
+        <button type="submit" class="btn btn-warning btn-default" ng-click="isCollapsed = !isCollapsed">I forgot my password</button>
+        <form collapse="isCollapsed" class='col-md-12 reset-form'>
+            <input type="text"/>
+            <button class='btn btn-success btn-xs'>reset password</button>
+        </form>
     </div>
     <div id="third-party-login">
 
