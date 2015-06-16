@@ -12,12 +12,7 @@ app.directive('micro', function (AuthService, MicrosFactory) {
                 scope.isAdmin = currUser.admin;
             });
 
-
-            scope.formShouldShow = false;
-
-            scope.showForm = function () { //making form show only on button click
-                scope.formShouldShow = true;
-            };
+            scope.isCollapsed = true;
 
             scope.editMicro = function (inventory, price) {
                 MicrosFactory.editMicroById(scope.micro._id, {inventory: inventory, price: price}).then(function (response){
