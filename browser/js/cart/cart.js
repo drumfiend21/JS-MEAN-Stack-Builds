@@ -12,18 +12,18 @@ app.config(function ($stateProvider) {
 app.controller('CartController', function ($scope, AuthService, CartFactory, OrdersFactory, $state) {
     $scope.logThis = function(something){
         console.log(something);
-    }
+    };
     //$scope.items is an array of objects from localStorage
     $scope.items = CartFactory.getCart();
 
     $scope.removeItem = function (index){
-        CartFactory.deleteItem($scope.items[index].name)
+        CartFactory.deleteItem($scope.items[index].name);
         $scope.items.splice(index, 1);
     };
 
     $scope.clearCart = function () {
-        console.log('hello cart')
-        CartFactory.clearAllinCart()
+        console.log('hello cart');
+        CartFactory.clearAllinCart();
         $scope.items = CartFactory.getCart();
         
     };
@@ -33,13 +33,13 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
         var total = 0;
         angular.forEach($scope.items, function(blend) {
             total += blend.quantity * blend.price;
-        })
+        });
         return total;
     };
 
 
     $scope.checkout = function(order) {
-        console.log("order is ", order)
+        console.log("order is ", order);
         if(AuthService.isAuthenticated()) {
 
                 var formattedObj = order.map(
@@ -50,16 +50,16 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
                 order = formattedObj;
             
 
-        var toSubmit = {blend: order, status: "created"}
+        var toSubmit = {blend: order, status: "created"};
         console.log(toSubmit);
 
         OrdersFactory.createOrder(toSubmit)
         .then(function (order) {
-            console.log("SUCCESSS ", order)
-            CartFactory.clearAllinCart()
-            $scope.items = CartFactory.getCart()
+            console.log("SUCCESSS ", order);
+            CartFactory.clearAllinCart();
+            $scope.items = CartFactory.getCart();
             $state.go('orders');
-        })
+        });
         } else {
             $state.go('login');
         }

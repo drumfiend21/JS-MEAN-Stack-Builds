@@ -9,5 +9,5 @@ app.directive('review', function (ReviewsFactory){
       link: function (scope) {
       	scope.isCollapsed = true;
       }
-		}
-})
+		};
+});

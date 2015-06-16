@@ -28,24 +28,24 @@ module.exports = function (app) {
     }
 
     function hasAdminPower(req, res, next){
-      console.log('this is req.user', req.user)  
+      console.log('this is req.user', req.user);  
       if(req.user.admin) next();
       else res.status(403).end();
     }
 
     function needsToChangePassword(req, res, next) {
-        console.log('this user needs to change password', req.user)
-        if(req.user.changepassword) next()
+        console.log('this user needs to change password', req.user);
+        if(req.user.changepassword) next();
         else res.status(403).end();
     }
 
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategyFn));
     // A GET / route is created to find all users
     app.get('/users', hasAdminPower, function (req, res, next){
-        console.log('this hits the get /users route!')
+        console.log('this hits the get /users route!');
         UserModel.find({}).exec()
         .then(function (users){
-            console.log('this is users', users)
+            console.log('this is users', users);
             res.status(200).send(users);
           })
         .then(null, next); 
@@ -69,7 +69,7 @@ module.exports = function (app) {
             res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
         })
         .then(null, next);
-    })
+    });
 
     // A POST /signup route is created to handle registering users
     app.post('/signup', function (req, res, next) {
@@ -115,17 +115,17 @@ module.exports = function (app) {
     
     // A PUT route is created to promote users to admin status
     app.put('/promote/:id', hasAdminPower, function (req, res, next) {
-        console.log('this hits the put route!', typeof req.params.id)
+        console.log('this hits the put route!', typeof req.params.id);
         UserModel.findById(req.params.id).exec()
         .then(function (user) {
-            console.log('do you enter this functioN?', req.body.admin)
-            user.admin = req.body.admin
+            console.log('do you enter this functioN?', req.body.admin);
+            user.admin = req.body.admin;
             return user.save(function(user) {
                 res.status(201).end();
-            })
+            });
         })
         .then(null, next);
-    })
+    });
 
 
     // A DELETE route is created to delete a user
@@ -140,12 +140,12 @@ module.exports = function (app) {
     // A PUT route is created to enable password reset for user
 
     app.put('/reset/:id', function (req, res, next) {
-        console.log('this will enable password reset for user')
+        console.log('this will enable password reset for user');
         UserModel.findById(req.params.id).exec()
         .then(function (user) {
-            console.log('this is req.body from put route', req.body)
-            user.password = req.body.password
-            user.changepassword = false
+            console.log('this is req.body from put route', req.body);
+            user.password = req.body.password;
+            user.changepassword = false;
             return user.save();
         })
         .then(function(user) {

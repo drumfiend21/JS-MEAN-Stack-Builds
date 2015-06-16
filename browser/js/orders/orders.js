@@ -38,4 +38,4 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 			$scope.editedOrder = order;
 		});
 	};
-})
+});
