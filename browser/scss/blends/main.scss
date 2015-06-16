@@ -2,6 +2,13 @@
 	#left-panel{
 		button{
 			width: 100%;
+			font-family: 'Indie Flower', cursive;
+			font-size: 20px;
+		}
+		a {
+			width: 100%;
+			font-family: 'Indie Flower', cursive;
+			font-size: 20px;
 		}
 		.container {
 			width: 100%;
@@ -11,11 +18,17 @@
 		.container{
 			width: 100%;
 		}
+		button{
+			display: block;
+			// width: 100%;
+			font-size: 15px;
+			font-family: 'Indie Flower', cursive;
+			margin-bottom: 5px;
+		}
+		h2 {
+			font-family: 'Indie Flower', cursive;
+		}
 	}
-}
-
-.blend-btns {
-	display: block;
 }
 
 .micro-selections {
