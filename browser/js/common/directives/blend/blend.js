@@ -5,7 +5,7 @@ app.directive('blend', function (CartFactory) {
         templateUrl: 'js/common/directives/blend/blend.html',
         scope: {
             blend: '=',
-            isNewBlendFormOpen: '='
+            isNewBlendFormOpen: '=' 
         },
         link: function (scope) {
         	scope.isNewBlendFormOpen = 
