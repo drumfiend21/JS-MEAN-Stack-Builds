@@ -44,14 +44,16 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
 
                 var formattedObj = order.map(
                     function(obj){
-                        return {typeofblend: obj._id, quantity: obj.quantity};
+                        console.log('the obj:', obj)
+                        return {typeofblend: obj._id, quantity: obj.quantity, name: obj.name};
                     }
                 );
+                console.log('the formattedObj', formattedObj);
                 order = formattedObj;
             
 
         var toSubmit = {blend: order, status: "created"}
-        console.log(toSubmit);
+        console.log('toSubmit', toSubmit);
 
         OrdersFactory.createOrder(toSubmit)
         .then(function (order) {
