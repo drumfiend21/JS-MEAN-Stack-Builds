@@ -13,7 +13,7 @@ app.factory('UserFactory', function ($http){
       });
     },
     getUserByEmail: function (email) {
-      return $http.get('/users/' + email)
+      return $http.get('/users/email/' + email)
       .then(function (response) {
         return response.data;
       })
