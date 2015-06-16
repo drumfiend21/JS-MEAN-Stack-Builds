@@ -1,17 +1,17 @@
 <section id="blends">
-    <div class="row">
-        <div class="col-md-2 container" id="left-panel">
-            <button 
-            ng-click='showAllBlends()' 
-            class="btn btn-primary">
-            Show All Blends
-            </button>
-            <button 
-            class="btn"
+        <div class="container" id="left-panel">
+            <a 
+            class="btn btn-warning"
             ng-click="isNewBlendFormOpen = true"
             >
             Create a Blend 
-            </button>
+            </a>
+            <a 
+            ng-click='showAllBlends()' 
+            class="btn blend-items">
+            Show All Blends
+            </a>
+            
             <a 
             class= "btn btn-success" 
             ng-repeat="blend in allBlends"
@@ -20,8 +20,9 @@
             >
             {{blend.name}}
             </a>
+
         </div> 
-        <div class="col-md-10 container" id="right-panel">
+        <div class="container" id="right-panel">
                 <blend ng-hide="isNewBlendFormOpen" ng-repeat="blend in blends" blend="blend" deleteblend="deleteBlend(blend._id)"></blend>
                 
                 <div ng-show="isNewBlendFormOpen">
@@ -78,5 +79,4 @@
                 </form> -->
 <!--                   <div>Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
  -->        </div>
-    </div>
 </section>
