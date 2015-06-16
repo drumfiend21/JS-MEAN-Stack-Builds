@@ -39,11 +39,25 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
 
 
     $scope.checkout = function(order) {
+        console.log("order is ", order)
         if(AuthService.isAuthenticated()) {
-            OrdersFactory.createOrder(order)
-            .then(function () {
-                $state.go('orders');
-            })
+
+                var formattedObj = order.map(
+                    function(obj){
+                        return {typeofblend: obj._id, quantity: obj.quantity};
+                    }
+                );
+                order = formattedObj;
+            
+
+        var toSubmit = {blend: order, status: "created"}
+        console.log(toSubmit);
+
+        OrdersFactory.createOrder(toSubmit)
+        .then(function (order) {
+            console.log("SUCCESSS ", order)
+            $state.go('orders');
+        })
         } else {
             $state.go('login');
         }
