@@ -56,6 +56,8 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
         OrdersFactory.createOrder(toSubmit)
         .then(function (order) {
             console.log("SUCCESSS ", order)
+            CartFactory.clearAllinCart()
+            $scope.items = CartFactory.getCart()
             $state.go('orders');
         })
         } else {

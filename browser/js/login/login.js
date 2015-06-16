@@ -13,6 +13,8 @@ app.controller('LoginCtrl', function ($scope, AuthService, UserFactory, $state) 
     $scope.login = {};
     $scope.error = null;
 
+    $scope.isCollapsed = true;
+
     $scope.sendLogin = function (loginInfo) {
 
         $scope.error = null;
