@@ -139,7 +139,7 @@ module.exports = function (app) {
 
     // A PUT route is created to enable password reset for user
 
-    app.put('/reset/:id', needsToChangePassword, function (req, res, next) {
+    app.put('/reset/:id', function (req, res, next) {
         console.log('this will enable password reset for user')
         UserModel.findById(req.params.id).exec()
         .then(function (user) {

@@ -19,7 +19,7 @@ The user's changePasswordStatus in the database will also be changed to false on
     $scope.resetUserPassword = function (info) {
 
         $scope.error = null;
-
+        
         AuthService.getLoggedInUser().then(function (user) {
                 
             UserFactory.resetUserPassword(user._id, info)

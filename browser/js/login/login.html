@@ -1,3 +1,4 @@
+<h2>Log in to get your bowl of microgreens today!</h2>
 <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
 
     <alert type="danger" ng-show="error">
@@ -12,19 +13,23 @@
         <label for="login-password">Password</label>
         <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
     </div>
-
-    <button type="submit" class="btn btn-default">Submit</button><br><br> 
-
+    <button type="submit" class="btn btn-warning btn-default">Submit</button><br><br> 
     </form>
-
+    <div id="password">
+        <button type="submit" class="btn btn-warning btn-default" ng-click="isCollapsed = !isCollapsed">I forgot my password</button>
+        <form collapse="isCollapsed" class='col-md-12 reset-form'>
+            <input type="text"/>
+            <button class='btn btn-success btn-xs'>reset password</button>
+        </form>
+    </div>
     <div id="third-party-login">
 
         <!-- Facebook Login -->
         <button class="btn btn-default btn-large btn-success fa fa-facebook-square fa-lg" onClick="window.location='/auth/facebook';"><h4>Login with Facebook
-        </h4></button><br><br>   
+        </h4></button>   
 
         <!-- Google Login -->
-        <button class="btn btn-default btn-large btn-success fa fa-google-plus-square fa-lg" onClick="window.location='/auth/google';"><h4>Login with Google+</h4></button><br><br>
+        <button class="btn btn-default btn-large btn-success fa fa-google-plus-square fa-lg" onClick="window.location='/auth/google';"><h4>Login with Google+</h4></button>
 
         <!-- Twitter Login -->
 
