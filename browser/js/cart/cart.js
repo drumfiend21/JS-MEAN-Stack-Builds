@@ -9,21 +9,21 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, AuthService, CartFactory, OrdersFactory, $state) {
+app.controller('CartController', function ($q, $scope, AuthService, UserFactory, CartFactory, OrdersFactory, $state) {
     $scope.logThis = function(something){
         console.log(something);
-    }
+    };
     //$scope.items is an array of objects from localStorage
     $scope.items = CartFactory.getCart();
 
     $scope.removeItem = function (index){
-        CartFactory.deleteItem($scope.items[index].name)
+        CartFactory.deleteItem($scope.items[index].name);
         $scope.items.splice(index, 1);
     };
 
     $scope.clearCart = function () {
-        console.log('hello cart')
-        CartFactory.clearAllinCart()
+        console.log('hello cart');
+        CartFactory.clearAllinCart();
         $scope.items = CartFactory.getCart();
         
     };
@@ -33,35 +33,44 @@ app.controller('CartController', function ($scope, AuthService, CartFactory, Ord
         var total = 0;
         angular.forEach($scope.items, function(blend) {
             total += blend.quantity * blend.price;
-        })
+        });
         return total;
     };
 
 
     $scope.checkout = function(order) {
         console.log("order is ", order)
-        if(AuthService.isAuthenticated()) {
+        if(!AuthService.isAuthenticated()) return $state.go('login');
 
-                var formattedObj = order.map(
-                    function(obj){
-                        console.log('the obj:', obj)
-                        return {typeofblend: obj._id, quantity: obj.quantity, name: obj.name};
-                    }
-                );
-                console.log('the formattedObj', formattedObj);
-                order = formattedObj;
-            
+        var userIdPromise = AuthService.getLoggedInUser().then(function (user) {
+            console.log('this is user logged in from checkout', user)
+            return user._id;
+        });
 
+        var formattedObj = order.map(
+            function(obj){
+                return {typeofblend: obj._id, quantity: obj.quantity, name: obj.name};
+            }
+        );
+        order = formattedObj;
+    
         var toSubmit = {blend: order, status: "created"}
-        console.log('toSubmit', toSubmit);
-
-        OrdersFactory.createOrder(toSubmit)
-        .then(function (order) {
-            console.log("SUCCESSS ", order)
+        console.log(toSubmit);
+        
+        $q.all([OrdersFactory.createOrder(toSubmit), userIdPromise])
+        .then(function (results) {
+            var createdOrder = results[0]
+            console.log('this is createdOrder', createdOrder)
+            var userId = results[1]
+            console.log('this is userId', userId)            
+            CartFactory.clearAllinCart()
+            $scope.items = CartFactory.getCart()
+            return UserFactory.putOrderOnUser(userId, createdOrder._id)
+        })
+        .then(function() {
             $state.go('orders');
         })
-        } else {
-            $state.go('login');
-        }
+        .catch(console.error);
+
     };
 });

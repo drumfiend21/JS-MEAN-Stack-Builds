@@ -15,7 +15,7 @@
 	.micro-info {
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		// font-size: 20px;
 	}
 
 	.micro {
@@ -28,10 +28,6 @@
 
 	}
 
-	.form-control {
-		width: 40%;
-	}
-
 	.micros-button {
 		margin: 0 10px;
 		color: white;
@@ -39,7 +35,7 @@
 	}
 	
 	img.micro-image {
-		width: 100%;
+		width: 70%;
 		height: auto;
 	}
 

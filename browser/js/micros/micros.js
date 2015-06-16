@@ -13,7 +13,7 @@ app.controller('MicrosController', function ($scope, MicrosFactory, AuthService)
 
     // $scope.micros;
     // $scope.image;
-    $scope.whichName;
+    $scope.whichName = null;
 
     $scope.levels = [
         'mild',
@@ -46,8 +46,8 @@ app.controller('MicrosController', function ($scope, MicrosFactory, AuthService)
     $scope.showMicrosBySpice = function (spicelevel) {
         MicrosFactory.getMicrosBySpice(spicelevel).then(function (micros){
             $scope.micros = micros;
-        }).catch(function (err) {console.log(error)})
-    }
+        }).catch(function (err) {console.log(err);});
+    };
     $scope.addMicro = function (micro) {
         console.log("in add micro");
         MicrosFactory.createMicro(micro).then(function (newMicro){

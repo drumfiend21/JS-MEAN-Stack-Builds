@@ -58,5 +58,6 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 		});
 	};
 
-	$scope.showOrders()
-})
+	// $scope.showOrders()
+});
+

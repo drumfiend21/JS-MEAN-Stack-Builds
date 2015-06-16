@@ -55,7 +55,7 @@ router.get('/name/:blendname', function (req, res, next){
 
 // creates new blend and returns new blend
 
-router.post('/', isAuthenticatedUser, function (req, res, next){
+router.post('/', function (req, res, next){
 
 	var blend = new Blend(req.body);
 	blend.save(function (err){

@@ -8,10 +8,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, UserFactory, $state) {
 
     $scope.login = {};
     $scope.error = null;
+
+    $scope.isCollapsed = true;
 
     $scope.sendLogin = function (loginInfo) {
 
@@ -31,5 +33,9 @@ Otherwise, they will be redirected to the "home" view once they log in.*/
         .catch(function () {
             $scope.error = 'Invalid login credentials.';
         });
+    };
+
+    $scope.resetpassword = function () {
+        $state.go('reset');
     };
 });

@@ -25,7 +25,7 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
      };
 
     BlendsFactory.getAllBlends().then(function (blends) {
-            $scope.allBlends = blends;
+            $scope.allBlends = $scope.blends = blends;
         });
 
     MicrosFactory.getAllMicros().then(function (micros){
@@ -45,8 +45,8 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
     };
     $scope.showAllBlends = function () {
         BlendsFactory.getAllBlends().then(function (blends) {
-            
-            $scope.blends = blends;
+            $scope.isNewBlendFormOpen = false;
+            $scope.allBlends = $scope.blends = blends;
         });
     };
     $scope.showBlendById = function(blendid) {
@@ -73,17 +73,18 @@ app.controller('BlendsController', function ($scope, BlendsFactory, MicrosFactor
                 micros: [],
                 price: null
                 };
-            console.log("newblend is ", newBlend);
             CartFactory.saveCart(newBlend.name, newBlend);
-
-            BlendsFactory.getAllBlends().then(function (blends) {
-                $scope.allBlends = blends;
-            });   
+            $scope.showAllBlends();
+            // BlendsFactory.getAllBlends().then(function (blends) {
+            //     $scope.allBlends = blends;
+            // });   
         });
     };
     $scope.deleteBlend = function (id){
         BlendsFactory.deleteBlendById(id).then(function(){
-            return;
+            return BlendsFactory.getAllBlends();
+        }).then(function(blends){
+            $scope.blends = $scope.allBlends = blends; 
         });
     };
     $scope.loadBlendToEdit = function (id){

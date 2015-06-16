@@ -52,7 +52,7 @@ var seedUsers = function () {
             admin: true
         },
         {
-            email: 'rachel@gmail.com',
+            email: 'fullstack@gmail.com',
             password: '1234',
             changepassword: true
         }
@@ -189,8 +189,6 @@ connectToDb.then(function () {
     // })
     return q.all([seededUsers, seededMicros])
 }).spread(function (users, micros){
-    // console.log(micros);
-    console.log('MEOWWWWWW')
     var jA = function (){
         var arr = [];
         for (var i=0; i<micros.length-5; i++){
