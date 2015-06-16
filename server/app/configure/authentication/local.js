@@ -127,6 +127,26 @@ module.exports = function (app) {
         .then(null, next);
     });
 
+    // A PUT route is created to add order to the particular user checking out from the cart
+
+    app.put('/orderonuser/:id', isAuthenticatedUser, function (req, res, next) {
+        console.log('this hits the orderonuser route!')
+        UserModel.findById(req.params.id).exec()
+        .then(function (user) {
+            console.log('this is req.body from orderonuser', req.body);
+            console.log('this is req.body.order: ', req.body._id)
+            console.log('this is user.orders', user.orders)
+            user.orders.push(req.body._id)
+            return user.save()
+        })
+        .then(function(user) {
+            res.status(201).send(user);
+        })
+        .then(null, function(err) {
+            console.log('error: ', err)
+            next()
+        });
+    });
 
     // A DELETE route is created to delete a user
     app.delete('/delete/:id', hasAdminPower, function (req, res, next) {

@@ -24,17 +24,23 @@ app.factory('UserFactory', function ($http){
         return response.data;
       });
     },
+    putOrderOnUser: function (id, info) {
+      return $http.put('/orderonuser/' + id, {_id: info})
+      .then(function (response) {
+        return response.data;
+      });
+    },
     promoteUserStatus: function (id, info) {
       return $http.put('/promote/' + id, info)
       .then(function (response) {
         return response.data;
-      });
+      })
     },
     resetUserPassword: function (id, info) {
       return $http.put('/reset/' + id, info)
       .then(function (response) {
         return response.data;
-      });
+      })
     },
     deleteUserById: function (id) {
       return $http.delete('/delete/' + id);
