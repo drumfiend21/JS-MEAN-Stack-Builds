@@ -22,16 +22,10 @@
             </a>
         </div> 
         <div class="col-md-10 container" id="right-panel">
-                <blend ng-show="!isNewBlendFormOpen" ng-repeat="blend in blends" blend="blend"></blend>
-             <!--    <rating ng-model="rating" max="5" ></rating> -->
-                <!-- <micro micro='micro' ng-repeat="micro in micros"></micro> -->
-<!--                 <input ng-model="whichNameToGet"></input>
-                <button ng-click='showBlendByName(whichNameToGet)'>Show Blend By Name</button>
-                <button ng-click='deleteBlend("557b3e5db65a3bfe377ed7ef")'>delete kitten :/</button> -->
-                <!-- <pre>{{ blends | json}}</pre> -->
+                <blend ng-hide="isNewBlendFormOpen" ng-repeat="blend in blends" blend="blend"></blend>
                 
                 <div ng-show="isNewBlendFormOpen">
-                    <blend blend="newBlend"></blend>
+                    <blend blend="newBlend" is-new-blend-form-open="true"></blend>
 
                     <form name="newBlendForm" 
                     ng-submit='newBlendForm.$valid && addBlend(newBlend)' novalidate>
@@ -39,8 +33,6 @@
                             <h2>Step 1: Select your Bowl Size </h2>
                             <button ng-click="setPrice(12)">Large</button>
                             <button ng-click="setPrice(8)">Small</button>
-                            <!-- <label for="price">Price</label>
-                            <input class="form-control" name='price' ng-model='newBlend.price'></input> -->
                         </div>
                         <div class='form-group'>
                            <h2> Step 2: Select your micros</h2>
@@ -62,6 +54,13 @@
                         <button class='btn btn-success' type='submit'>add blend!</button>
                     </form>
                 </div>
+
+        <!--    <rating ng-model="rating" max="5" ></rating> -->
+                <!-- <micro micro='micro' ng-repeat="micro in micros"></micro> -->
+<!--                 <input ng-model="whichNameToGet"></input>
+                <button ng-click='showBlendByName(whichNameToGet)'>Show Blend By Name</button>
+                <button ng-click='deleteBlend("557b3e5db65a3bfe377ed7ef")'>delete kitten :/</button> -->
+                <!-- <pre>{{ blends | json}}</pre> -->
 
 
 <!--                 <h3>Which TO edit</h3>
