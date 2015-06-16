@@ -16,7 +16,7 @@ app.factory('UserFactory', function ($http){
       return $http.get('/users/email/' + email)
       .then(function (response) {
         return response.data;
-      })
+      });
     },
     createUser: function (user) {
       return $http.post("/signup", user)
@@ -28,13 +28,13 @@ app.factory('UserFactory', function ($http){
       return $http.put('/promote/' + id, info)
       .then(function (response) {
         return response.data;
-      })
+      });
     },
     resetUserPassword: function (id, info) {
       return $http.put('/reset/' + id, info)
       .then(function (response) {
         return response.data;
-      })
+      });
     },
     deleteUserById: function (id) {
       return $http.delete('/delete/' + id);

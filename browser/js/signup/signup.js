@@ -19,7 +19,7 @@ app.controller('SignupCtrl', function ($scope, UserFactory, AuthService, $state)
 
         UserFactory.createUser(user)
         .then(function(createdUser) {
-            return AuthService.login(createdUser)
+            return AuthService.login(createdUser);
         })
         .then(function () {
             $state.go('home');
