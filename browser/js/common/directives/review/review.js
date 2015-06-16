@@ -7,7 +7,6 @@ app.directive('review', function (ReviewsFactory){
           blend: '='
       },
       link: function (scope) {
-      	scope.isCollapsed = true;
       }
 		};
 });
