@@ -12,6 +12,8 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
 
     $scope.error = null;
     $scope.searchingUser = false;
+    $scope.userlist = null;
+    $scope.promoteBool;
 
 //checks if current user is admin
     AuthService.getLoggedInUser().then(function (currUser){
@@ -48,31 +50,39 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
         UserFactory.getUserByEmail(email)
         .then(function (user) {
             console.log(user);
-            $scope.userlist = user;
+            $scope.foundUser = user;
         })
     }
 
 //promotes user to admin; needs to be checked if working
-    $scope.promoteUserStatus = function (id) {
+    $scope.promoteToAdmin = function (adminBool) {
 
-        UserFactory.getUserById(id)
-        .then(function (user) {
-            UserFactory.promoteUserStatus(user._id, info)
-            .then(function (user) {
-                $scope.userlist = user;
-            })
+
+
+        console.log('THIS IS FOUND USER!!!!!', $scope.foundUser.user._id);
+
+        UserFactory.promoteUserStatus($scope.foundUser.user._id, {admin: adminBool}).then(function (response) {
+            console.log('ADMIN STATUS CHANGED!');
         })
-        .catch(function () {
-            $scope.error = 'Invalid promotion of user status.'
-        })
+
+        // UserFactory.getUserById(id)
+        // .then(function (user) {
+        //     UserFactory.promoteUserStatus(user._id, info)
+        //     .then(function (user) {
+        //         console.log(user);
+        //         $scope.userlist = user;
+        //     })
+        // })
     };
 
 //deletes a user
-    $scope.deleteUserById = function (id) {
+    $scope.deleteUser = function (userId) {
 
-        UserFactory.deleteUserById(id)
-        .then(function (user) {
-            $scope.userlist = user;
+        userId = $scope.foundUser.user._id;
+
+        UserFactory.deleteUserById(userId)
+        .then(function (response) {
+            console.log('USER DELETED!!!');
         })
         .catch(function () {
             $scope.error = 'Invalid action of deleting a user.'
