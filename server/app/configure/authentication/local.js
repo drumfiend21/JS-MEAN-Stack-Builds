@@ -128,6 +128,18 @@ module.exports = function (app) {
         .then(null, next);
     });
 
+//trigger email reset
+
+    app.put('/reset/trigger/:email', hasAdminPower, function (req, res, next) {
+        UserModel.findOne({email: req.params.email}).exec()
+            .then(function (user) {
+                user.changepassword = req.body.changepassword;
+                return user.save(function (user) {
+                    res.status(201).end();
+                })
+            })
+    })
+
     // A PUT route is created to add order to the particular user checking out from the cart
 
     app.put('/orderonuser/:id', isAuthenticatedUser, function (req, res, next) {

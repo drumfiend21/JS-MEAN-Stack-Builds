@@ -52,6 +52,7 @@
 			display: inline-block;
 			float: left;
 		}
+
 		form {
 			display: inline-block;
 			float: right;
@@ -73,6 +74,22 @@
 	}
 }
 
+.review {
+	width: 100%;
+	form {
+		width: 100%;
+		float: left;
+		label{
+			float: left;
+			display: block;
+		}
+		textarea {
+			float: left;
+			width: 100%;
+		}
+	}
+}
+
 .micro-selections {
 	display: inline-block;
 	font-size: 20px;
@@ -82,6 +99,9 @@
 	}
 }
 
+.review {
+	float: left;
+}
 
 .leaf {
 	width: 32%;
