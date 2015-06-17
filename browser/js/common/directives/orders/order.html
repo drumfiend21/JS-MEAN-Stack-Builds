@@ -4,14 +4,17 @@
 			<h4>Order Id: {{ order._id }}</h4>
 			<h4>Order Date: {{ order.date | date }}</h4>
 			<div class='order-blends' ng-repeat='blend in order.blend'>
-				<h3>{{ blend.name }}</h3>
-				<h5> Quantity: {{ blend.quantity }}</h5>
-
+				<ul>
+					<li>
+						<a>{{ blend.name }}</a>
+						<h4>Quantity: {{ blend.quantity }}<h4>
+						<h4>Current status: {{ order.status }}</h4>
+					</li>
+				</ul>
 			</div>
 			<!-- <div class="micro-thumbnails">
 	  			<img class="leaf" ng-repeat="micro in blend.micros" ng-src="{{micro.image}}">
 	  		</div> -->
-			<h4>Current status: {{ order.status }}</h4>
 			<form ng-show='isAdmin'>
 				<select class='form-control' ng-model='order.status'>
 					<option ng-repeat='status in orderStatus'>{{ status }}
