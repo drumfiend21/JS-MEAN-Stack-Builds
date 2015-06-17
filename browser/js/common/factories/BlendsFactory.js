@@ -3,7 +3,17 @@ app.factory('BlendsFactory', function ($http){
 		getAllBlends: function (){
 			return $http.get("/api/blends")
 			.then(function (response){
-				return response.data;
+				var filteredBlends = response.data.filter(function(blend){
+             	var instock = true; 
+                blend.micros.forEach(function(micro){
+                    if (micro.inventory === 0){
+                        instock = false;
+                    }
+                });
+                return instock; 
+            });
+
+				return filteredBlends;
 			});
 		},
 		getBlendById: function (blendid){
