@@ -8,13 +8,14 @@
 			</div> 
 		</div>
 	</accordion-group>
-	<accordion-group heading="Write Review" ng-show="userId">
+	<accordion-group heading="Write Review" ng-show="userId" class='edit-review'>
 		<form ng-submit='newReview(rating, comment)'>
-		<rating ng-model="rating"></rating>
-		<label>Comment:</label>
-		<textarea type='text-field' ng-model='comment'></textarea>
-		<button type="submit" class='btn btn-success btn-xs'>Submit Review</button>
-	</form>
+			<rating ng-model="rating"></rating>
+			
+			<label>Comment:</label>
+			<textarea type='text-field' ng-model='comment' id='comment'></textarea>
+			<button type="submit" class='btn btn-success btn-xs'>Submit Review</button>
+		</form>
 	</accordion-group>
 	</accordion>
 <!-- 	<button class="btn btn-default toggle-review" ng-click="isCollapsed = !isCollapsed">Show Reviews</button>
