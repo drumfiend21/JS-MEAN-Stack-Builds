@@ -18,6 +18,6 @@
             <a ng-click="logout()">Logout</a>
         </div>
         <a ui-sref="cart" class="right-nav glyphicon glyphicon-shopping-cart"></a>
-        <a ui-sref="orders" class="right-nav">Orders</a>
+        <a ng-show="user" ui-sref="orders" class="right-nav">Orders</a>
     </div>
 </nav>
