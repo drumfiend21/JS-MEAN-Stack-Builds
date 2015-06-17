@@ -16,9 +16,13 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 	$scope.randomMicro = null;
 	$scope.recommendedBlend = null;
 	$scope.orderIds = [];
+	// $scope.showRecommendation = false;
 
 	OrdersFactory.getAllOrders().then(function (orders) {
 		$scope.allOrders = orders;
+		if(orders.length) { 
+			// $scope.showRecommendation = true;
+		}
 	});
 
 	$scope.showOrders = function () {
@@ -63,6 +67,7 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 				});
 			})
 			$scope.orders = orders;
+			// $scope.showRecommendation = true;
 		});
 	};
 
