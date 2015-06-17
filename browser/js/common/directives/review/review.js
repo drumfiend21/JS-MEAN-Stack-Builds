@@ -15,7 +15,7 @@ app.directive('review', function(ReviewsFactory, BlendsFactory, AuthService) {
             scope.showReviews = function () {
              console.log("blend is ", scope.blend);
               BlendsFactory.getBlendById(scope.blend._id).then(function(blend){
-                console.log("blend reviews are ", blend.reviews);
+                console.log("blend reviews are ", blend);
                 scope.revArr = blend.reviews;
                 //console.log("got reviews!");
               });
@@ -36,10 +36,9 @@ app.directive('review', function(ReviewsFactory, BlendsFactory, AuthService) {
                   
                   scope.blend.reviews = scope.blend.reviews.map(function(review){return review._id;});
                   scope.blend.reviews.push(review._id);
-                  console.log(scope.blend);
+                  console.log("with new id", scope.blend);
                   BlendsFactory.editBlendById(scope.blend._id, {reviews: scope.blend.reviews});
-                }).then(function(blend){
-                  console.log("wheee");
+                }).then(function(){
                   scope.showReviews();
                 });
 

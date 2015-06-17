@@ -66,7 +66,7 @@ router.post('/', function (req, res, next){
 
 router.put('/:blendid', isAuthenticatedUser, function (req, res, next){
 
-	if (req.user.admin) {
+	if (req.user) {
 		Blend.findByIdAndUpdate(req.params.blendid, req.body).exec()
 		.then(
 			function (blend){
