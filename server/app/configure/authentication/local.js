@@ -75,6 +75,7 @@ module.exports = function (app) {
     app.post('/signup', function (req, res, next) {
         console.log('hit the /signup post route!');
         UserModel.create(req.body, function (err, user) {
+            console.log('this is req.body from signup', req.body)
             if (err) next(err);
             else {
                 req.logIn(user, function (err){
