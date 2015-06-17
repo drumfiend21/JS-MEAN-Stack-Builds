@@ -39,7 +39,6 @@ router.get('/', isAuthenticatedUser, function (req, res, next){
 		.exec()
 		.then(
 			function (user){
-				console.log('user', user);
 				res.json(user.orders);
 			},
 			function (err){
@@ -69,9 +68,16 @@ router.get('/:orderid', isAuthenticatedUser, function (req, res, next){
 		.exec()
 		.then(
 			function (user){
-				if (_.includes(user.orders, req.params.orderid)) {
-					var theOrder = _.find(user.orders, {_id: req.params.orderid});
-					res.json(theOrder);
+				console.log('this is user.orders', user.orders)
+				
+					var matched = user.orders.filter(function(order) {
+						console.log('this is order in filter', order)
+						console.log('this is req.params.orderid', req.params.orderid)
+						return order._id == req.params.orderid
+					})
+					console.log('this is matched', matched)
+				if (matched.length > 0) {
+					res.json(matched);
 				} else {
 					res.sendStatus(403).end();
 				}
