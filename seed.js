@@ -23,7 +23,7 @@ var mongoose = require('mongoose');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
 var Micros = mongoose.model('Micro');
-var Blends = mongoose.model('Blend')
+var Blends = mongoose.model('Blend');
 var q = require('q');
 var chalk = require('chalk');
 
