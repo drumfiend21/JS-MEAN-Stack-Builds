@@ -39,6 +39,7 @@ router.get('/', isAuthenticatedUser, function (req, res, next){
 		.exec()
 		.then(
 			function (user){
+				console.log('user', user);
 				res.json(user.orders);
 			},
 			function (err){
@@ -99,7 +100,7 @@ router.put('/:orderid', isAuthenticatedUser, function (req, res, next){
 			order.changeStatus(req.body.orderstatus);
 			order.save();
 			res.json(order);
-			console.log(order);
+			// console.log(order);
 		}, function(err){
 			next(err);
 		});

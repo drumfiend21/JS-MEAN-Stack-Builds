@@ -17,7 +17,7 @@
                 edit micro
             </button>
             <br/>
-            <form collapse="!isCollapsed" name='editMicroForm' class='row col-md-12' id='edit-inventory' ng-submit='editMicroForm.$valid && editMicro(micro.inventory)'>
+            <form collapse="isCollapsed" name='editMicroForm' class='row col-md-12' id='edit-inventory' ng-submit='editMicroForm.$valid && editMicro(micro.inventory)'>
                 <h4>Edit Inventory: </h4>
                 <input type='number' ng-model='micro.inventory'/>
                 <h4>Edit Price: </h4>
