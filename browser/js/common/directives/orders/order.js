@@ -1,4 +1,4 @@
-app.directive('order', function (OrdersFactory, AuthService) {
+app.directive('order', function (OrdersFactory, AuthService, ReviewsFactory) {
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/orders/order.html',
@@ -13,6 +13,12 @@ app.directive('order', function (OrdersFactory, AuthService) {
                 scope.isAdmin = currUser.admin;
             });
 
+
+			scope.newReview = function(star, comment){
+				star = scope.rating;
+				comment = 
+			};
+
             
 
 			scope.orderStatus = [
@@ -20,7 +26,7 @@ app.directive('order', function (OrdersFactory, AuthService) {
 				'processing',
 				'cancelled',
 				'completed'
-			]
+			];
 
 		}
 	};
