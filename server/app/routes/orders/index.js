@@ -93,38 +93,21 @@ router.post('/', isAuthenticatedUser, function (req, res, next){
 
 //edits this order
 router.put('/:orderid', isAuthenticatedUser, function (req, res, next){
+	//console.log("in the route req.body is ", req.body._id.replace(/[\n\t\r]/g,""));
 	if (req.user.admin){
 		Order.findById(req.params.orderid)
 		.exec()
 		.then(function (order) {
-			order.changeStatus(req.body.orderstatus);
+			order.changeStatus(req.body._id.replace(/[\n\t\r]/g,""));
 			order.save();
-			res.json(order);
 			// console.log(order);
 		}, function(err){
 			next(err);
+		}).then(function(order){
+			res.json(order);
 		});
 
-	} else {
-		User.findById(req.user._id)
-		.populate('orders')
-		.exec()
-		.then(
-			function (user){
-				if (_.includes(user.orders, req.params.orderid)) {
-					var theOrder = _.find(user.orders, {_id: req.params.orderid});
-					theOrder.cancelOrder();
-					theOrder.save();
-					res.json(theOrder);
-				} else {
-					res.sendStatus(403).end();
-				}
-			},
-			function (err){
-				next(err);
-			}
-		);
-	}
+	} 
 });
 
 // delete this order

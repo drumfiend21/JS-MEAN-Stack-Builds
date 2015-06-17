@@ -19,7 +19,8 @@ app.factory('OrdersFactory', function ($http){
 			});
 		},
 		editOrderById: function (id, order) {
-			return $http.put('/api/orders/' + id, order)
+			//console.log("in the factory order is ", order);
+			return $http.put('/api/orders/' + id, {"_id": order})
 			.then(function (response) {
 				return response.data;
 			});

@@ -18,7 +18,7 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 
 	OrdersFactory.getAllOrders().then(function (orders) {
 		$scope.allOrders = orders;
-	})
+	});
 
 	$scope.showOrders = function () {
 		OrdersFactory.getAllOrders().then(function (orders) {
@@ -76,8 +76,9 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 	};
 
 	$scope.editOrder = function (id, order) {
-			console.log('editOrder', order);
-		OrdersFactory.editOrderById(id, order).then(function (order) {
+		//console.log('editOrder', order.status);
+		OrdersFactory.editOrderById(id, order.status).then(function (order) {
+			//console.log('after editing ', order);
 			$scope.editedOrder = order;
 			
 		});
@@ -93,6 +94,6 @@ app.controller('OrdersController', function ($scope, OrdersFactory, BlendsFactor
 		});
 	};
 
-	$scope.showOrders()
+	$scope.showOrders();
 });
 
