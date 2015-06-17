@@ -65,15 +65,16 @@ app.controller('ManageUserCtrl', function ($scope, AuthService, UserFactory, $st
             console.log('ADMIN STATUS CHANGED!');
         });
 
-        // UserFactory.getUserById(id)
-        // .then(function (user) {
-        //     UserFactory.promoteUserStatus(user._id, info)
-        //     .then(function (user) {
-        //         console.log(user);
-        //         $scope.userlist = user;
-        //     })
-        // })
     };
+
+    $scope.resetPassword = function (resetBool) {
+
+        UserFactory.triggerReset($scope.foundUser.user.email, {changepassword: resetBool})
+        .then(function (response) {
+            console.log('Password reset triggerred!', $scope.foundUser.user);
+        })
+
+    }
 
 //deletes a user
     $scope.deleteUser = function (userId) {

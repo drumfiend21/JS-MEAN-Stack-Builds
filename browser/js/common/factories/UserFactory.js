@@ -42,6 +42,12 @@ app.factory('UserFactory', function ($http){
         return response.data;
       })
     },
+    triggerReset: function (email, info) {
+      return $http.put('/reset/trigger/'+email, info)
+      .then(function (response) {
+        return response.data;
+      })
+    },
     deleteUserById: function (id) {
       return $http.delete('/delete/' + id);
     }
