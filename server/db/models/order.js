@@ -9,5 +9,7 @@ var orderSchema = new mongoose.Schema({
 	status: {type: String, enum: ['created', 'processing', 'cancelled', 'completed'], required: true, default: 'created'},
 	date: {type: Date, default: Date}
 });
-
+orderSchema.methods.changeStatus = function(status){
+	this.status = status; 
+};
 var Order = mongoose.model('Order', orderSchema);
