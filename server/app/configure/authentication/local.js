@@ -75,6 +75,7 @@ module.exports = function (app) {
     app.post('/signup', function (req, res, next) {
         console.log('hit the /signup post route!');
         UserModel.create(req.body, function (err, user) {
+            console.log('this is req.body from signup', req.body)
             if (err) next(err);
             else {
                 req.logIn(user, function (err){
@@ -91,7 +92,7 @@ module.exports = function (app) {
     app.post('/login', function (req, res, next) {
       console.log('Logging in');
         var authCb = function (err, user) {
-
+            console.log('this is user from authcallback', user)
             if (err) return next(err);
 
             if (!user) {

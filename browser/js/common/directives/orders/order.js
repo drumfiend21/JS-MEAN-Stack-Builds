@@ -13,14 +13,12 @@ app.directive('order', function (OrdersFactory, AuthService) {
                 scope.isAdmin = currUser.admin;
             });
 
-            
-
 			scope.orderStatus = [
 				'created',
 				'processing',
 				'cancelled',
 				'completed'
-			]
+			];
 
 		}
 	};

@@ -15,7 +15,7 @@ function isAuthenticatedUser (req, res, next) {
 
 // get all Blend
 router.get('/', function (req, res, next){
-	Blend.find({}).populate('micros').exec()
+	Blend.find({}).populate('micros reviews').exec()
 	.then(
 		function (blends){
 			res.json(blends);
@@ -29,7 +29,7 @@ router.get('/', function (req, res, next){
 
 //get blend with blendid 
 router.get('/:blendid', function (req, res, next){
-	Blend.findById(req.params.blendid).populate('micros').exec()
+	Blend.findById(req.params.blendid).populate('micros reviews').exec()
 	.then(
 		function (blend){
 			res.json(blend);
@@ -42,7 +42,7 @@ router.get('/:blendid', function (req, res, next){
 
 //get blend with blendname
 router.get('/name/:blendname', function (req, res, next){
-	Blend.findOne({name: req.params.blendname}).populate('micros').exec()
+	Blend.findOne({name: req.params.blendname}).populate('micros reviews').exec()
 	.then(
 		function (blend){
 			res.json(blend);
@@ -73,6 +73,7 @@ router.put('/:blendid', isAuthenticatedUser, function (req, res, next){
 				res.status(200).send(blend);
 			},
 			function (err){
+				console.log("ERROR IS ", err);
 				next(err);
 			}
 		);
