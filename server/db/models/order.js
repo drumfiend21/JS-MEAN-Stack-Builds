@@ -6,7 +6,8 @@ var orderSchema = new mongoose.Schema({
 		name: String,
 		quantity: Number
 	}],
-	status: {type: String, enum: ['created', 'processing', 'cancelled', 'completed'], required: true, default: 'created'}
+	status: {type: String, enum: ['created', 'processing', 'cancelled', 'completed'], required: true, default: 'created'},
+	date: {type: Date, default: Date}
 });
 
 var Order = mongoose.model('Order', orderSchema);
