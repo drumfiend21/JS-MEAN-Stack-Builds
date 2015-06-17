@@ -92,7 +92,7 @@ module.exports = function (app) {
     app.post('/login', function (req, res, next) {
       console.log('Logging in');
         var authCb = function (err, user) {
-
+            console.log('this is user from authcallback', user)
             if (err) return next(err);
 
             if (!user) {
