@@ -72,11 +72,6 @@ schema.pre('save', function (next) {
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
 
-    // if (this.isModified('TchoPayId')){
-    //     this.apiKey = this.constructor.createApiKey(this.merchantId);
-    // }
-
-
     next();
 
 });

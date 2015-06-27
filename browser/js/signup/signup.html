@@ -11,7 +11,7 @@
 
     <div class="form-group">
         <label for="merchant-id">Business Name</label>
-        <input type="text" name="merchant" ng-model="signup.merchant" class="form-control" id="merchant-id" placeholder="Enter business name." required>
+        <input type="text" name="merchant" ng-model="signup.merchantId" class="form-control" id="merchant-id" placeholder="Enter business name." required>
         <p ng-show="registrationForm.merchant.$invalid && registrationForm.$submitted" class="help-block">Business name is required.</p>
     </div>
 
@@ -27,10 +27,10 @@
         <p ng-show="registrationForm.email.$invalid && registrationForm.$submitted" class="help-block">Please enter a valid email.</p>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error' : registrationForm.phoneNumber.$invalid && registrationForm.$submitted }">
+    <div class="form-group" ng-class="{ 'has-error' : registrationForm.phone.$invalid && registrationForm.$submitted }">
        <label>Phone Number</label>
-       <input type="text" name="phoneNumber" class="form-control" ng-model="signup.phoneNumber" ng-minlength="6" ng-maxlength="16" placeholder="Please enter your local or international phone number." required>
-       <p ng-show="registrationForm.phoneNumber.$error.required && registrationForm.$submitted" class="help-block">phone number is required.</p>
+       <input type="text" name="phone" class="form-control" ng-model="signup.phone" ng-minlength="6" ng-maxlength="16" placeholder="Please enter your local or international phone number." required>
+       <p ng-show="registrationForm.phone.$error.required && registrationForm.$submitted" class="help-block">phone number is required.</p>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.password.$invalid && registrationForm.$submitted }">
@@ -49,12 +49,12 @@
           Please enter a valid callback url!</p>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error' : registrationForm.accountNumber.$invalid && registrationForm.$submitted }">
+    <div class="form-group" ng-class="{ 'has-error' : registrationForm.sellerAccount.$invalid && registrationForm.$submitted }">
        <label>TchoTcho Account Number</label>
-       <input type="text" name="accountNumber" class="form-control" ng-model="signup.accountNumber" ng-minlength="11" ng-maxlength="11" placeholder="Enter a valid TchoTcho account number." required>
-       <p ng-show="registrationForm.accountNumber.$error.required && registrationForm.$submitted" class="help-block">A valid TchoTcho account number is required.</p>
-       <p ng-show="registrationForm.accountNumber.$error.minlength && registrationForm.$submitted" class="help-block">must be 11 digits in length</p>
-       <p ng-show="registrationForm.accountNumber.$error.maxlength && registrationForm.$submitted" class="help-block">must be 11 digits in length</p>
+       <input type="text" name="sellerAccount" class="form-control" ng-model="signup.sellerAccount" ng-minlength="11" ng-maxlength="11" placeholder="Enter a valid TchoTcho account number." required>
+       <p ng-show="registrationForm.sellerAccount.$error.required && registrationForm.$submitted" class="help-block">A valid TchoTcho account number is required.</p>
+       <p ng-show="registrationForm.sellerAccount.$error.minlength && registrationForm.$submitted" class="help-block">must be 11 digits in length</p>
+       <p ng-show="registrationForm.sellerAccount.$error.maxlength && registrationForm.$submitted" class="help-block">must be 11 digits in length</p>
     </div>
 
     <button type="submit" class="btn btn-default" >Submit</button>

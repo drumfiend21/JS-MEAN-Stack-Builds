@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignUpCtrl', function ($scope, AuthService, authFCT, $state) {
+app.controller('SignUpCtrl', function ($scope, AuthService, $state) {
 
     console.log("you've hit the signupCtrl")
     $scope.error = null;
@@ -19,15 +19,17 @@ app.controller('SignUpCtrl', function ($scope, AuthService, authFCT, $state) {
 
         console.log("signup object,", signupInfo )
 
+        console.log("AuthService", AuthService)
+
         // authFCT.postSignUpForm(signupInfo)
         
-        // AuthService.signup(signupInfo).then(function (user) {
+        AuthService.signup(signupInfo).then(function (user) {
 
-        //     $state.go('');
+            $state.go('');
 
-        // }).catch(function () {
-        //     $scope.error = 'Invalid login credentials.';
-        // });
+        }).catch(function () {
+            $scope.error = 'Invalid login credentials.';
+        });
 
     };
 

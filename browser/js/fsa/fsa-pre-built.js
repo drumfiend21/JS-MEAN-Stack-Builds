@@ -82,6 +82,13 @@
 
         };
 
+        this.signup = function (signupInfo){
+           return $http.post('/api/register/', {signupInfo : signupInfo}, function (response) {
+                console.log('response from signup route', response);
+                return response.data; 
+           });
+        };
+
         this.login = function (credentials) {
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
