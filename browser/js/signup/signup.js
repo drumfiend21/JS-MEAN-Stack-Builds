@@ -8,10 +8,9 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignUpCtrl', function ($scope, AuthService, $state) {
+app.controller('SignUpCtrl', function ($scope, AuthService, authFCT, $state) {
 
     console.log("you've hit the signupCtrl")
-    $scope.login = {};
     $scope.error = null;
 
     $scope.sendLogin = function (signupInfo) {
@@ -19,6 +18,8 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state) {
         $scope.error = null;
 
         console.log("signup object,", signupInfo )
+
+        // authFCT.postSignUpForm(signupInfo)
         
         // AuthService.signup(signupInfo).then(function (user) {
 

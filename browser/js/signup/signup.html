@@ -29,7 +29,7 @@
 
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.phoneNumber.$invalid && registrationForm.$submitted }">
        <label>Phone Number</label>
-       <input type="text" name="phoneNumber" class="form-control" ng-model="SignupForm.phoneNumber" ng-minlength="6" ng-maxlength="16" placeholder="Please enter your local or international phone number." required>
+       <input type="text" name="phoneNumber" class="form-control" ng-model="signup.phoneNumber" ng-minlength="6" ng-maxlength="16" placeholder="Please enter your local or international phone number." required>
        <p ng-show="registrationForm.phoneNumber.$error.required && registrationForm.$submitted" class="help-block">phone number is required.</p>
     </div>
 
@@ -41,7 +41,7 @@
 
     </div>
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.callbackUrl.$invalid && registrationForm.$submitted }">
-        <label for="callback-url">Callback Url</label>
+        <label>Callback Url</label>
         <input type="url" name="callbackUrl" ng-model="signup.callbackUrl" class="form-control" id="callback-url" placeholder="Enter callback url." required>
         <p ng-show="registrationForm.callbackUrl.$error.required && registrationForm.$submitted">
           A callback url is required!</p>
@@ -51,7 +51,7 @@
 
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.accountNumber.$invalid && registrationForm.$submitted }">
        <label>TchoTcho Account Number</label>
-       <input type="text" name="accountNumber" class="form-control" ng-model="SignupForm.accountNumber" ng-minlength="11" ng-maxlength="11" placeholder="Enter a valid TchoTcho account number." required>
+       <input type="text" name="accountNumber" class="form-control" ng-model="signup.accountNumber" ng-minlength="11" ng-maxlength="11" placeholder="Enter a valid TchoTcho account number." required>
        <p ng-show="registrationForm.accountNumber.$error.required && registrationForm.$submitted" class="help-block">A valid TchoTcho account number is required.</p>
        <p ng-show="registrationForm.accountNumber.$error.minlength && registrationForm.$submitted" class="help-block">must be 11 digits in length</p>
        <p ng-show="registrationForm.accountNumber.$error.maxlength && registrationForm.$submitted" class="help-block">must be 11 digits in length</p>
