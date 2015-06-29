@@ -40,23 +40,36 @@ router.post('/', function (req, res) {
 	// console.log("createTchoPayUserId function,",createTchoPayUserId)
 	// console.log("firing function,", createTchoPayUserId(info))
 	
-	createTchoPayUserId(info).then(function (info){
-		console.log("created tchoPayUserId,", info)
-		return createApiKey(info)
+	createTchoPayUserId(info);
+	createApiKey(info);
+	createApiSecret(info);
+	
+	UserModel.create(info, function (err, user) {
+	  if (err) return handleError(err);
+	  // saved!
+	  console.log("user created in database!")
+	  res.send(user)
 	})
-	.then(function (info){
-		console.log("created apiKey,", info)
-		return createApiSecret(info)
-	})
-	.then(function (info){
-		console.log("created apiSecret,", info)
-		UserModel.create(info, function (err, user) {
-		  if (err) return handleError(err);
-		  // saved!
-		  console.log("user created in database!")
-		  res.send(user)
-		})
+
+
+
+	// createTchoPayUserId(info).then(function (info){
+	// 	console.log("created tchoPayUserId,", info)
+	// 	return createApiKey(info)
+	// })
+	// .then(function (info){
+	// 	console.log("created apiKey,", info)
+	// 	return createApiSecret(info)
+	// })
+	// .then(function (info){
+	// 	console.log("created apiSecret,", info)
+	// 	return UserModel.create(info, function (err, user) {
+	// 	  if (err) return handleError(err);
+	// 	  // saved!
+	// 	  console.log("user created in database!")
+	// 	  res.send(user)
+	// 	})
 		
-	})
+	// })
 	// res.sendStatus(200);
 });
