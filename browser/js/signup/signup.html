@@ -11,8 +11,8 @@
 
     <div class="form-group">
         <label for="merchant-id">Business Name</label>
-        <input type="text" name="merchant" ng-model="signup.merchantId" class="form-control" id="merchant-id" placeholder="Enter business name." required>
-        <p ng-show="registrationForm.merchant.$invalid && registrationForm.$submitted" class="help-block">Business name is required.</p>
+        <input type="text" name="merchantId" ng-model="signup.merchantId" class="form-control" id="merchant-id" placeholder="Enter business name." required>
+        <p ng-show="registrationForm.merchantId.$invalid && registrationForm.$submitted" class="help-block">Business name is required.</p>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.description.$invalid && registrationForm.$submitted }">

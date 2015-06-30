@@ -1,0 +1,34 @@
+<form name="registrationForm" ng-submit="registrationForm.$valid && submitEditCard()">
+                
+    <br>
+    <div class="form-group">
+        <span>Business Name</span>
+        <p ng-show="registrationForm.merchantId.$invalid && registrationForm.$submitted" class="help-block">Business name is required.</p>
+        <input ng-model="user.merchantId" type="text" ng-minlength="2" required name="merchantId"><br>
+    </div>
+    <div class="form-group">    
+        <span>Contact Email</span>
+        <p ng-show="registrationForm.email.$invalid && registrationForm.$submitted" class="help-block">Please enter a valid email.</p>
+        <input ng-model="user.email" required type="text" ng-maxlength="40" name="email"><br>
+    </div>
+    <div class="form-group">    
+        <span>Contact Phone</span>
+        <p ng-show="registrationForm.phone.$error.required && registrationForm.$submitted" class="help-block">phone number is required.</p>
+        <input ng-model="user.phone"  required ng-maxlength="40" type="text" name="phone"><br>
+    </div>
+    <div class="form-group">
+        <span>Business Description</span>
+         <p ng-show="registrationForm.description.$invalid && registrationForm.$submitted" class="help-block">Please enter a brief description of your business.</p>
+        <input ng-model="user.description"  required ng-maxlength="40" type="text" name="description"><br>
+    </div>
+    <div class="form-group">
+        <span>Callback Url</span>
+        <error-message ng-show="editCardForm.callbackUrl.$error.maxlength">
+            Your answer is too long.
+        </error-message>
+        <input ng-model="user.callbackUrl"  required ng-maxlength="40" type="text" name="callbackUrl"><br>
+    </div>
+    <button type="submit" >Submit Card!</button>
+</form>
+<button ng-click="deleteCard()" >Delete Card!</button>
+<button ng-click="cancelEdit()" >Cancel</button>

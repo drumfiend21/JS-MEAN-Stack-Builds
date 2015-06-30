@@ -53,6 +53,7 @@
         function onSuccessfulLogin(response) {
             var data = response.data;
             Session.create(data.id, data.user);
+            // console.log("on succesful login: data,",data)
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
         }
@@ -60,6 +61,7 @@
         // Uses the session factory to see if an
         // authenticated user is currently registered.
         this.isAuthenticated = function () {
+            console.log("session", Session)
             return !!Session.user;
         };
 
