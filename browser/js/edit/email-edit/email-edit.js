@@ -8,13 +8,30 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('EmailEditCtrl', function ($scope, AuthService, $state) {
+app.controller('EmailEditCtrl', function ($scope, AuthService, $state, $localStorage, AccountFactory) {
 
-	AuthService.getLoggedInUser().then(function (user){
+	// AuthService.getLoggedInUser().then(function (user){
 		
-		$scope.user = user
-		// $scope.$digest();
+	// 	//to display in edit form
+	// 	// $scope.currentProperty = $localStorage.currentProperty
+		
+	// 	//populated from session
+	// 	$scope.user = {};
+	// 	$scope.user.tchoPayId = user.tchoPayId
+	// 	$scope.user.email = user.email
+		
+	// 	//populated by edit form
+	// 	$scope.user.password
 
-	});
+	// 	//UNIQUE PROPERTY TO EDIT
+	// 	$scope.user.email
+	// 	$scope.user.property = "email"
+
+	// 	//submit the edited account info
+	// 	$scope.submitEditCard = function(){
+	// 		AccountFactory.submitEditCard($scope.user, $scope)			
+	// 	}
+
+	// });
 
 });

@@ -72,7 +72,6 @@ schema.method('toJSON', function(){
     var user = this.toObject()
     delete user.password
     delete user.salt
-    // delete user.tchoPayId
     return user
 
 })

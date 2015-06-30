@@ -8,17 +8,19 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('sellerAccountEditCtrl', function ($scope, AuthService, $state, AccountFactory) {
+app.controller('sellerAccountEditCtrl', function ($scope, $localStorage, AuthService, $state, AccountFactory) {
 
 	AuthService.getLoggedInUser().then(function (user){
 		
 		//to display in edit form
-		$scope.currentSellerAccount = user.sellerAccount
+		$scope.currentProperty = $localStorage.currentProperty
 		
-		//to send to back end
+		//populated from session
 		$scope.user = {};
 		$scope.user.tchoPayId = user.tchoPayId
 		$scope.user.email = user.email
+
+		//populated by edit form
 		$scope.user.password
 		$scope.user.sellerAccount
 		$scope.user.property = "sellerAccount"
@@ -27,6 +29,8 @@ app.controller('sellerAccountEditCtrl', function ($scope, AuthService, $state, A
 		$scope.submitEditCard = function(){
 			AccountFactory.submitEditCard($scope.user, $scope)			
 		}
+
+		$scope.cancelEdit = AccountFactory.cancelEdit
 
 	});
 

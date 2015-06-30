@@ -1,4 +1,4 @@
-app.factory('AccountFactory', function ($http, $state, AuthService, Session) {
+app.factory('AccountFactory', function ($http, $state, AuthService, Session, $localStorage) {
 
 	var getAccountInfo = function(user){
 		return $http.get('/api/account/' + user.tchoPayId).then(function(response){
@@ -15,6 +15,12 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session) {
 		if(property === "callbackUrl") $state.go("callbackUrl-edit");
 		if(property === "sellerAccount") $state.go("sellerAccount-edit");
 
+	}
+
+	var cancelEdit = function(){
+		delete $localStorage.currentProperty
+		$state.go('account')
+		return
 	}
 
 	var submitEditCard = function(user, scope){
@@ -42,6 +48,7 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session) {
 		        
 		    	console.log("post edit user log", response.data);
 				Session.user = response.data
+				delete $localStorage.currentProperty
 				$state.go('account');
 	            return 
 
@@ -59,7 +66,8 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session) {
 	return {
 	        getAccountInfo: getAccountInfo,
 	        editAccount: editAccount,	
-	        submitEditCard: submitEditCard           
+	        submitEditCard: submitEditCard,
+	        cancelEdit: cancelEdit          
 	};
 
 });

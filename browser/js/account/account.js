@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AccountCtrl', function ($scope, AuthService, AccountFactory, $state) {
+app.controller('AccountCtrl', function ($scope, $localStorage, AuthService, AccountFactory, $state) {
     
    	console.log("authentication check,", AuthService.isAuthenticated())
  
@@ -27,6 +27,8 @@ app.controller('AccountCtrl', function ($scope, AuthService, AccountFactory, $st
 
     });
 
-    $scope.editAccount = AccountFactory.editAccount
-
+    $scope.editAccount = function(property){
+    	$localStorage.currentProperty = $scope.user[property]
+    	AccountFactory.editAccount(property)
+	}
 });
