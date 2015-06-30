@@ -8,12 +8,25 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('sellerAccountEditCtrl', function ($scope, AuthService, $state) {
+app.controller('sellerAccountEditCtrl', function ($scope, AuthService, $state, AccountFactory) {
 
 	AuthService.getLoggedInUser().then(function (user){
 		
-		$scope.user = user
-		// $scope.$digest();
+		//to display in edit form
+		$scope.currentSellerAccount = user.sellerAccount
+		
+		//to send to back end
+		$scope.user = {};
+		$scope.user.tchoPayId = user.tchoPayId
+		$scope.user.email = user.email
+		$scope.user.password
+		$scope.user.sellerAccount
+		$scope.user.property = "sellerAccount"
+
+		//submit the edited account info
+		$scope.submitEditCard = function(){
+			AccountFactory.submitEditCard($scope.user, $scope)			
+		}
 
 	});
 

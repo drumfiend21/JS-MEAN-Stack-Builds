@@ -1,4 +1,4 @@
-app.factory('AccountFactory', function ($http, $state) {
+app.factory('AccountFactory', function ($http, $state, AuthService, Session) {
 
 	var getAccountInfo = function(user){
 		return $http.get('/api/account/' + user.tchoPayId).then(function(response){
@@ -13,12 +13,53 @@ app.factory('AccountFactory', function ($http, $state) {
 		if(property === "phone") $state.go("phone-edit");
 		if(property === "description") $state.go("description-edit");
 		if(property === "callbackUrl") $state.go("callbackUrl-edit");
-		if(property === "sellerAccount") $state.go("account-edit");
+		if(property === "sellerAccount") $state.go("sellerAccount-edit");
+
+	}
+
+	var submitEditCard = function(user, scope){
+		
+		var loginUser = {
+			email: user.email, 
+			password: user.password
+		}
+
+		return $http.put('/api/account/edit', user).then(function(response){
+
+			
+			console.log("user doc returning from edit route,", response.data)
+
+			if(response.data === "invalid password"){
+				//set some variable to true, link it to ng-show of password alert element
+				//state.go same page
+				scope.failPass = true;
+				$state.go(user.property+"-edit");
+				return 
+
+			}
+			else{
+
+		        
+		    	console.log("post edit user log", response.data);
+				Session.user = response.data
+				$state.go('account');
+	            return 
+
+
+		    }
+
+		})
+
+		//once this call to route and save has occured
+		//route returns new user object
+		//initiate new Log in event to persist updated user info on session
+		//state.go("account")
 	}
 
 	return {
 	        getAccountInfo: getAccountInfo,
-	        editAccount: editAccount	           
+	        editAccount: editAccount,	
+	        submitEditCard: submitEditCard           
 	};
 
 });

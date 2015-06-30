@@ -26,3 +26,33 @@ router.get('/:tchoPayId', ensureAuthenticated, function (req, res){
 		res.send(account);
 	});
 });
+
+
+
+
+router.put('/edit', ensureAuthenticated, function (req, res){
+	
+	console.log("req.body hitting edit route,",req.body)
+
+	var rewriteUserDocument = function(property){
+		UserModel.findOne({tchoPayId: req.body.tchoPayId}).exec().then(function (user){
+			if (user.correctPassword(req.body.password)) {
+				user[property] = req.body[property]
+				user.save(function(err, user){
+					if(err) console.log("error saving edited account data,",err)
+					console.log("user rewrite saved", user)
+					res.send(user);
+				})
+			}else{
+				res.send("invalid password")
+			}
+		})
+	}
+
+	if(UserModel.whiteList.indexOf(req.body.property) > -1) {
+		rewriteUserDocument(req.body.property)
+	}else{
+		res.sendStatus(403);
+	}
+
+})
