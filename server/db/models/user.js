@@ -65,7 +65,7 @@ var createTchoPayUserId = function (email) {
     return hash.digest('hex');
 };
 
-schema.statics.whiteList = ["merchantId", "phone","email","description","callbackUrl","sellerAccount"]
+schema.statics.whiteList = ["merchantId", "phone","password","email","description","callbackUrl","sellerAccount"]
 
 schema.method('toJSON', function(){
 

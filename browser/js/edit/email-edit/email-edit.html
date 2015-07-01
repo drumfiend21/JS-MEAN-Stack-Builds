@@ -7,7 +7,7 @@
     <p>{{currentProperty}}</p>
     <br>
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.email.$invalid && registrationForm.$submitted }">
-        <label for="email">Email address</label>
+        <label for="email">Enter New Email Address</label>
         <input type="text" name="email" ng-model="user.email" class="form-control" id="email" placeholder="Enter email." required>
         <p ng-show="registrationForm.email.$invalid && registrationForm.$submitted" class="help-block">Please enter a valid email.</p>
     </div>
@@ -17,6 +17,7 @@
         <p ng-show="registrationForm.password.$error.minlength && registrationForm.$submitted" class="help-block">password must be at least 8 characters.</p>
         <p ng-show="registrationForm.password.$error.required && registrationForm.$submitted" class="help-block">password is required.</p>
     </div>
+    <p style="color: red">You will be logged out and will need to login again with your new email address.</p>
     <button type="submit" >Submit</button>
 </form>
 <button ng-click="cancelEdit()" >Cancel</button>

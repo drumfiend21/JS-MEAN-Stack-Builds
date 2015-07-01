@@ -37,7 +37,12 @@ router.put('/edit', ensureAuthenticated, function (req, res){
 	var rewriteUserDocument = function(property){
 		UserModel.findOne({tchoPayId: req.body.tchoPayId}).exec().then(function (user){
 			if (user.correctPassword(req.body.password)) {
-				user[property] = req.body[property]
+				if(property === "password"){
+					user[property] = req.body.newPasswordOne
+				}
+				else{
+					user[property] = req.body[property]
+				}
 				user.save(function(err, user){
 					if(err) console.log("error saving edited account data,",err)
 					console.log("user rewrite saved", user)

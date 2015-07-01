@@ -12,8 +12,6 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('AccountCtrl', function ($scope, $localStorage, AuthService, AccountFactory, $state) {
-    
-   	console.log("authentication check,", AuthService.isAuthenticated())
  
     AuthService.getLoggedInUser().then(function (user){
 

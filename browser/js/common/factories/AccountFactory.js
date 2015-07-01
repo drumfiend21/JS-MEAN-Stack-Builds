@@ -14,6 +14,7 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session, $lo
 		if(property === "description") $state.go("description-edit");
 		if(property === "callbackUrl") $state.go("callbackUrl-edit");
 		if(property === "sellerAccount") $state.go("sellerAccount-edit");
+		if(property === "password") $state.go("password-edit");
 
 	}
 
@@ -30,10 +31,11 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session, $lo
 			password: user.password
 		}
 
-		return $http.put('/api/account/edit', user).then(function(response){
+		//if user.property === "email" || user.property === "password"
+		//log out event
+		//state change to login
 
-			
-			console.log("user doc returning from edit route,", response.data)
+		return $http.put('/api/account/edit', user).then(function(response){
 
 			if(response.data === "invalid password"){
 				//set some variable to true, link it to ng-show of password alert element
@@ -45,12 +47,24 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session, $lo
 			}
 			else{
 
-		        
-		    	console.log("post edit user log", response.data);
 				Session.user = response.data
 				delete $localStorage.currentProperty
-				$state.go('account');
-	            return 
+
+		    	if(user.property === "email" || user.property === "password"){
+					AuthService.logout().then(function(){
+
+						$state.go('login');		    		
+			    		return
+
+					})
+		    	}
+		    	else{
+
+					$state.go('account');
+		            return 
+		    		
+		    	}
+
 
 
 		    }
