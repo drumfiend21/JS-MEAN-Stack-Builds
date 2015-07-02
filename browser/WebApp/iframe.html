@@ -1,0 +1,132 @@
+
+
+<!-- ENTER INFO -->
+<div 
+	ng-show="enter-info"
+	class="form-group" 
+	ng-class="form-control">
+    <label for="description">Account Number:</label>
+    <input 
+    	type="text" 
+    	name="buyeraccount" 
+    	ng-model="iframe.account" 
+    	class="form-control" 
+    	id="description" 
+    	placeholder="509 1111 1111" 
+    	required>
+
+
+	<div 
+		ng-show="enter-info"
+		class="form-group" 
+		ng-class="form-control">
+	    <label for="description">PIN:</label>
+	    <input 
+	    	type="text" 
+	    	name="pinnumber" 
+	    	ng-model="iframe.pin" 
+	    	class="form-control" 
+	    	id="description" 
+	    	placeholder="123456" 
+	    	required>
+	</div>
+
+	<p>
+		You will be charged {{charge-amount}} from {{merchantId}}. This transaction will be non-refundable. Only click "buy" if you trust this merchant. If the transaction is processed we will send you a receipt via text message.
+	</p>
+
+	<button 
+		ng-show="enter-info"
+		type="submit" 
+		class="btn btn-default" >BUY
+	</button>
+
+</div>
+
+<!-- AUTHORIZING MERCHANT -->
+<div 
+	ng-show="authorizing-merchant"
+	class="form-group" 
+	ng-class="form-control">
+	<p>Authorizing Transaction with Merchant</p>
+	<img src="/images/circular-spinner.gif" alt="loading-spinner" height="100" width="100">
+</div>
+
+<!-- MERCHANT ERROR-->
+<div 
+	ng-show="merchant-error"
+	class="form-group" 
+	ng-class="form-control">
+	<p>{{merchantId}} is not authorized to use this service.</p>
+	
+	<button 
+		ng-show="merchant-error"
+		type="submit" 
+		class="btn btn-default" >OK
+	</button>
+</div>
+
+
+<!-- AUTHORIZING TCHO TCHO -->
+<div 
+	ng-show="authorizing-tchotcho"
+	class="form-group" 
+	ng-class="form-control">
+	<p>Authorizing Transaction with TchoTcho</p>
+	<img src="/images/circular-spinner.gif" alt="loading-spinner" height="100" width="100">
+</div>
+
+
+<!-- PAYMENT ERROR -->
+
+<div 
+	ng-show="payment-error"
+	class="form-group" 
+	ng-class="form-control">
+	<p>TchoTcho was unable to process your transaction. Please ensure that you properly entered your account number and PIN, and that you have enough money in your account to purchase the items requested from the merchant. If the problem persists, please contact TchoTcho.
+	</p>
+
+	<button 
+		ng-show="payment-error"
+		type="submit" 
+		class="btn btn-default" >OK
+	</button>
+
+</div>
+
+<!-- PAYMENT PROCESSED -->
+
+<div 
+	ng-show="payment-processed"
+	class="form-group" 
+	ng-class="form-control">
+	<img src="/images/checkmark.gif" alt="purchased-check" height="100" width="100">
+	<p>Your account ending in {{last-four}} was charged {{charge-amount}} for {{item-description}} by {{merchantId}}. We will send you a receipt via text message.
+	</p>
+
+
+
+	<button 
+		ng-show="payment-processed"
+		type="submit" 
+		class="btn btn-default" >OK
+	</button>
+
+</div>
+
+
+
+<!-- 
+
+to build:
+	iframe.js
+
+new ng-show states:
+	enter-info
+	authorizing-merchant
+	merchant-error
+	authorizing-tchotcho
+	payment-error
+	payment-processed
+
+-->
