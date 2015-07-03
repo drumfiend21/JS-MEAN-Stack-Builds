@@ -49,6 +49,15 @@
           Please enter a valid callback url!</p>
     </div>
 
+    <div class="form-group" ng-class="{ 'has-error' : registrationForm.webAppDomain.$invalid && registrationForm.$submitted }">
+        <label>Web App Domain Name</label>
+        <input type="url" name="webAppDomain" ng-model="signup.webAppDomain" class="form-control" id="webAppDomain" placeholder="Enter web app domain." required>
+        <p ng-show="registrationForm.webAppDomain.$error.required && registrationForm.$submitted">
+          Your valid web app domain name is required!</p>
+        <p ng-show="registrationForm.webAppDomain.$error.url && registrationForm.$submitted">
+          Please enter your valid web app domain name!</p>
+    </div>
+
     <div class="form-group" ng-class="{ 'has-error' : registrationForm.sellerAccount.$invalid && registrationForm.$submitted }">
        <label>TchoTcho Account Number</label>
        <input type="text" name="sellerAccount" class="form-control" ng-model="signup.sellerAccount" ng-minlength="11" ng-maxlength="11" placeholder="Enter a valid TchoTcho account number." required>

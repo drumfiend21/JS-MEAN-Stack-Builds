@@ -15,6 +15,8 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session, $lo
 		if(property === "callbackUrl") $state.go("callbackUrl-edit");
 		if(property === "sellerAccount") $state.go("sellerAccount-edit");
 		if(property === "password") $state.go("password-edit");
+		if(property === "webAppDomain") $state.go("webAppDomain-edit");
+
 
 	}
 
@@ -37,7 +39,7 @@ app.factory('AccountFactory', function ($http, $state, AuthService, Session, $lo
 
 		return $http.put('/api/account/edit', user).then(function(response){
 
-			if(response.data === "invalid password"){
+			if(response.data.error === "invalid password"){
 				//set some variable to true, link it to ng-show of password alert element
 				//state.go same page
 				scope.failPass = true;

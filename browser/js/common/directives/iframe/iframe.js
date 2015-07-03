@@ -1,4 +1,4 @@
-app.directive('payFrame', function ($rootScope, AuthService, checkoutFactory, AUTH_EVENTS, $state) {
+app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AUTH_EVENTS, $state) {
 
     return {
         restrict: 'E',
@@ -6,13 +6,20 @@ app.directive('payFrame', function ($rootScope, AuthService, checkoutFactory, AU
         templateUrl: 'js/common/directives/iframe/iframe.html',
         link: function (scope) {
 
+		    
+		    //Authenticate Domain
+		    if(angular.element(window.parent.window.location)[0]['origin']==="http://localhost:1338") scope.enterinfo = true;
+		    if(angular.element(window.parent.window.location)[0]['origin']!=="http://localhost:1338") scope.merchanterror = true;
+		    
 		    //Hide and Show Elements.  All falsey values.
-		    scope.enterinfo = true;
 		    scope.authorizingmerchant 
 		    scope.merchanterror
 		    scope.authorizingtchotcho
 		    scope.paymenterror
 		    scope.paymentprocessed
+
+			    //hide navbar
+			    angular.element(window.document['body']['childNodes'][1]).remove()
 
 
 
@@ -26,7 +33,7 @@ app.directive('payFrame', function ($rootScope, AuthService, checkoutFactory, AU
 		    scope.iframe.apiKey = "ak_2308235283095790325" // = some parent window data attr
 
 		    //Pull rest of properties from iframe
-		    scope.iframe.account
+		    scope.iframe.buyerAccount
 		    scope.iframe.pin
 
 
@@ -49,9 +56,14 @@ app.directive('payFrame', function ($rootScope, AuthService, checkoutFactory, AU
 		        //hide enterinfo show authorizing merchant
 	        	scope.enterinfo = false;
 	        	scope.authorizingmerchant = true;
+
+	        	//Validate Web App Api Key and Secret
+	        	CheckoutFactory.validateApi(scope.iframe.apiKey).then(function (userDocument){
+
+	        	})
 	        	        
 		        //http call to back end
-		        checkoutFactory.submitTransactiontoDatabase(scope.iframe).then(function (transaction){
+		        CheckoutFactory.submitTransactiontoDatabase(scope.iframe).then(function (transaction){
 		        	//hide authorizing merchant
 		        	scope.authorizingmerchant = false
 		        	
@@ -63,7 +75,7 @@ app.directive('payFrame', function ($rootScope, AuthService, checkoutFactory, AU
 		        	//make HTTP call to tcho tcho
 			        	//
 			        	//scope.
-			        	//checkoutFactory.submitTransactiontoTchoTcho(transact)
+			        	//CheckoutFactory.submitTransactiontoTchoTcho(transact)
 
 
 		        })

@@ -3,7 +3,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('phone-edit', {
         url: '/phone-edit',
         templateUrl: 'js/edit/phone-edit/phone-edit.html',
-        controller: 'PhoneEditCtrl'
+        controller: 'PhoneEditCtrl',
+        data: {
+        	authenticate: true
+        }
     });
 
 });

@@ -5,8 +5,10 @@
 <p>Contact Phone : {{user.phone}} <button ng-click="editAccount('phone')">Edit</button></p>
 <p>Business Description : {{user.description}} <button ng-click="editAccount('description')">Edit</button></p>
 <p>Callback Url : {{user.callbackUrl}} <button ng-click="editAccount('callbackUrl')">Edit</button></p>
+<p>Web App Domain : {{user.webAppDomain}} <button ng-click="editAccount('webAppDomain')">Edit</button></p>
 <p>API Key: {{user.apiKey}} </p>
 <p>API Secret : {{user.apiSecret}} </p>
+<p>Secret to authenticate TchoTcho at your Server Route : {{user.webAppServerSecret}} </p>
 <p>Seller Tcho Tcho Account: {{user.sellerAccount}} <button ng-click="editAccount('sellerAccount')">Edit</button></p>
 <p><button style="color:red" ng-click="editAccount('password')">Change Password</button></p>
 

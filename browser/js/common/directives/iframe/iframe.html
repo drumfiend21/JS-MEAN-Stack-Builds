@@ -1,15 +1,22 @@
 
+<!-- LOADING iFRAME -->
+<div 
+	ng-if="loadingiFrame"
+	class="form-group" 
+	ng-class="form-control">
+	<p><img src="/images/circular-spinner.gif" alt="loading-spinner" height="100" width="100"></p>
+</div>
 
 <!-- ENTER INFO -->
 <div 
-	ng-show="enterinfo"
+	ng-if="enterinfo"
 	class="form-group" 
 	ng-class="form-control">
     <label for="description">Account Number:</label>
     <input 
     	type="text" 
-    	name="buyeraccount" 
-    	ng-model="iframe.account" 
+    	name="buyerAccount" 
+    	ng-model="iframe.buyerAccount" 
     	class="form-control" 
     	id="description" 
     	placeholder="509 1111 1111"  
@@ -17,7 +24,7 @@
 
 
 	<div 
-		ng-show="enterinfo"
+		ng-if="enterinfo"
 		class="form-group" 
 		ng-class="form-control">
 	    <label for="description">PIN:</label>
@@ -37,7 +44,7 @@
 
 	<button 
 		ng-click="someFunc()"
-		ng-show="enterinfo"
+		ng-if="enterinfo"
 		type="submit" 
 		class="btn btn-default" >BUY
 	</button>
@@ -46,7 +53,7 @@
 
 <!-- AUTHORIZING MERCHANT -->
 <div 
-	ng-show="authorizingmerchant"
+	ng-if="authorizingmerchant"
 	class="form-group" 
 	ng-class="form-control">
 	<p>Authorizing Transaction with Merchant</p>
@@ -55,7 +62,7 @@
 
 <!-- MERCHANT ERROR-->
 <div 
-	ng-show="merchanterror"
+	ng-if="merchanterror"
 	class="form-group" 
 	ng-class="form-control">
 
@@ -63,7 +70,7 @@
 	<p><img src="/images/no.png" alt="purchased-check" height="100" width="100"></p>
 	
 	<button 
-		ng-show="merchanterror"
+		ng-if="merchanterror"
 		type="submit" 
 		class="btn btn-default" >OK
 	</button>
@@ -72,7 +79,7 @@
 
 <!-- AUTHORIZING TCHO TCHO -->
 <div 
-	ng-show="authorizingtchotcho"
+	ng-if="authorizingtchotcho"
 	class="form-group" 
 	ng-class="form-control">
 	<p>Authorizing Transaction with TchoTcho</p>
@@ -83,7 +90,7 @@
 <!-- PAYMENT ERROR -->
 
 <div 
-	ng-show="paymenterror"
+	ng-if="paymenterror"
 	class="form-group" 
 	ng-class="form-control">
 	<p>TchoTcho was unable to process your transaction.</p> 
@@ -94,7 +101,7 @@
 	
 
 	<button 
-		ng-show="paymenterror"
+		ng-if="paymenterror"
 		type="submit" 
 		class="btn btn-default" >OK
 	</button>
@@ -104,7 +111,7 @@
 <!-- PAYMENT PROCESSED -->
 
 <div 
-	ng-show="paymentprocessed"
+	ng-if="paymentprocessed"
 	class="form-group" 
 	ng-class="form-control">
 	<h1>Payment Successfully Processed!</h1>
@@ -116,7 +123,7 @@
 
 
 	<button 
-		ng-show="paymentprocessed"
+		ng-if="paymentprocessed"
 		type="submit" 
 		class="btn btn-default" >OK
 	</button>
@@ -130,7 +137,7 @@
 to build:
 	iframe.js
 
-new ng-show states:
+new ng-if states:
 	enter-info
 	authorizing-merchant
 	merchant-error

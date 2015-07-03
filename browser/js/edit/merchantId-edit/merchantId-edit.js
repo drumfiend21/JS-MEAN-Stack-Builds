@@ -3,7 +3,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('merchantId-edit', {
         url: '/merchantId-edit',
         templateUrl: 'js/edit/merchantId-edit/merchantId-edit.html',
-        controller: 'MerchantIdEditCtrl'
+        controller: 'MerchantIdEditCtrl',
+        data: {
+        	authenticate: true
+        }
     });
 
 });

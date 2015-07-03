@@ -35,7 +35,14 @@ var schema = new mongoose.Schema({
     },
     apiSecret: {
         type: String
+    },
+    webAppServerSecret: {
+        type: String
+    },
+    webAppDomain:{
+        type: String
     }
+
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
@@ -51,21 +58,8 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-var createApiKey = function (merchantId) {
-    var hash = crypto.createHash('sha1');
-    hash.update(merchantId);
-    hash.update(Date.now().toString());
-    return hash.digest('hex');
-};
 
-var createTchoPayUserId = function (email) {
-    var hash = crypto.createHash('sha1');
-    hash.update(email);
-    hash.update(Date.now().toString());
-    return hash.digest('hex');
-};
-
-schema.statics.whiteList = ["merchantId", "phone","password","email","description","callbackUrl","sellerAccount"]
+schema.statics.whiteList = ["merchantId", "webAppDomain", "phone","password","email","description","callbackUrl","sellerAccount"]
 
 schema.method('toJSON', function(){
 
@@ -89,8 +83,6 @@ schema.pre('save', function (next) {
 
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
-schema.statics.createApiKey = createApiKey;
-schema.statics.createTchoPayUserId = createTchoPayUserId;
 
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;

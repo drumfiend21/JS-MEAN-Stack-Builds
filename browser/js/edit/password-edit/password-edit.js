@@ -3,7 +3,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('password-edit', {
         url: '/password-edit',
         templateUrl: 'js/edit/password-edit/password-edit.html',
-        controller: 'passwordEditCtrl'
+        controller: 'passwordEditCtrl',
+        data: {
+        	authenticate: true
+        }
     });
 
 });

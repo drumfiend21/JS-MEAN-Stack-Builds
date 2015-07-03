@@ -3,7 +3,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('email-edit', {
         url: '/email-edit',
         templateUrl: 'js/edit/email-edit/email-edit.html',
-        controller: 'EmailEditCtrl'
+        controller: 'EmailEditCtrl',
+        data: {
+        	authenticate: true
+        }
     });
 
 });

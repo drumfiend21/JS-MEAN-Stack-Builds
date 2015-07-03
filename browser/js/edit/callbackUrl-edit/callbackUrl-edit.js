@@ -3,7 +3,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('callbackUrl-edit', {
         url: '/callbackUrl-edit',
         templateUrl: 'js/edit/callbackUrl-edit/callbackUrl-edit.html',
-        controller: 'CallbackUrlEditCtrl'
+        controller: 'CallbackUrlEditCtrl',
+        data: {
+        	authenticate: true
+        }
     });
 
 });

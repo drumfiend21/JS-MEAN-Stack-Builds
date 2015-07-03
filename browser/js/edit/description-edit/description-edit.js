@@ -3,7 +3,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('description-edit', {
         url: '/description-edit',
         templateUrl: 'js/edit/description-edit/description-edit.html',
-        controller: 'DescriptionEditCtrl'
+        controller: 'DescriptionEditCtrl',
+        data: {
+        	authenticate: true
+        }
     });
 
 });

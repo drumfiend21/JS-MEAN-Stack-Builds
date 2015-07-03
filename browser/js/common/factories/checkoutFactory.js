@@ -1,4 +1,4 @@
-app.factory('checkoutFactory', function ($http, $state, AuthService, Session, $localStorage) {
+app.factory('CheckoutFactory', function ($http, $state, AuthService, Session, $localStorage) {
 
 	var submitTransactiontoDatabase = function(transaction){
 		//On Route
@@ -13,6 +13,12 @@ app.factory('checkoutFactory', function ($http, $state, AuthService, Session, $l
 			//ourTransId
 
 		return $http.post('/api/account/edit', transaction).then(function(response){
+			return response.data
+		})
+	}
+
+	var validateApi = function(apiKey){
+		return $http.post('/api/checkout/validate').then(function(response){
 			return response.data
 		})
 	}

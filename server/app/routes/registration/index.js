@@ -9,28 +9,11 @@ var Promise = require('bluebird');
 
 var UserModel = mongoose.model('User');
 
-var createTchoPayUserId = function (info) {
+var createNewHash = function (uniqueProperty) {
     var hash = crypto.createHash('sha1');
-    hash.update(info.email);
-    hash.update(Date.now().toString());
-    info.tchoPayId = "id_"+hash.digest('hex');
-    return info;
-};
-
-var createApiKey = function (info) {
-    var hash = crypto.createHash('sha1');
-    hash.update(info.tchoPayId);
-    hash.update(Date.now().toString());
-    info.apiKey = "pk_"+hash.digest('hex');
-    return info;
-};
-
-var createApiSecret = function (info) {
-    var hash = crypto.createHash('sha1');
-    hash.update(info.apiKey);
-    hash.update(Date.now().toString());
-    info.apiSecret = "sk_"+hash.digest('hex');
-    return info;
+    hash.update(crypto.randomBytes(256).toString());
+    hash.update(uniqueProperty.toString());
+    return hash.digest('hex');
 };
 
 router.post('/', function (req, res) {
@@ -40,16 +23,18 @@ router.post('/', function (req, res) {
 	// console.log("createTchoPayUserId function,",createTchoPayUserId)
 	// console.log("firing function,", createTchoPayUserId(info))
 	
-	createTchoPayUserId(info);
-	createApiKey(info);
-	createApiSecret(info);
 	
 	UserModel.create(info, function (err, user) {
-	  if (err) return handleError(err);
-	  // saved!
-	  console.log("user created in database!")
-	  res.send(user)
-	})
+		if (err) return next(err);
+		// saved!
+		user.tchoPayId = "id_"+createNewHash(user._id);
+		user.apiKey = "pk_"+createNewHash(user._id);
+		user.apiSecret = "sk_"+createNewHash(user._id);
+		user.webAppServerSecret = "wask_"+createNewHash(user._id);
+		user.save()
+		console.log("user created in database!")
+		res.send(user)
+	}, next)
 
 
 
