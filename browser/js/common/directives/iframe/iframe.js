@@ -6,22 +6,19 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
         templateUrl: 'js/common/directives/iframe/iframe.html',
         link: function (scope) {
 
-		    
 		    //Authenticate Domain
-		    if(angular.element(window.parent.window.location)[0]['origin']==="http://localhost:1338") scope.enterinfo = true;
-		    if(angular.element(window.parent.window.location)[0]['origin']!=="http://localhost:1338") scope.merchanterror = true;
+		    scope.iframe.webAppDomain = "http://localhost:1337"
+		    if(angular.element(window.parent.window.location)[0]['origin'] === scope.iframe.webAppDomain) scope.enterinfo = true;
+		    if(angular.element(window.parent.window.location)[0]['origin'] !== scope.iframe.webAppDomain) scope.merchanterror = true;
 		    
-		    //Hide and Show Elements.  All falsey values.
-		    scope.authorizingmerchant 
+		    //State Changes (ng-if) All falsey values.
+		    scope.authorizing
 		    scope.merchanterror
-		    scope.authorizingtchotcho
 		    scope.paymenterror
 		    scope.paymentprocessed
 
 			    //hide navbar
 			    angular.element(window.document['body']['childNodes'][1]).remove()
-
-
 
 		    //Controller accesses parent window and assigns button container 
 		    //data-attributes to scope variables
@@ -36,7 +33,6 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		    scope.iframe.buyerAccount
 		    scope.iframe.pin
 
-
 		    //Get buyer location
 		    navigator.geolocation.getCurrentPosition(function(geo){
 		        console.log(geo)
@@ -44,45 +40,26 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		        scope.iframe.timestamp = geo.timestamp;
 		    })    
 
-
-
 		    scope.someFunc = function(){
 		        //create a JSON object from this
 		        //send api call to backend, create and save a database object 
 		        //take API key and search database
 		        console.log("transaction object to be submitted to database",scope.iframe)
 		        
-
-		        //hide enterinfo show authorizing merchant
+		        //hide enterinfo show authorizing transaction
 	        	scope.enterinfo = false;
-	        	scope.authorizingmerchant = true;
+	        	scope.authorizing = true;
 
 	        	//Validate Web App Api Key and Secret
-	        	CheckoutFactory.validateApi(scope.iframe.apiKey).then(function (userDocument){
-
+	        	CheckoutFactory.submitTransaction(scope.iframe.apiKey, angular.element(window.parent.window.location)[0]['origin'])
+	        	.then(function (userDocument){
+					//TO DO
+					//change state 
+					//if payment success response, scope.paymentprocessed = true
+					//if payment error response, scope.paymenterror = true
+					//if merchant error response, scope.merchanterror = true
 	        	})
-	        	        
-		        //http call to back end
-		        CheckoutFactory.submitTransactiontoDatabase(scope.iframe).then(function (transaction){
-		        	//hide authorizing merchant
-		        	scope.authorizingmerchant = false
-		        	
-		        	//if call returns error show merchant error		        	
-		        	//scope.merchanterror = true
-
-		        	//if call returns success
-		        	//scope.authorizingtchotcho = true
-		        	//make HTTP call to tcho tcho
-			        	//
-			        	//scope.
-			        	//CheckoutFactory.submitTransactiontoTchoTcho(transact)
-
-
-		        })
 		    }
-
         }
-
     }
-
 })

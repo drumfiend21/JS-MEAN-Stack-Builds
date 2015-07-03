@@ -7,7 +7,7 @@ var createOurTransactionId = function (merchantId) {
     var hash = crypto.createHash('sha1');
     hash.update(merchantId);
     hash.update(Date.now().toString());
-    return hash.digest('hex');
+    return "ti_"+hash.digest('hex');
 };
 
 
@@ -45,5 +45,16 @@ var schema = new mongoose.Schema({
 });
 
 schema.statics.createOurTransactionId = createOurTransactionId;
+
+schema.pre('save', function (next) {
+
+    if (this.isModified('timestamp')) {
+        this.ourTransactionId = this.constructor.createOurTransactionId();  
+    }
+
+    next();
+
+});
+
 
 mongoose.model('Transaction', schema);
