@@ -259,7 +259,7 @@ router.post('/validate', function (req, res){
 				    timestamp: req.body.transactionObject.timestamp,
 				    //TO DO set these properties
 				    outcome: null,
-				    nullifyTransaction: false;
+				    nullifyTransaction: false,
 
 			}	
 
@@ -300,7 +300,7 @@ router.post('/validate', function (req, res){
 
 				//TO DO: reassign signifiers for these two errors
 				var lookupErrorObject = {
-					ourFault = false,
+					ourFault : false,
 					merchantError: true,
 					//this will need to be updated with the tchotcho api
 					paymentError: {
