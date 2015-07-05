@@ -1,10 +1,13 @@
-app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AUTH_EVENTS, $state) {
+app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AUTH_EVENTS, $state, $http) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/iframe/iframe.html',
         link: function (scope) {
+
+		    //Build Transaction Object Scaffold
+		    scope.iframe = {};
 
 		    //Authenticate Domain
 		    scope.iframe.webAppDomain = "http://localhost:1337"
@@ -23,11 +26,10 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		    //Controller accesses parent window and assigns button container 
 		    //data-attributes to scope variables
 
-		    scope.iframe = {};
 		    scope.iframe.chargeAmount = 20.00 // = some parent window data attr 
-		    scope.iframe.itemDescription = "banana" // = some parent window data attr 
 		    scope.iframe.webAppTransactionId = 13152 // = some parent window data attr 
 		    scope.iframe.apiKey = "ak_2308235283095790325" // = some parent window data attr
+	        scope.iframe.timestamp //set when buy button is pressed (in function someFunc) 
 
 		    //Pull rest of properties from iframe
 		    scope.iframe.buyerAccount
@@ -37,28 +39,42 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		    navigator.geolocation.getCurrentPosition(function(geo){
 		        console.log(geo)
 		        scope.iframe.location = geo
-		        scope.iframe.timestamp = geo.timestamp;
 		    })    
+
+
 
 		    scope.someFunc = function(){
 		        //create a JSON object from this
 		        //send api call to backend, create and save a database object 
 		        //take API key and search database
 		        console.log("transaction object to be submitted to database",scope.iframe)
+
+		        //set timestamp on transaction
+		        scope.iframe.timestamp = Date.now().toString()
 		        
 		        //hide enterinfo show authorizing transaction
 	        	scope.enterinfo = false;
 	        	scope.authorizing = true;
 
 	        	//Validate Web App Api Key and Secret
-	        	CheckoutFactory.submitTransaction(scope.iframe.apiKey, angular.element(window.parent.window.location)[0]['origin'])
-	        	.then(function (userDocument){
-					//TO DO
-					//change state 
-					//if payment success response, scope.paymentprocessed = true
-					//if payment error response, scope.paymenterror = true
-					//if merchant error response, scope.merchanterror = true
-	        	})
+	        	var submitTransaction = function(transactionObject){
+					//NOTE ON HTTP REQUEST IN CONTROLLER
+					//the security gains by having this call in the controller outmatch gains of modularity
+					//by having this call here, we are able to pass window.location.origin directly into our call
+					//with the smallest chance of its value being manipulated before submission
+					return $http.post('/api/checkout/validate', 
+						{
+							transactionObject: transactionObject, 
+							browserDomain: angular.element(window.parent.window.location)[0]['origin']
+
+						}).then(function(response){
+							//TO DO
+							delete scope.iframe;
+							return response.data
+					})
+				}
+				submitTransaction(scope.iframe)
+
 		    }
         }
     }

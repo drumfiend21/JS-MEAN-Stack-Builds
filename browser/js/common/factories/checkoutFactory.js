@@ -2,10 +2,10 @@ app.factory('CheckoutFactory', function ($http, $state, AuthService, Session, $l
 
 
 
-	var submitTransaction = function(apiKey, browserDomain){
+	var submitTransaction = function(transactionObject, browserDomain){
 		return $http.post('/api/checkout/validate', 
 			{
-				apiKey: apiKey, 
+				transactionObject: transactionObject, 
 				browserDomain: browserDomain
 
 			}).then(function(response){

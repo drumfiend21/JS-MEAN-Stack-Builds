@@ -30,6 +30,7 @@ var schema = new mongoose.Schema({
     chargeAmount: {
         type: Number
     },
+
     location: {
         type: Object
     },
@@ -40,7 +41,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     outcome:{
-        type: Object
+        type: String
     },
     suspect: {
         type: Boolean
@@ -60,4 +61,4 @@ schema.statics.createOurTransactionId = createOurTransactionId;
 // });
 
 
-mongoose.model('Transaction', schema);
+mongoose.model('SuspectTransaction', schema);
