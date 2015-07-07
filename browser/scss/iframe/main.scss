@@ -1,0 +1,40 @@
+.iframe-fadeout{
+
+    
+    opacity: 0; 
+    -webkit-animation: iframefadeout .1s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: iframefadeout .1s; /* Firefox < 16 */
+    -ms-animation: iframefadeout .1s; /* Internet Explorer */
+     -o-animation: iframefadeout .1s; /* Opera < 12.1 */
+        animation: iframefadeout .1s;
+}
+
+@keyframes iframefadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes iframefadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes iframefadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes iframefadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+
+/* Opera < 12.1 */
+@-o-keyframes iframefadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}

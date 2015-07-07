@@ -6,30 +6,52 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
         templateUrl: 'js/common/directives/iframe/iframe.html',
         link: function (scope) {
 
+        	//FOR TESTING: because of nested index.html
+        	$("#checkout-button").remove()
+
+        	console.log("the iframe directive link is running")
+
+       		//BUILDING THE TRANSACTION OBJECT (SEND TO TCHOPAY)
+
+			var apiPublicKey = document.getElementById("tchopay-script").getAttribute("data-key")
+			var amount = document.getElementById("tchopay-script").getAttribute("data-amount")
+			var transAuthId = document.getElementById("tchopay-script").getAttribute("data-transAuthId")
+			var timestamp = document.getElementById("tchopay-script").getAttribute("data-timestamp")
+
+
+			console.log(timestamp)
+			console.log(transAuthId)
+			console.log(amount)
+			console.log(apiPublicKey)
+
+//////////////////////////////////////////////////////////////
+		   
 		    //Build Transaction Object Scaffold
 		    scope.iframe = {};
 
 		    //Authenticate Domain
-		    scope.iframe.webAppDomain = "http://localhost:1337"
-		    if(angular.element(window.parent.window.location)[0]['origin'] === scope.iframe.webAppDomain) scope.enterinfo = true;
-		    if(angular.element(window.parent.window.location)[0]['origin'] !== scope.iframe.webAppDomain) scope.merchanterror = true;
+		    scope.enterinfo = true;
+		    // scope.iframe.webAppDomain = "http://localhost:1337"
+		    // if(angular.element(window.parent.window.location)[0]['origin'] === scope.iframe.webAppDomain) scope.enterinfo = true;
+		    // if(angular.element(window.parent.window.location)[0]['origin'] !== scope.iframe.webAppDomain) scope.merchanterror = true;
 		    
 		    //State Changes (ng-if) All falsey values.
-		    scope.authorizing
+		    scope.authorizing 
 		    scope.merchanterror
 		    scope.paymenterror
 		    scope.paymentprocessed
 
 			    //hide navbar
-			    angular.element(window.document['body']['childNodes'][1]).remove()
+			    // angular.element(window.document['body']['childNodes'][1]).remove()
 
 		    //Controller accesses parent window and assigns button container 
 		    //data-attributes to scope variables
 
-		    scope.iframe.chargeAmount = 20.00 // = some parent window data attr 
-		    scope.iframe.webAppTransactionId = 13152 // = some parent window data attr 
-		    scope.iframe.apiKey = "ak_2308235283095790325" // = some parent window data attr
-	        scope.iframe.timestamp //set when buy button is pressed (in function someFunc) 
+		    scope.iframe.chargeAmount = document.getElementById("tchopay-script").getAttribute("data-amount") // = some parent window data attr 
+		    scope.iframe.webAppTransactionId = document.getElementById("tchopay-script").getAttribute("data-transAuthId")// = some parent window data attr 
+		    scope.iframe.apiKey = document.getElementById("tchopay-script").getAttribute("data-key") // = some parent window data attr
+	        scope.iframe.timestamp = document.getElementById("tchopay-script").getAttribute("data-timestamp") //set when buy button is pressed (in function someFunc)
+	        // scope.iframe.sellerAccount =  
 
 		    //Pull rest of properties from iframe
 		    scope.iframe.buyerAccount
@@ -41,12 +63,25 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		        scope.iframe.location = geo
 		    })    
 
+		    console.log($(window.parent))
+		    
+
+
 		    scope.closeIframe = function(){
 
 		    	console.log("you just clicked the close button")
-		    	console.log(window.parent.window)
-
+		    	
+		    	// $(window.parent.window.document.all[45]).animate({top: "100%", opacity: 0}, 500, 'easeInOutBack')
+		    	$(window.parent.window.document.all[46]).animate({top: "100%", opacity: 0}, 500, 'easeInOutBack');
+		    	var close = function(){
+		    		$(window.parent.window.document.all[46]).remove()
+		    		//TO DO REMOVE BACKGROUND DIV
+		    		// $(window.parent.window.document.children[0].children[2].context).remove()
+		    	}
+		    	setTimeout(close, 900)
 		    }
+
+		    // .toggleClass("iframe-fadein iframe-fadeout")
 
 
 
@@ -56,15 +91,16 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		        //take API key and search database
 
 		        //set timestamp on transaction
-		        scope.iframe.timestamp = Date.now().toString()
+		        //OUTDATED with new transauth hash
+		        // scope.iframe.timestamp = Date.now().toString()
 		        
 		        //hide enterinfo show authorizing transaction
 	        	scope.enterinfo = false;
 	        	scope.authorizing = true;
 
-		        console.log("transaction object to be submitted to database",scope.iframe)
+		        console.log("transaction object to be submitted to database", scope.iframe)
 	        	
-	        	//Validate Web App Api Key and Secret
+	        	// Validate Web App Api Key and Secret
 	   //      	var submitTransaction = function(transactionObject){
 				// 	//NOTE ON HTTP REQUEST IN CONTROLLER
 				// 	//the security gains by having this call in the controller outmatch gains of modularity
