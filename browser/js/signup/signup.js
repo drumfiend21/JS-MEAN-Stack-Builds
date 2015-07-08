@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignUpCtrl', function ($scope, AuthService, $state) {
+app.controller('SignUpCtrl', function ($scope, AuthService, $state, $http) {
 
     console.log("you've hit the signupCtrl")
     $scope.error = null;
@@ -32,5 +32,11 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state) {
         });
 
     };
+
+    $http.get('/api/register/mock-hash').then(function(response){
+           
+            return response.data;
+    
+    })
 
 });

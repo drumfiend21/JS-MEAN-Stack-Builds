@@ -9,7 +9,53 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeController', function ($scope, AuthService, $state) {
 
-  
+
+
+
+
+
+//   //set hash
+//   var transactionHash = "th_9f574e73d80a2715912fd59caa32903058b01882"
+
+//   //BEFORE SERVING HTML
+//   //push the transactionHash into the page HTML being served, store it on 
+//   //the global variable, "transactionHashValue", supplied by us for your front end javascript.
+//   //Also, push the timestamp into the page HTML being served, store it on 
+//   //the global variable, "timestamp", supplied by us for your front end javascript
+//   //E.g. using swig
+// console.log("this script is running")
+// console.log($('#tchopay-script'))
+//   $("#tchopay-script").attr("data-transactionhashvalue", "th_9f574e73d80a2715912fd59caa32903058b01882")
+//   $("#tchopay-script").attr("data-transactiontimestamp", Date.now())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //with JQuery
    //      $("#checkout-button").on('click', function(){
 			// $('html').append('<link rel="stylesheet" href="iframe.css" type="text/css" />')

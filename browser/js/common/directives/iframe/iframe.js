@@ -15,14 +15,20 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 
 			var apiPublicKey = document.getElementById("tchopay-script").getAttribute("data-key")
 			var amount = document.getElementById("tchopay-script").getAttribute("data-amount")
-			var transAuthId = document.getElementById("tchopay-script").getAttribute("data-transAuthId")
-			var timestamp = document.getElementById("tchopay-script").getAttribute("data-timestamp")
+			var timestamped = document.getElementById("tchopay-script").getAttribute("data-timestamp")
+			var transactionHash = document.getElementById("tchopay-script").getAttribute("data-transactionhashvalue")
 
 
-			console.log(timestamp)
-			console.log(transAuthId)
+			//checkoutComplete function to call on transaction outcome
+			window.parent.checkoutComplete
+
+			// console.log(timestamp)
+			// console.log(transAuthId)
+			console.log(document.getElementById("tchopay-script"))
 			console.log(amount)
 			console.log(apiPublicKey)
+			console.log(timestamped)
+			console.log(transactionHash)
 
 //////////////////////////////////////////////////////////////
 		   

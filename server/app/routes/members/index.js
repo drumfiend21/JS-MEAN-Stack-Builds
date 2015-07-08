@@ -1,7 +1,12 @@
 'use strict';
 var router = require('express').Router();
+var crypto = require('crypto');
+var mongoose = require('mongoose');
 module.exports = router;
 var _ = require('lodash');
+var body = require('body-parser');
+var Promise = require('bluebird');
+
 
 var ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -10,6 +15,7 @@ var ensureAuthenticated = function (req, res, next) {
         res.status(401).end();
     }
 };
+
 
 router.get('/secret-stash', ensureAuthenticated, function (req, res) {
 

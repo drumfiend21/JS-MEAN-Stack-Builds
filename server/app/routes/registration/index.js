@@ -16,6 +16,33 @@ var createNewHash = function (uniqueProperty) {
     return hash.digest('hex');
 };
 
+// router.get('/mock-hash', function (req, res) {
+	
+// 	var apiSecret = 'sk_1b2fdf74f0921837adc6d83e894f4999dde056cb'
+
+// 	//1.  EVERYTHING BELOW IS WITHIN YOUR ROUTE THAT SERVES THE PAGE CONTAINING THE CHECKOUT BUTTON
+
+
+//     //generate timestamp (nonce value for hash)
+//     var timestamp = Date.now()
+
+
+//     var createTransactionHash = function (secret, timestamp) {
+//        var hash = crypto.createHash('sha1');
+//        hash.update(timestamp.toString());
+//        hash.update(secret.toString());
+//        return "th_"+hash.digest('hex');
+//     };
+    
+//     //generate hash
+// 	console.log("OUR MOCK HASH", createTransactionHash(apiSecret,timestamp))
+
+
+
+
+// })
+
+
 router.post('/', function (req, res) {
 	var info = req.body.signupInfo
 	console.log("you're in the sign up post route")
@@ -34,7 +61,7 @@ router.post('/', function (req, res) {
 		user.save()
 		console.log("user created in database!")
 		res.send(user)
-	}, next)
+	})
 
 
 
