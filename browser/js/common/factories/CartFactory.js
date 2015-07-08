@@ -30,5 +30,6 @@ app.factory('CartFactory', function ($rootScope){
     clearAllinCart: function () {
       localStorage.clear();
     }
+
   };
 });
