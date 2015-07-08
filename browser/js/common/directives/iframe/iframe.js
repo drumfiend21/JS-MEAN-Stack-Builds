@@ -6,31 +6,94 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
         templateUrl: 'js/common/directives/iframe/iframe.html',
         link: function (scope) {
 
+        	console.log("prelistener")
+
+
+        	
+        	//communication between web app and iframe
+        	function receiveMessage(event)
+			{
+
+				console.log("IFRAME COMMUNICATION LIVE", event)
+
+
+				//Controller accesses parent window and assigns button container 
+			    //data-attributes to scope variables
+			    scope.iframe.chargeAmount = event.data.chargeAmount
+			    scope.iframe.transactionHashValue= event.data.transactionHashValue
+			    scope.iframe.apiKey = event.data.apiKey
+		        scope.iframe.timestamp = event.data.timestamp
+		    
+
+
+
+
+				var parentWindow = window.parent;
+
+		  		parentWindow.postMessage("RESPONSE CONTACT FROM IFRAME BACK TO WEBAPP", event.origin);
+
+
+				// var origin = {
+				// 	incumbentDomain: event.origin
+				// }
+			 //  // Do we trust the sender of this message?  (might be
+			 //  // different from what we originally opened, for example).
+				// $http.post("api/checkout/comm-eval", origin).then(function (response){
+
+				//   console.log("incumbent eval response:", response)
+				  
+				//   if(response.data === true){
+				//   // event.source is popup
+				//   // event.data is "hi there yourself!  the secret response is: rheeeeet!"
+				//   		console.log("tchopay evaluated incumbent as true")
+
+				//   		var parentWindow = window.parent;
+
+				//   		parentWindow.postMessage("RESPONSE CONTACT FROM IFRAME BACK TO WEBAPP", 'http://localhost:1338/');
+				//   		// console.log(event.data)
+
+				//   }else{
+				  		
+				//   }
+
+
+				// })
+			}
+			window.addEventListener("message", receiveMessage, false);
+
+
+
+
         	//FOR TESTING: because of nested index.html
         	$("#checkout-button").remove()
 
+
         	console.log("the iframe directive link is running")
 
-       		//BUILDING THE TRANSACTION OBJECT (SEND TO TCHOPAY)
+   //     		//BUILDING THE TRANSACTION OBJECT (SEND TO TCHOPAY)
 
-			var apiPublicKey = document.getElementById("tchopay-script").getAttribute("data-key")
-			var amount = document.getElementById("tchopay-script").getAttribute("data-amount")
-			var timestamped = document.getElementById("tchopay-script").getAttribute("data-timestamp")
-			var transactionHash = document.getElementById("tchopay-script").getAttribute("data-transactionhashvalue")
+			// var apiPublicKey = document.getElementById("tchopay-script").getAttribute("data-key")
+			// var amount = document.getElementById("tchopay-script").getAttribute("data-amount")
+			// var timestamped = document.getElementById("tchopay-script").getAttribute("data-timestamp")
+			// var transactionHash = document.getElementById("tchopay-script").getAttribute("data-transactionhashvalue")
 
 
 			//checkoutComplete function to call on transaction outcome
-			window.parent.checkoutComplete
+			// window.parent.checkoutComplete
 
 			// console.log(timestamp)
 			// console.log(transAuthId)
-			console.log(document.getElementById("tchopay-script"))
-			console.log(amount)
-			console.log(apiPublicKey)
-			console.log(timestamped)
-			console.log(transactionHash)
+			
+	
 
-//////////////////////////////////////////////////////////////
+			// console.log(document.getElementById("tchopay-script"))
+			// console.log(amount)
+			// console.log(apiPublicKey)
+			// console.log(timestamped)
+			// console.log(transactionHash)
+
+		
+
 		   
 		    //Build Transaction Object Scaffold
 		    scope.iframe = {};
@@ -50,14 +113,11 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 			    //hide navbar
 			    // angular.element(window.document['body']['childNodes'][1]).remove()
 
-		    //Controller accesses parent window and assigns button container 
-		    //data-attributes to scope variables
+		    
 
-		    scope.iframe.chargeAmount = document.getElementById("tchopay-script").getAttribute("data-amount") // = some parent window data attr 
-		    scope.iframe.webAppTransactionId = document.getElementById("tchopay-script").getAttribute("data-transAuthId")// = some parent window data attr 
-		    scope.iframe.apiKey = document.getElementById("tchopay-script").getAttribute("data-key") // = some parent window data attr
-	        scope.iframe.timestamp = document.getElementById("tchopay-script").getAttribute("data-timestamp") //set when buy button is pressed (in function someFunc)
-	        // scope.iframe.sellerAccount =  
+	        // console.log("iframe object", scope.iframe)
+
+
 
 		    //Pull rest of properties from iframe
 		    scope.iframe.buyerAccount
@@ -69,23 +129,23 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		        scope.iframe.location = geo
 		    })    
 
-		    console.log($(window.parent))
+		    // console.log($(window.parent))
 		    
 
 
-		    scope.closeIframe = function(){
+		    // scope.closeIframe = function(){
 
-		    	console.log("you just clicked the close button")
+		    // 	console.log("you just clicked the close button")
 		    	
-		    	// $(window.parent.window.document.all[45]).animate({top: "100%", opacity: 0}, 500, 'easeInOutBack')
-		    	$(window.parent.window.document.all[46]).animate({top: "100%", opacity: 0}, 500, 'easeInOutBack');
-		    	var close = function(){
-		    		$(window.parent.window.document.all[46]).remove()
-		    		//TO DO REMOVE BACKGROUND DIV
-		    		// $(window.parent.window.document.children[0].children[2].context).remove()
-		    	}
-		    	setTimeout(close, 900)
-		    }
+		    // 	// $(window.parent.window.document.all[45]).animate({top: "100%", opacity: 0}, 500, 'easeInOutBack')
+		    // 	$(window.parent.window.document.all[46]).animate({top: "100%", opacity: 0}, 500, 'easeInOutBack');
+		    // 	var close = function(){
+		    // 		$(window.parent.window.document.all[46]).remove()
+		    // 		//TO DO REMOVE BACKGROUND DIV
+		    // 		// $(window.parent.window.document.children[0].children[2].context).remove()
+		    // 	}
+		    // 	setTimeout(close, 900)
+		    // }
 
 		    // .toggleClass("iframe-fadein iframe-fadeout")
 

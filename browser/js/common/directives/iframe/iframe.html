@@ -1,4 +1,4 @@
-<button ng-if="enterinfo" ng-click="closeIframe()" type="button" class="iframe-fadein" id="close-button" style="">x<button>
+<!-- <button ng-if="enterinfo" ng-click="closeIframe()" type="button" class="iframe-fadein" id="close-button" style="">x<button> -->
 
 
 <!-- Authorizing iFRAME -->
@@ -6,13 +6,13 @@
 	ng-if="authorizing"
 	class="form-group" 
 	ng-class="form-control">
-	<o>Authorizing Transaction</p>
+	<p>Authorizing Transaction</p>
 	<p><img src="/images/circular-spinner.gif" alt="loading-spinner" height="100" width="100"></p>
 </div>
 
 <!-- ENTER INFO -->
 <div 
-	ng-if="enterinfo"
+
 	class="form-group" 
 	ng-class="form-control">
     <label for="description">Account Number:</label>
@@ -27,7 +27,7 @@
 
 
 	<div 
-		ng-if="enterinfo"
+
 		class="form-group" 
 		ng-class="form-control">
 	    <label for="description">PIN:</label>
@@ -47,7 +47,6 @@
 
 	<button 
 		ng-click="someFunc()"
-		ng-if="enterinfo"
 		type="submit" 
 		class="btn btn-default" >BUY
 	</button>

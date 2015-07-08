@@ -12,6 +12,27 @@ var UserModel = mongoose.model('User');
 var TransactionModel = mongoose.model('Transaction');
 var SuspectTransactionModel = mongoose.model('SuspectTransaction');
 
+router.post('/comm-eval', function (req, res){
+
+	var incumbentDomain = req.body.incumbentDomain
+
+	UserModel.findOne({webAppDomain : incumbentDomain}).exec().then(function (account) {
+		if(account){
+	  		console.log("tchopay evaluated incumbent as true")
+
+			return true
+		}
+		else{
+			return false
+		}
+	})
+		
+
+})
+
+
+
+
 router.post('/validate', function (req, res){
 	//REQ.BODY.transactionObject
 	// >Buyer Account*
