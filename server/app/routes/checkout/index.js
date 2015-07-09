@@ -27,7 +27,7 @@ var recreateTransactionHash = function(secret, timestamp){
   return "ti_"+hash.digest('hex');
 }
 
-
+//TO DO.  Sanitize any data being sent on req.body before being queried in our database
 
 router.post('/comm-eval', function (req, res){
 
@@ -171,7 +171,9 @@ router.post('/validate', function (req, res){
 						
 						var outcomeHashObject = {
 							key: objectToTchoTcho.outcome,
-							hashed: transactionDocumentInDatabase.outcomeHash
+							hashed: transactionDocumentInDatabase.outcomeHash,
+							timestamp: transactionDocumentInDatabase.timestamp,
+							confirmed: false
 						}
 						
 						console.log("TCHO TCHO TRANSACTION OUTCOME: ", outcomeHashObject);
@@ -335,3 +337,47 @@ router.post('/validate', function (req, res){
 
 	}
 });
+
+
+
+
+router.post('/confirm-transaction', function (req, res){
+
+	var confirmTransactionOutcomeObject = req.body
+
+	//Sanitize value being searched
+
+	console.log("1. In confirm receipt route")
+
+	TransactionModel.findOne({timestamp : req.body.timestamp}).exec().then(function (transaction) {
+		if(transaction){
+
+			console.log("2. found transaction to confirm receipt: ", transaction)
+
+			UserModel.findOne({user : transaction.user }).exec().then(function (account) {
+
+				console.log("3. found user account for transaction to rehash: ", account)
+
+				var recreatedHash = recreateTransactionHash(account.apiSecret, req.body.timestamp)
+
+				console.log("4. evaluate hash to authenticate confirmation: ", recreatedHash === req.body.hashed)
+
+				//Authenticated by Hash Cryptography (Hash Recreation and Comparison)
+				if(recreatedHash === req.body.hashed){
+
+					console.log("5. setting confirmed true and sending req.body: ", req.body)  			
+
+			  		req.body.confirmed = true
+
+			  		res.send(req.body);
+			  	}
+		  	})
+
+		}
+		else{
+
+		}
+	})
+		
+
+})
