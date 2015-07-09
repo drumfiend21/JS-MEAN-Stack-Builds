@@ -60,59 +60,69 @@ router.post('/confirm', isAuthenticatedUser, function (req, res, next){
 
 	//intakes transactionOutcomeObject on req.body
     var transactionOutcomeObject = req.body
-    console.log("you hit the MOCK APP confirm route",req.body)
+    console.log("1. you hit the MOCK APP SERVER final confirm route with tchotcho outcome object: ",req.body)
 
-    // //Authenticate that outcome object is coming from TchoPay
-    // var createConfirmOutcomeHash = function (secret, timestamp, outcomeKey) {
-    //    var hash = crypto.createHash('sha2');
-    //    hash.update(timestamp.toString());
-    //    hash.update(secret.toString());
-    //    hash.update(outcomeKey.toString());
-    //    return "oh_"+hash.digest('hex');
-    // };
+    //Authenticate that outcome object is coming from TchoPay
+    var createConfirmOutcomeHash = function (secret, timestamp, outcomeKey) {
+       var hash = crypto.createHash('sha2');
+       hash.update(timestamp.toString());
+       hash.update(secret.toString());
+       hash.update(outcomeKey.toString());
+       return "oh_"+hash.digest('hex');
+    };
 
-    //   //Store confirmation outcome hash
-    //   var confirmOutcomeHash = createConfirmOutcomeHash(apiSecret, req.body.transactionTimeStamp, req.body.outcomeKey)
+      //Store confirmation outcome hash
+      var confirmOutcomeHash = createConfirmOutcomeHash(apiSecret, req.body.timestamp, req.body.key)
 
-    //   //Compare confirmation outcome to incumbent outcome received 
-    //   if(confirmOutcomeHash === req.body.outcomeHashedValue){
-    //     //this outcome incumbent is authenticated as sourced from TchoPay
-    //     request.post({url:'https://tchopay.com/confirm-transaction', 
-    //         formData: transactionOutcomeObject
-    //       }, function optionalCallback(err, httpResponse, body) {
+
+      console.log("2. Authenticating hash comparison: ", confirmOutcomeHash === req.body.hashed)
+      //Compare confirmation outcome to incumbent outcome received 
+      if(confirmOutcomeHash === req.body.hashed){
+
+      	console.log("3. posting receipt for confirmation: ", transactionOutcomeObject)
+
+        //this outcome incumbent is authenticated as sourced from TchoPay
+        request.post({url:'https://192.168.1.139:1337/checkout/confirm-transaction', 
+            formData: transactionOutcomeObject
+          }, function optionalCallback(err, httpResponse, body) {
+
+          	console.log("4. Received confirmation back from Tchopay.  Complete. ", body)
+
+
           
-    //       //error handling if no confirmation response from TchoPay server
-    //       if(err){
-    //         return console.log('your transaction may have been processed, but we didnt get a confirmation from TchoPay; please contact them', err)
-    //       }
+          // //error handling if no confirmation response from TchoPay server
+          // if(err){
+          //   return console.log('your transaction may have been processed, but we didnt get a confirmation from TchoPay; please contact them', err)
+          // }
 
-    //       //expect response containing same transactionOutcomeObject
-    //       //with 'confirmed' property set to 'true'
-    //       var transactionReceipt = body;
+          // //expect response containing same transactionOutcomeObject
+          // //with 'confirmed' property set to 'true'
+          // var transactionReceipt = body;
 
-    //       //Check that TchoPay has authenticated the transaction receipt 
-    //       //by changing the 'confirmed' property to true
-    //       if(transactionReceipt.confirmed === true){
-    //         //At this point the transaction is fully authorized and TchoPay completes communication
-    //         //for this transaction.
+          // //Check that TchoPay has authenticated the transaction receipt 
+          // //by changing the 'confirmed' property to true
+          // if(transactionReceipt.confirmed === true){
+          //   //At this point the transaction is fully authorized and TchoPay completes communication
+          //   //for this transaction.
 
-    //         //Web app developer can store this transaction receipt in their database now.
-    //         //e.g.
-    //         // Model.create(transactionReceipt).exec().then(function (user) {
-    //           res.send(0);
-    //         // });
+          //   //Web app developer can store this transaction receipt in their database now.
+          //   //e.g.
+          //   // Model.create(transactionReceipt).exec().then(function (user) {
+          //     res.send(0);
+          //   // });
             
-    //       }else{
-    //         //if due to communication error TchoPay did not authenticate the receipt
-    //         //send false to your front end i
-    //         res.send(1)
-    //       }
-    //     })
-    //   }else{
-    //     //the incumbent outcome object did not authenticate as coming from TchoPay
-    //     //choose your recourse
-    //     res.send(2)
-    //   }
+          // }else{
+          //   //if due to communication error TchoPay did not authenticate the receipt
+          //   //send false to your front end i
+          //   res.send(1)
+          // }
+        })
+      }else{
+        //the incumbent outcome object did not authenticate as coming from TchoPay
+        //choose your recourse
+        // res.send(2)
+        console.log("Hash did not evaluate")
+      }
 
 	
 }); 
