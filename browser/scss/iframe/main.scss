@@ -9,6 +9,83 @@
         animation: iframefadeout .1s;
 }
 
+#haiti-button{
+
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+
+}
+
+
+
+#enter-info-color-top{
+
+    
+    background-color: #E3E3E3;
+    height: 100px;
+    width: 100%;
+}
+
+#authorizing{
+
+    margin-top: 90px;
+
+    #authorizing-spinner{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+    }
+    h5{
+        text-align: center;
+        font-family: 'Oxygen', sans-serif;
+        margin-bottom: 10px;
+    }
+    
+}
+
+
+#enter-info-color-bottom{
+    
+    border-top-style: solid;
+    border-top-width: thin;
+    border-top-color: white;
+
+
+    button {
+        background: #220b99;
+        width: 150px;
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: -100px;
+        color: white;
+        
+    }
+
+    .btn:focus {
+      background-color: red;
+    }
+
+    background-color: #F0F0F0;
+    padding: 30px;
+    height: 396px;
+}
+
+
+// button:hover{
+//     color: #DE0030;
+// }
+
+p{
+    font-size: 10px;
+    font-family: 'Oxygen', sans-serif;
+}
+
+h1, h2, h3, label{
+    font-family: 'Oxygen', sans-serif;
+}
+
 @keyframes iframefadeout {
     from { opacity: 1; }
     to   { opacity: 0; }

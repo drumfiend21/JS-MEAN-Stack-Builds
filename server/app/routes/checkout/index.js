@@ -35,6 +35,8 @@ router.post('/comm-eval', function (req, res){
 
 router.post('/validate', function (req, res){
 	//REQ.BODY.transactionObject
+	
+	//OLD MODEL
 	// >Buyer Account*
 	// >Pin*
 	// >Location*
@@ -43,6 +45,15 @@ router.post('/validate', function (req, res){
 	// >WebAppTransId
 	// >Timestamp
 	// >ApiKey
+
+	//NEW MODEL
+	// >buyerAccount*
+	// >pin*
+	// >location*
+	// >chargeAmount
+	// >timestamp
+	// >apiKey
+	// >transactionHashValue
 	
 	//REQ.BODY.browserDomain
 	// >webAppDomain

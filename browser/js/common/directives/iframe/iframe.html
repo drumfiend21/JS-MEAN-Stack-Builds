@@ -1,56 +1,63 @@
-<!-- <button ng-if="enterinfo" ng-click="closeIframe()" type="button" class="iframe-fadein" id="close-button" style="">x<button> -->
-
-
-<!-- Authorizing iFRAME -->
-<div 
-	ng-if="authorizing"
-	class="form-group" 
-	ng-class="form-control">
-	<p>Authorizing Transaction</p>
-	<p><img src="/images/circular-spinner.gif" alt="loading-spinner" height="100" width="100"></p>
-</div>
 
 <!-- ENTER INFO -->
-<div 
-
-	class="form-group" 
-	ng-class="form-control">
-    <label for="description">Account Number:</label>
-    <input 
-    	type="text" 
-    	name="buyerAccount" 
-    	ng-model="iframe.buyerAccount" 
-    	class="form-control" 
-    	id="description" 
-    	placeholder="509 1111 1111"  
-    	required>
-
+<div id="enter-info-color-top">
+	<img id='haiti-button' src='/images/haiti_640.png' alt='' height='100' width='120'>
+</div>
+<div id="enter-info-color-bottom">
+	
+	<!-- Authorizing iFRAME -->
+	<div 
+		ng-if="authorizing"
+		class="form-group" 
+		id="authorizing"
+		ng-class="form-control">
+		<h5>Authorizing Transaction...</h5>
+		<img src="/images/circular-spinner.gif" id="authorizing-spinner" height="100" width="100">
+	</div>
 
 	<div 
 
 		class="form-group" 
-		ng-class="form-control">
-	    <label for="description">PIN:</label>
+		ng-class="form-control" ng-if="enterinfo">
+	    <label for="description">Account Number:</label>
 	    <input 
 	    	type="text" 
-	    	name="pinnumber" 
-	    	ng-model="iframe.pin" 
-	    	class="form-control" 
+	    	name="buyerAccount" 
+
+	    	ng-model="iframe.buyerAccount" 
+	    	class="form-control focusedInput" 
 	    	id="description" 
-	    	placeholder="123456" 
+	    	placeholder="509 1111 1111"  
 	    	required>
+
+
+		<div 
+
+			class="form-group" 
+			ng-class="form-control">
+		    <label for="description">PIN:</label>
+		    <input 
+		    	type="text" 
+		    	name="pinnumber" 
+		    	ng-model="iframe.pin" 
+		    	class="form-control focusedInput" 
+		    	id="description" 
+		    	placeholder="1234" 
+		    	required>
+		</div>
+
+		<p>
+			This transaction will be non-refundable. Only click "buy" if you trust this merchant. If the transaction is processed we will send you a receipt via text message.
+		</p>
+
+		<button 
+			ng-click="someFunc()"
+			type="submit" 
+			 class="btn" >Pay HTG {{iframe.chargeAmount}}
+		</button>
+
+
 	</div>
-
-	<p>
-		You will be charged {{iframe.chargeAmount}} from {{merchantId}}. This transaction will be non-refundable. Only click "buy" if you trust this merchant. If the transaction is processed we will send you a receipt via text message.
-	</p>
-
-	<button 
-		ng-click="someFunc()"
-		type="submit" 
-		class="btn btn-default" >BUY
-	</button>
-
 </div>
 
 <!-- AUTHORIZING MERCHANT -->

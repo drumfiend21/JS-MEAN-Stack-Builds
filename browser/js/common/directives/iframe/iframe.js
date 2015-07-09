@@ -6,7 +6,12 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
         templateUrl: 'js/common/directives/iframe/iframe.html',
         link: function (scope) {
 
+        	//Authenticate Domain
+		    scope.enterinfo = true;
+
         	console.log("prelistener")
+
+        	var commDomain 
 
 
         	
@@ -16,6 +21,8 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 
 				console.log("IFRAME COMMUNICATION LIVE", event)
 
+				commDomain = event.origin
+
 
 				//Controller accesses parent window and assigns button container 
 			    //data-attributes to scope variables
@@ -23,14 +30,14 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 			    scope.iframe.transactionHashValue= event.data.transactionHashValue
 			    scope.iframe.apiKey = event.data.apiKey
 		        scope.iframe.timestamp = event.data.timestamp
+		        scope.$apply();
+
 		    
 
 
 
 
-				var parentWindow = window.parent;
-
-		  		parentWindow.postMessage("RESPONSE CONTACT FROM IFRAME BACK TO WEBAPP", event.origin);
+				
 
 
 				// var origin = {
@@ -42,14 +49,14 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 
 				//   console.log("incumbent eval response:", response)
 				  
-				//   if(response.data === true){
+				  // if(response.data === true){
 				//   // event.source is popup
 				//   // event.data is "hi there yourself!  the secret response is: rheeeeet!"
 				//   		console.log("tchopay evaluated incumbent as true")
 
-				//   		var parentWindow = window.parent;
+				  		// var parentWindow = window.parent;
 
-				//   		parentWindow.postMessage("RESPONSE CONTACT FROM IFRAME BACK TO WEBAPP", 'http://localhost:1338/');
+				  		// parentWindow.postMessage("RESPONSE CONTACT FROM IFRAME BACK TO WEBAPP", 'http://localhost:1338/');
 				//   		// console.log(event.data)
 
 				//   }else{
@@ -98,8 +105,7 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 		    //Build Transaction Object Scaffold
 		    scope.iframe = {};
 
-		    //Authenticate Domain
-		    scope.enterinfo = true;
+		    
 		    // scope.iframe.webAppDomain = "http://localhost:1337"
 		    // if(angular.element(window.parent.window.location)[0]['origin'] === scope.iframe.webAppDomain) scope.enterinfo = true;
 		    // if(angular.element(window.parent.window.location)[0]['origin'] !== scope.iframe.webAppDomain) scope.merchanterror = true;
@@ -165,25 +171,31 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 	        	scope.authorizing = true;
 
 		        console.log("transaction object to be submitted to database", scope.iframe)
-	        	
-	        	// Validate Web App Api Key and Secret
-	   //      	var submitTransaction = function(transactionObject){
-				// 	//NOTE ON HTTP REQUEST IN CONTROLLER
-				// 	//the security gains by having this call in the controller outmatch gains of modularity
-				// 	//by having this call here, we are able to pass window.location.origin directly into our call
-				// 	//with the smallest chance of its value being manipulated before submission
-				// 	return $http.post('/api/checkout/validate', 
-				// 		{
-				// 			transactionObject: transactionObject, 
-				// 			browserDomain: angular.element(window.parent.window.location)[0]['origin']
 
-				// 		}).then(function(response){
-				// 			//TO DO
-				// 			delete scope.iframe;
-				// 			return response.data
-				// 	})
-				// }
-				// submitTransaction(scope.iframe)
+		        //once outcome returns from back end, we communicate to merchant app
+
+		        var parentWindow = window.parent;
+
+		  		parentWindow.postMessage("TRANSACTION OUTCOME FROM IFRAME", commDomain);
+	        	
+	        	Validate Web App Api Key and Secret
+	        	var submitTransaction = function(transactionObject){
+					//NOTE ON HTTP REQUEST IN CONTROLLER
+					//the security gains by having this call in the controller outmatch gains of modularity
+					//by having this call here, we are able to pass window.location.origin directly into our call
+					//with the smallest chance of its value being manipulated before submission
+					return $http.post('/api/checkout/validate', 
+						{
+							transactionObject: transactionObject, 
+							browserDomain: commDomain
+
+						}).then(function(response){
+							//TO DO
+							delete scope.iframe;
+							return response.data
+					})
+				}
+				submitTransaction(scope.iframe)
 
 		    }
         }
