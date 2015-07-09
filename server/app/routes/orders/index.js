@@ -12,7 +12,7 @@ var request = require('request');
 
 module.exports = router;
 
-var apiSecret = "sk_1b2fdf74f0921837adc6d83e894f4999dde056cb";
+var apiSecret = "sk_9b9ea3790c6bdbbe36d7a4ac7ad8501ddadaa7de";
 
 function hasAdminPower(req, res, next){
 	if(req.user.admin) next();	
