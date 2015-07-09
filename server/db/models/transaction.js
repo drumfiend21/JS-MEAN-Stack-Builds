@@ -12,19 +12,14 @@ var createOurTransactionId = function (uniqueProperty) {
 
 
 var schema = new mongoose.Schema({
-    webAppTransactionId: {
-        type: String
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     buyerAccount: {
         type: String
     },
     sellerAccount: {
-        type: String
-    },
-    merchantId: {
-        type: String
-    },
-    tchoPayId: {
         type: String
     },
     chargeAmount: {
@@ -36,11 +31,14 @@ var schema = new mongoose.Schema({
     timestamp:{
         type: Number
     },
-    ourTransactionId:{
-        type: String
-    },
     outcome:{
         type: Object
+    },
+    outcomeHash: {
+        type: String
+    },
+    vendorConfirmed:{
+        type: Boolean
     },
     suspect: {
         type: Boolean

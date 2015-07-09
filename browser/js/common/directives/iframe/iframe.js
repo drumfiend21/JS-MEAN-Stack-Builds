@@ -178,7 +178,7 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 
 		  		parentWindow.postMessage("TRANSACTION OUTCOME FROM IFRAME", commDomain);
 	        	
-	        	Validate Web App Api Key and Secret
+	        	// Validate Web App Api Key and Secret
 	        	var submitTransaction = function(transactionObject){
 					//NOTE ON HTTP REQUEST IN CONTROLLER
 					//the security gains by having this call in the controller outmatch gains of modularity
@@ -191,6 +191,11 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
 
 						}).then(function(response){
 							//TO DO
+
+							console.log("tchopay iframe received outcome object from tchopay back end: ", response.data)
+
+							parentWindow.postMessage(response.data, commDomain);
+
 							delete scope.iframe;
 							return response.data
 					})
