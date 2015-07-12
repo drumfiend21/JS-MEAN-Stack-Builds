@@ -347,7 +347,7 @@ router.post('/confirm-transaction', function (req, res){
 
 	//Sanitize value being searched
 
-	console.log("1. In confirm receipt route")
+	console.log("1. In confirm receipt route: ", req.body)
 
 	TransactionModel.findOne({timestamp : req.body.timestamp}).exec().then(function (transaction) {
 		if(transaction){
