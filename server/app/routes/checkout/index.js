@@ -366,7 +366,10 @@ router.post('/confirm-transaction', function (req, res){
 				if(recreatedHash === req.body.hashed){
 
 			  		req.body.confirmed = true
-			  		
+
+			  		transaction.vendorConfirmed = true;
+			  		transaction.save()
+
 					console.log("5. setting confirmed true and sending req.body: ", req.body)  			
 
 
