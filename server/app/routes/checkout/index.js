@@ -354,20 +354,21 @@ router.post('/confirm-transaction', function (req, res){
 
 			console.log("2. found transaction to confirm receipt: ", transaction)
 
-			UserModel.findOne({user : transaction.user }).exec().then(function (account) {
+			UserModel.findOne({ _id : transaction.user }).exec().then(function (account) {
 
 				console.log("3. found user account for transaction to rehash: ", account)
 
-				var recreatedHash = recreateTransactionHash(account.apiSecret, req.body.timestamp)
+				var recreatedHash = createOutcomeHash(req.body.key, account.apiSecret, req.body.timestamp)
 
 				console.log("4. evaluate hash to authenticate confirmation: ", recreatedHash === req.body.hashed)
 
 				//Authenticated by Hash Cryptography (Hash Recreation and Comparison)
 				if(recreatedHash === req.body.hashed){
 
+			  		req.body.confirmed = true
+			  		
 					console.log("5. setting confirmed true and sending req.body: ", req.body)  			
 
-			  		req.body.confirmed = true
 
 			  		res.send(req.body);
 			  	}
