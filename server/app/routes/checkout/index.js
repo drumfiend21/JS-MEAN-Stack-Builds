@@ -94,7 +94,7 @@ router.post('/validate', function (req, res){
 
 
 	UserModel.findOne({apiKey : req.body.transactionObject.apiKey }).exec().then(function (account) {
-		console.log("get account outcome,", account)
+		// console.log("get account outcome,", account)
 
 		//Authenticate Browser Domain
 		// console.log("browser auth: ", req.body.browserDomain === account.webAppDomain);
@@ -122,7 +122,7 @@ router.post('/validate', function (req, res){
 				    suspect: false
 				}
 
-				console.log("transaction document to create: ",transactionDocument)
+				// console.log("transaction document to create: ",transactionDocument)
 
 				TransactionModel.create(transactionDocument, function (err, transactionDocumentInDatabase) {
 					//TO DO write sanitation.  This will prevent an error from ever happening on document save.
@@ -145,14 +145,14 @@ router.post('/validate', function (req, res){
 
 					}
 
-					console.log("TRANSACTION OBJECT TO BE SENT TO TCHOTCHO:", objectToTchoTcho)
+					// console.log("TRANSACTION OBJECT TO BE SENT TO BANK:", objectToTchoTcho)
 
 					//CALL TCHOTCHO 
 
 					//(imagine call to tcho tcho has happened)
 
 					var tchoTchoProcessing = function (){
-						console.log("TCHO TCHO PROCESSING TRANSACTION.....")
+						console.log("INITIATING TRANSACTION WITH BANK .....")
 					}
 
 					setTimeout(tchoTchoProcessing, 2000);
@@ -176,7 +176,7 @@ router.post('/validate', function (req, res){
 							confirmed: false
 						}
 						
-						console.log("TCHO TCHO TRANSACTION OUTCOME: ", outcomeHashObject);
+						console.log("TRANSACTION OUTCOME FROM BANK: ", outcomeHashObject);
 						//complete route (Success)
 						res.send(outcomeHashObject)
 					}
@@ -347,20 +347,20 @@ router.post('/confirm-transaction', function (req, res){
 
 	//Sanitize value being searched
 
-	console.log("1. In confirm receipt route: ", req.body)
+	// console.log("1. In confirm receipt route: ", req.body)
 
 	TransactionModel.findOne({timestamp : req.body.timestamp}).exec().then(function (transaction) {
 		if(transaction){
 
-			console.log("2. found transaction to confirm receipt: ", transaction)
+			// console.log("2. found transaction to confirm receipt: ", transaction)
 
 			UserModel.findOne({ _id : transaction.user }).exec().then(function (account) {
 
-				console.log("3. found user account for transaction to rehash: ", account)
+				// console.log("3. found user account for transaction to rehash: ", account)
 
 				var recreatedHash = createOutcomeHash(req.body.key, account.apiSecret, req.body.timestamp)
 
-				console.log("4. evaluate hash to authenticate confirmation: ", recreatedHash === req.body.hashed)
+				// console.log("4. evaluate hash to authenticate confirmation: ", recreatedHash === req.body.hashed)
 
 				//Authenticated by Hash Cryptography (Hash Recreation and Comparison)
 				if(recreatedHash === req.body.hashed){
@@ -370,7 +370,8 @@ router.post('/confirm-transaction', function (req, res){
 			  		transaction.vendorConfirmed = true;
 			  		transaction.save()
 
-					console.log("5. setting confirmed true and sending req.body: ", req.body)  			
+					// console.log("5. setting confirmed true and sending req.body: ", req.body)  	
+					console.log("RECEIPT SENT TO WEB APP SERVER.")		
 
 
 			  		res.send(req.body);

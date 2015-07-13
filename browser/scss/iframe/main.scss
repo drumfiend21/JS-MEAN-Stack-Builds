@@ -17,6 +17,16 @@
 
 }
 
+#check{
+    display: block;
+    position: relative;
+    margin: 0 auto;
+
+}
+h3{
+    text-align: center;
+    font-family: 'Oxygen', sans-serif;
+}
 
 
 #enter-info-color-top{
@@ -61,6 +71,12 @@
         margin-bottom: -100px;
         color: white;
         
+    }
+    
+    p{
+        text-align: center;
+        font-family: 'Oxygen', sans-serif;
+
     }
 
     .btn:focus {

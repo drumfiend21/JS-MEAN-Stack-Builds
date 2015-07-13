@@ -5,6 +5,27 @@
 </div>
 <div id="enter-info-color-bottom">
 	
+	
+	<!-- PAYMENT PROCESSED -->
+
+	<div 
+		ng-if="paymentprocessed"
+		class="form-group" 
+		ng-class="form-control">
+		<h3>Payment Successfully Processed!</h3>
+		<p><img id="check" src="/images/check.png" alt="purchased-check" height="128" width="128"></p>
+		</br>
+		<p>Your account was charged HTG {{iframe.chargeAmount}}.</p> 
+		<p>You will receive a receipt via text message.</p>
+		</br>
+		<button 
+			type="submit" 
+			class="btn btn-default" >OK
+		</button>
+
+	</div>
+
+
 	<!-- Authorizing iFRAME -->
 	<div 
 		ng-if="authorizing"
@@ -117,27 +138,6 @@
 
 </div>
 
-<!-- PAYMENT PROCESSED -->
-
-<div 
-	ng-if="paymentprocessed"
-	class="form-group" 
-	ng-class="form-control">
-	<h1>Payment Successfully Processed!</h1>
-	<p><img src="/images/checkmark.gif" alt="purchased-check" height="400" width="550"></p>
-	<p>Your account ending in {{last-four}} was charged {{iframe.chargeAmount}} for {{iframe.itemDescription}} by {{merchantId}}.</p> 
-	<p>We will send you a receipt via text message.
-	</p>
-
-
-
-	<button 
-		ng-if="paymentprocessed"
-		type="submit" 
-		class="btn btn-default" >OK
-	</button>
-
-</div>
 
 
 

@@ -17,11 +17,20 @@ app.directive('payFrame', function ($rootScope, AuthService, CheckoutFactory, AU
         	
         	//communication between web app and iframe
         	function receiveMessage(event)
-			{
-
+			{	
 				console.log("IFRAME COMMUNICATION LIVE", event)
+			
+
+				if(event.origin === commDomain && event.data.hasOwnProperty("res")){
+		        	scope.authorizing = false;
+		        	scope.paymentprocessed = true;
+		        	scope.$apply();
+		        	console.log("in resolve")
+					return 
+				}
 
 				commDomain = event.origin
+
 
 
 				//Controller accesses parent window and assigns button container 
