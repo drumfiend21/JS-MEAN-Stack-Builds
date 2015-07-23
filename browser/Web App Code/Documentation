@@ -1,7 +1,6 @@
+MOBILE BANKING WEB APP API 
+DOCUMENTATION
 
-GoMobile Pay Documentation
-
-Copyright 2015 Siddharth Joshi
 
 -----------------------------------
 <<<<<<<FRONT END HTML>>>>>>>
@@ -96,13 +95,13 @@ This call should go to a "confirmation route" in your server (see "confirmation 
 -----------------------------
 <<<<<<SERVER SIDE>>>>>>>>
 -----------------------------
-<> Page Serving Initialization Route <>
+<> Page Serving Route <>
 
-As your web app is serving your page containing the checkout button, this server side code must be run and the values generated loaded or sent into the checkout button page (e.g. using swig or an api call response).  This server side code, referred hereafter as 'init', must do the following.
+As your server is executing the route to serve your page (referred hereafter as 'page serving route') which contains the TchoPay Checkout Button, these things must be done.
 
 A timestamp must be generated and stored on a variable in the route.
 
-A hash function must be written using your common language cryptography library.  The hash uses the SHA-1 encryption algorithm, per the parameters below, and is updated with your API Secret and the generated timestamp.  
+A hash function must be written using your common language cryptography library.  The hash uses the "SHA-2" encryption algorithm, per the parameters below, and is updated with your API Secret and the generated timestamp.  
 
 
 	<> Timestamp <>
@@ -112,9 +111,9 @@ A hash function must be written using your common language cryptography library.
 
 	<> Hash Generator Function <>
 
-	Write a function in your native server language that uses a cryptography library to create a Hash.  The hash must use SHA-1 encryption algorithm.  The hash must be limited to 20 digits.  The hashing function intakes your API Secret and the timestamp generated upon page serving.  The hash is updated with this API Secret and the timestamp.  The function returns the 20 digit hashed value.
+	Write a function in your native server language that uses a cryptography library to create a Hash.  The hash must use SHA-2 encryption algorithm.  The hash must be limited to 20 digits.  The hashing function intakes your API Secret and the timestamp generated upon page serving.  The hash is updated with this API Secret and the timestamp.  The function returns the 20 digit hashed value.
 
-This hash and timestamp is then populated into your HTML as it is being loaded, using whatever methodology is preferred by the developer (e.g. call response or swig) to the global variables: transactionTimeStamp and transactionHashValue provided in your front end script.
+This hash and timestamp is then populated into your HTML as it is being loaded, using whatever methodology is preferred by the developer (e.g. Swig) to the global variables: transactionTimeStamp and transactionHashValue provided in your front end script.
 
 ----------------------------
 <> Confirmation Route <>
@@ -123,13 +122,13 @@ Once the transaction has reported an outcome, which we have posted to your HTML 
 
 Within this confirmation route in your server, you should then post this same object, unaltered from its initial receipt on your front end, to our server at address:
 
-"https://gomobilepay.com/checkout/confirm-transaction"
+"https://tchopay.com/confirm-transaction"
 
 <> Authenticating the Transaction <>
 
 We will respond with a final confirmation, changing the "confirmed" value on the Transaction Outcome Object from "false" to "true", at which point the transaction has been officially authenticated and you can safely extract outcome data to store to your database.
 
-Your ajax call will respond back to your front end, which will post a message to the GoMobile Pay front end and resolve your customer facing iframe state to the outcome of the transaction.
+Your ajax call will respond back to your front end 
 
 
 
