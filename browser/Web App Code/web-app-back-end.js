@@ -1,46 +1,56 @@
 // WEB APP SERVER CODE
-//Sample code for Node.js
+// Sample code for Node.js
 
-//Node server requirements
+// Node server requirements
 var crypto = require('crypto');
 var request = require('request');
 
-//store your API Secret as a string on this variable
+// Store your API Secret as a string on this variable
 var apiSecret 
 
-//1.  EVERYTHING BELOW IS WITHIN YOUR ROUTE THAT SERVES THE PAGE CONTAINING THE CHECKOUT BUTTON
+// 1. EVERYTHING BELOW IS CALLED ONLOAD OF THE PAGE CONTAINING THE CHECKOUT BUTTON
 
+// Generates hash and timestamp for GoMobile Pay
+// Push the transactionHash into the page HTML being served, store it on 
+// the global variable, "transactionHashValue", supplied by us for your front end javascript.
+// Also, push the timestamp into the page HTML being served, store it on 
+// the global variable, "timestamp", supplied by us for your front end javascript
 
-    //generate timestamp (nonce value for hash)
-    var timestamp = Date.now()
+router.get('/init', function (req, res, next){
+
 
 
     var createTransactionHash = function (secret, timestamp) {
-       var hash = crypto.createHash('sha2');
+       var hash = crypto.createHash('sha1');
        hash.update(timestamp.toString());
        hash.update(secret.toString());
        return "ti_"+hash.digest('hex');
     };
     
+  //generate timestamp (nonce value for hash)
+    var timestamp = Date.now().toString()
+    
     //generate hash
     var transactionHash = createTransactionHash(apiSecret,timestamp)
 
-    //BEFORE SERVING HTML
-    //push the transactionHash into the page HTML being served, store it on 
-    //the global variable, "transactionHashValue", supplied by us for your front end javascript.
-    //Also, push the timestamp into the page HTML being served, store it on 
-    //the global variable, "timestamp", supplied by us for your front end javascript
-    //E.g. using swig
+    var initObject = {
+      timestamp : timestamp,
+      transactionHash: transactionHash
+    }
+    console.log("initObject to be sent to front end",initObject)
+  res.send(initObject);
+  
+}); 
 
 
+// 2.  CONFIRMATION ROUTE
+// post outcome object to this route, in which authenticate to GoMobile Pay server
+router.post('/confirm', isAuthenticatedUser, function (req, res, next){
 
-//2.  CONFIRMATION ROUTE
-
-  router.post('/confirm', function (req, res, next) {
-    //intakes transactionOutcomeObject on req.body
+  // Intakes transactionOutcomeObject on req.body
     var transactionOutcomeObject = req.body
 
-    //Authenticate that outcome object is coming from TchoPay
+    // Authenticate that outcome object is coming from GoMobile Pay
     var createConfirmOutcomeHash = function (secret, timestamp, outcomeKey) {
        var hash = crypto.createHash('sha2');
        hash.update(timestamp.toString());
@@ -49,50 +59,23 @@ var apiSecret
        return "oh_"+hash.digest('hex');
     };
 
-      //Store confirmation outcome hash
-      var confirmOutcomeHash = createConfirmOutcomeHash(apiSecret, req.body.transactionTimeStamp, req.body.outcomeKey)
+      // Store confirmation outcome hash
+      var confirmOutcomeHash = createConfirmOutcomeHash(apiSecret, req.body.timestamp, req.body.key)
 
-      //Compare confirmation outcome to incumbent outcome received 
-      if(confirmOutcomeHash === req.body.outcomeHashedValue){
-        //this outcome incumbent is authenticated as sourced from TchoPay
-        request.post({url:'https://tchopay.com/confirm-transaction', 
+      // Compare confirmation outcome to incumbent outcome received 
+      if(confirmOutcomeHash === req.body.hashed){
+
+        // This outcome incumbent is authenticated as sourced from GoMobile Pay
+        request.post({url:'https://192.168.1.139:1337/checkout/confirm-transaction', 
             formData: transactionOutcomeObject
           }, function optionalCallback(err, httpResponse, body) {
-          
-          //error handling if no confirmation response from TchoPay server
-          if(err){
-            return console.log('your transaction may have been processed, but we didnt get a confirmation from TchoPay; please contact them', err)
-          }
+            if(err) return err //your error handling here
 
-          //expect response containing same transactionOutcomeObject
-          //with 'confirmed' property set to 'true'
-          var transactionReceipt = body;
-
-          //Check that TchoPay has authenticated the transaction receipt 
-          //by changing the 'confirmed' property to true
-          if(transactionReceipt.confirmed === true){
-            //At this point the transaction is fully authorized and TchoPay completes communication
-            //for this transaction.
-
-            //Web app developer can store this transaction receipt in their database now.
-            //e.g.
-            // Model.create(transactionReceipt).exec().then(function (user) {
-              res.send(0);
-            // });
-            
-          }else{
-            //if due to communication error TchoPay did not authenticate the receipt
-            //send false to your front end i
-            res.send(1)
-          }
         })
       }else{
-        //the incumbent outcome object did not authenticate as coming from TchoPay
+        //the incumbent outcome object did not authenticate as coming from GoMobile Pay
         //choose your recourse
-        res.send(2)
+        // res.send(2)
+        console.log("Hash did not evaluate")
       }
-
-    //makes post request to 
-    //https://tchopay.com/confirm-transaction
-  }, next)
-  
+}); 

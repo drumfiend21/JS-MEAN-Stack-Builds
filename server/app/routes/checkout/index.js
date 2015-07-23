@@ -176,7 +176,7 @@ router.post('/validate', function (req, res){
 							confirmed: false
 						}
 						
-						console.log("TRANSACTION OUTCOME FROM BANK: ", outcomeHashObject);
+						console.log("RECEIVED TRANSACTION OUTCOME FROM BANK");
 						//complete route (Success)
 						res.send(outcomeHashObject)
 					}

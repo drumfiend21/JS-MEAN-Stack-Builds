@@ -1,7 +1,8 @@
 
 <!-- ENTER INFO -->
 <div id="enter-info-color-top">
-	<img id='haiti-button' src='/images/haiti_640.png' alt='' height='100' width='120'>
+	<!-- <img id='haiti-button' src='/images/haiti_640.png' alt='' height='100' width='120'> -->
+	<img id='haiti-button' src='/images/logo.png' alt='' height='145' width='190'>
 </div>
 <div id="enter-info-color-bottom">
 	
@@ -12,14 +13,14 @@
 		ng-if="paymentprocessed"
 		class="form-group" 
 		ng-class="form-control">
-		<h3>Payment Successfully Processed!</h3>
+		<h4>Payment Successfully Processed!</h4>
 		<p><img id="check" src="/images/check.png" alt="purchased-check" height="128" width="128"></p>
-		</br>
 		<p>Your account was charged HTG {{iframe.chargeAmount}}.</p> 
 		<p>You will receive a receipt via text message.</p>
-		</br>
 		<button 
-			type="submit" 
+			type="submit"
+			style="color: white;
+	   	  background-image: linear-gradient(rgb(98, 196, 98), rgb(81, 163, 81));" 
 			class="btn btn-default" >OK
 		</button>
 
@@ -74,6 +75,7 @@
 		<button 
 			ng-click="someFunc()"
 			type="submit" 
+			style="background-image: linear-gradient(rgb(98, 196, 98), rgb(81, 163, 81)); margin-top: 10px"
 			 class="btn" >Pay HTG {{iframe.chargeAmount}}
 		</button>
 
